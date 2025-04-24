@@ -1,9 +1,17 @@
 let page: number = 1;
 let lang: string = 'en-US';
 const setLang = [
-  'en-US',
-  
-]
+  'en-US',   // Inglês (padrão)
+  'pt-BR',   // Português (Brasil)
+  'es-ES',   // Espanhol (Espanha)
+  'fr-FR',   // Francês
+  'de-DE',   // Alemão
+  'it-IT',   // Italiano
+  'ja-JP',   // Japonês
+  'ko-KR',   // Coreano
+  'zh-CN',   // Chinês (Simplificado)
+  'ru-RU',   // Russo
+];
 
 const url = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`;
 const options = {
