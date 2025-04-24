@@ -49,3 +49,12 @@ Jest para Teste
 - Uma rota para mostrar graficos comparativos (se der tempo)
 - Uma rota para dividir por genero
 - Uma rota para dividir por ano
+
+=====
+
+
+# Modo
+
+Inicialmente vou usar Workspace para usar tanto o Front End quanto o Back End no mesmo diretório pai, mas dividido em diretórios filhos.
+
+Esta decisão pode ser mudada posteriormente.

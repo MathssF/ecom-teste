@@ -1,0 +1,8 @@
+{
+  "name": "back",
+  "private": true,
+  "scripts": {
+    "dev": "nest start --watch",
+    "build": "tsc"
+  }
+}
