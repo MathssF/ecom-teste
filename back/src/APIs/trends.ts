@@ -1,3 +1,10 @@
+let time_window: string = 'day';
+const set_time_window = [
+  'day',
+  'week'
+]
+
+
 const url = 'https://api.themoviedb.org/3/trending/movie/day?language=en-US';
 const options = {
   method: 'GET',
