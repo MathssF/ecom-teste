@@ -36,3 +36,16 @@ WebSocket (Socket.io)
 JWT
 Cloud AWS
 Jest para Teste
+
+
+=====
+
+
+# Ideias
+
+## Planejamento de rotas:
+
+- Uma rota para mostrar os 250 filmes mais bem avaliados.
+- Uma rota para mostrar graficos comparativos (se der tempo)
+- Uma rota para dividir por genero
+- Uma rota para dividir por ano
