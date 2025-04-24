@@ -1,8 +1,11 @@
+import { setLang, set_time_window } from '../../../global/variables';
+
+
 let time_window: string = 'day';
-const set_time_window = [
-  'day',
-  'week'
-]
+// const set_time_window = [
+//   'day',
+//   'week'
+// ]
 
 
 const url = 'https://api.themoviedb.org/3/trending/movie/day?language=en-US';
