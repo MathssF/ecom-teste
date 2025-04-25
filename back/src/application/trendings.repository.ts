@@ -21,67 +21,152 @@ export interface trendingStoryData {
   rankPage: number;
 }
 
+export interface trendingCompareData {
+  trendingId: string;
+  datetime: Date;
+  votesCount: number;
+  votesAverage: number;
+  popularity: number;
+}
+
+export interface trendingHalfYear {
+    total: number;
+    min_popularity?: number;
+    max_popularity?: number;
+    min_average?: number;
+    max_average?: number;
+    old_count?: number;
+    now_count?: number;
+}
+
 export class TrendingsRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  // Cria uma nova entrada de trending (TrendingEntry)
   async createTrend(data: trendingEntryData) {
-    // const existing = await this.findTrendingEntryById(data.id);
-
-    // if (!existing) {
-      return await this.prisma.trendingEntry.create({ data });
-    // }
-
-    // Se já existir, apenas retorna
-    // return existing;
+    return await this.prisma.trendingEntry.create({ data });
   }
 
-  // Cria uma nova relação de trending movie (TrendingStory)
   async createMovieTrending(data: trendingStoryData) {
-    // const existing = await this.findTrendingStory(data.trendingId, data.movieId);
-
-    // if (!existing) {
-      return await this.prisma.trendingStory.create({ data });
-    // }
-
-    // Se já existir, apenas retorna
-    // return existing;
+    return await this.prisma.trendingStory.create({ data });
   }
 
-  // Busca uma TrendingEntry por ID
   async findTrendingEntryById(id: string) {
     return await this.prisma.trendingEntry.findUnique({
       where: { id }
     });
   }
 
-  // Busca uma TrendingStory por trendingId e movieId
   async findTrendingStory(trendingId: string, movieId: string) {
     return await this.prisma.trendingStory.findUnique({
       where: { trendingId_movieId: { trendingId, movieId } }
     });
   }
 
-  // Busca todas as TrendingStories de um TrendingEntry específico
   async findMoviesInTrending(trendingId: string) {
     return await this.prisma.trendingStory.findMany({
       where: { trendingId }
     });
   }
 
-  // Atualiza a TrendingEntry
-  async updateTrend(id: string, data: trendingEntryData) {
-    return await this.prisma.trendingEntry.update({
-      where: { id },
-      data
+  async findTrendsMovies(movieId: string, date: Date): Promise<trendingHalfYear> {
+    const trends = await this.prisma.trendingStory.finMany({
+      where: { movieId }
     });
+    if (trends.lenght === 0) {
+      return {
+        total: 0
+      }
+    }
+
+    const compares:trendingCompareData[] = trends.map(async (elem: trendingStoryData) => {
+      const time = await this.trendDate(elem.trendingId);
+      return {
+        trendingId: elem.trendingId,
+        datetime: time,
+        votesCount: elem.votesCount,
+        votesAverage: elem.votesAverage,
+        popularity: elem.popularity
+      };
+    })
+
+    const filteredTrends = compares.filter((elem: trendingCompareData) => this.dateCheck(elem.datetime));
+    if (filteredTrends.length === 0) {
+      return {
+        total: 0
+      };
+    }
+
+    let total = 0;
+    let min_popularity = Infinity;
+    let max_popularity = -1;
+    let min_average = Infinity;
+    let max_average = -1;
+    let old_count = Infinity;
+    let now_count = -1;
+
+    filteredTrends.forEach((elem) => {
+      total++;
+  
+      if (elem.popularity < min_popularity) {
+        min_popularity = elem.popularity;
+      }
+      if (elem.popularity > max_popularity) {
+        max_popularity = elem.popularity;
+      }
+  
+      if (elem.votesAverage < min_average) {
+        min_average = elem.votesAverage;
+      }
+      if (elem.votesAverage > max_average) {
+        max_average = elem.votesAverage;
+      }
+
+      if (elem.votesCount < old_count) {
+        old_count = elem.votesCount;
+      }
+      if (elem.votesCount > now_count) {
+        now_count = elem.votesCount;
+      }
+    });
+
+    return {
+      total,
+      min_popularity,
+      max_popularity,
+      min_average,
+      max_average,
+      old_count,
+      now_count
+    };
   }
 
-  // Atualiza a TrendingStory
-  async updateMovieTrending(trendingId: string, movieId: string, data: trendingStoryData) {
-    return await this.prisma.trendingStory.update({
-      where: { trendingId_movieId: { trendingId, movieId } },
-      data
-    });
+  async dateCheck(dateCheck: Date) {
+    const now = new Date();
+
+    const halfYear = new Date(now.setMonth(now.getMonth() - 6))
+
+    if (dateCheck >= halfYear) {
+      return true;
+    }
+    return false;
   }
+
+  async trendDate(trendingId: string) {
+    const time = await this.findTrendingEntryById(trendingId);
+    return time.datetime;
+  }
+
+  // async updateTrend(id: string, data: trendingEntryData) {
+  //   return await this.prisma.trendingEntry.update({
+  //     where: { id },
+  //     data
+  //   });
+  // }
+
+  // async updateMovieTrending(trendingId: string, movieId: string, data: trendingStoryData) {
+  //   return await this.prisma.trendingStory.update({
+  //     where: { trendingId_movieId: { trendingId, movieId } },
+  //     data
+  //   });
+  // }
 }
