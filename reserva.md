@@ -1,7 +1,0 @@
-,
-      "@prisma/*": ["prisma/*"]
-
-
-
-,
-    { "path": "./prisma" }

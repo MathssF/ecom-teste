@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -b",
     "clean": "tsc --build --clean && rm -rf dist",
-    "clean:js": "find . -type f -name '*.js' ! -name '*.json' -exec rm -f {} +",
-    "js-c": "del-cli '**/*.js' '!**/*.json'"
+    "start:back": "node dist/back/main.js"
   },
   "keywords": [],
   "author": "Matheus Flores",
@@ -40,10 +39,8 @@
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "del-cli": "^6.0.0",
     "jest": "^29.7.0",
     "prisma": "^6.6.0",
-    "rimraf": "^6.0.1",
     "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
