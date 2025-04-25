@@ -11,10 +11,10 @@ export class BasicSeed {
 
   private async seedGenres() {
     const existing = await this.prisma.genre.findMany({ select: { id: true } });
-    const existingIds = new Set(existing.map((g) => g.id));
+    const existingIds = new Set(existing.map((g: any) => g.id));
 
     const toInsert = Genres.filter((genre) => !existingIds.has(genre.id)).map((genre) => ({
-      id: String(genre.id), // <-- aqui a conversão!
+      id: String(genre.id),
       name: genre.name,
     }));
     
@@ -33,7 +33,7 @@ export class BasicSeed {
 
   private async seedLanguages() {
     const existing = await this.prisma.language.findMany({ select: { id: true } });
-    const existingIds = new Set(existing.map((l) => l.id));
+    const existingIds = new Set(existing.map((l: any) => l.id));
 
     const toInsert = Languages.filter((lang) => !existingIds.has(lang.id)).map((lang) => ({
       id: lang.id,

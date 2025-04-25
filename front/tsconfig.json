@@ -4,8 +4,15 @@
     "outDir": "../dist/front",
     "baseUrl": "./",
     "jsx": "preserve",
-    "allowJs": true
+    "allowJs": true,
+    "paths": {
+      "*": ["./*"],
+      "@global/*": ["../../global/*"]
+    }
   },
-  "include": ["./**/*"],
+  "include": [
+    "./**/*",
+    "../../global/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

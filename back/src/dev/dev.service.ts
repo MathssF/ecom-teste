@@ -4,27 +4,32 @@ import { UpdateDevDto } from './dto/update-dev.dto';
 import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
+import { BasicSeed } from '../../../global/seeds/basic.seeds'
 
 
 @Injectable()
 export class DevService {
-  create(createDevDto: CreateDevDto) {
-    return 'This action adds a new dev';
+  constructor(
+    private readonly movieDetailAPI: MovieDetailsAPI,
+    private readonly topRatedAPI: TopRatedMoviesAPI,
+    private readonly trendingsAPI: TrendingMoviesAPI,
+    private readonly basicSeed: BasicSeed,
+  ) {}
+
+  async seedStar() {
+    return this.basicSeed.run()
   }
 
-  findAll() {
-    return `This action returns all dev`;
+  async callTopRated() {
+    const tops = await this.topRatedAPI.getTopRatedMovies();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dev`;
+  async callTrendings() {
+    const trends = await this.trendingsAPI.getTrendingMovies();
   }
 
-  update(id: number, updateDevDto: UpdateDevDto) {
-    return `This action updates a #${id} dev`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} dev`;
+  async callDetails(id: string) {
+    const movieId = Number(id);
+    const details = await this.movieDetailAPI.getMovieDetails(movieId);
   }
 }

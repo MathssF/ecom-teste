@@ -4,9 +4,13 @@
     "outDir": "../dist/back",
     "baseUrl": "./",
     "paths": {
-      "*": ["./*"]
+      "*": ["./*"],
+      "@global/*": ["../../global/*"]
     }
   },
-  "include": ["./**/*.ts"],
+  "include": [
+    "./**/*.ts",
+    "../../global/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
