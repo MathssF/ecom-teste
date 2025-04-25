@@ -5,5 +5,6 @@ import { BasicController } from './basic.controller';
 @Module({
   controllers: [BasicController],
   providers: [BasicService],
+  exports: [BasicService],
 })
 export class BasicModule {}
