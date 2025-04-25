@@ -1,7 +1,3 @@
-/* 
-  Todas as Variaveis principais compartilhadas tanto no Front quanto no Back
-*/
-
 export const setLang = [
   'en-US',   // Inglês (padrão)
   'pt-BR',   // Português (Brasil)

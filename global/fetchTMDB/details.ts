@@ -27,7 +27,7 @@ export class MovieDetailsAPI {
       throw new Error(`Erro ao buscar detalhes do filme ${movieId}: ${response.statusText}`);
     }
 
-    const movie = await response.json();
+    const movie: any = await response.json();
 
     return {
       id: movie.id,
@@ -53,5 +53,3 @@ export class MovieDetailsAPI {
     };
   }
 }
-
-export default MovieDetailsAPI;

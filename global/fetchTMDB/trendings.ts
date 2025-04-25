@@ -28,7 +28,7 @@ export class TrendingMoviesAPI {
 
     for (let page = 1; page <= 13; page++) {
       const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
-      const json = await response.json();
+      const json: any = await response.json();
 
       const movies = json.results.map((movie: any) => ({
         id: movie.id,
@@ -52,5 +52,3 @@ export class TrendingMoviesAPI {
     return allMovies.slice(0, 250);
   }
 }
-
-export default TrendingMoviesAPI;
