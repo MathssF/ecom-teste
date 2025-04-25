@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -b",
-    "clean": "tsc --build --clean && rm -rf dist"
+    "clean": "tsc --build --clean && rm -rf dist",
+    "clean:js": "rimraf '**/*.js' && rimraf '!**/*.json'"
   },
   "keywords": [],
   "author": "Matheus Flores",
@@ -40,6 +41,7 @@
     "@types/react-dom": "^19.1.2",
     "jest": "^29.7.0",
     "prisma": "^6.6.0",
+    "rimraf": "^6.0.1",
     "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
