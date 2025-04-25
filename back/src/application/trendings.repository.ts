@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { v7 } from 'uuid';
-import { MoviesRepository } from './movies.repository';
+import { MoviesRepository, movieData, movieDetail } from './movies.repository';
 
 const uuidv7 = v7();
 
@@ -74,7 +74,7 @@ export class TrendingsRepository {
   }
 
   // Função Importante!
-  async findTrendsMovies(movieId: string, date: Date): Promise<trendingHalfYear> {
+  async findTrendsMovies(movieId: string): Promise<trendingHalfYear> {
     const trends = await this.prisma.trendingStory.finMany({
       where: { movieId }
     });
@@ -148,10 +148,56 @@ export class TrendingsRepository {
 
   // Função Importante!
   async findGenresTrend(genres: string[], list: any[]) {
+    let genresCounts: object[] = [];
+
+    genres.forEach((elem) => {
+      genresCounts.push({
+        id: elem,
+        count: 0,
+        list: [],
+        movieIds: [],
+      })
+    })
+
+    const listMapper = list.map(async (elem) => {
+      const hasTrendingStory = await this.prisma.trendingStory.findMany({
+        where: {
+          movieId: elem.movieId
+        }
+      })
+      let inLimit = false;
+      const dateLimit = hasTrendingStory.map((timeWindows: any) => {
+        const check = this.dateCheck(timeWindows.datetime);
+        if (check) {
+          inLimit = true;
+          return true;
+        }
+        return false;
+      })
+      if (inLimit) {
+        const genresFound = await this.prisma.genreMovie.findMany({
+          where: {
+            movieId: elem.movieId
+          }
+        })
+        genresFound.forEach((found: any) => {
+          const el = found.genreId;
+          genresCounts.forEach((mark: any) => {
+            if (el === mark.id) {
+              mark.count ++;
+              mark.list.push(elem.title)
+              mark.movieIds.push(elem.movieId)
+            }
+          })
+        });
+      }
+    })
     
+
+    return genresCounts;
   }
 
-  async dateCheck(dateCheck: Date) {
+  dateCheck(dateCheck: Date): Boolean {
     const now = new Date();
 
     const halfYear = new Date(now.setMonth(now.getMonth() - 6))

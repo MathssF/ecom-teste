@@ -60,30 +60,32 @@ export class MoviesService {
     return await this.movieRepository.findGenresMovie(id);
   }
 
-  async listMobiesByGenre(x?: number): Promise<any[]> {
+  async listMoviesByGenres(x?: number): Promise<any[]> {
     const genresList = await this.basic.findAllGenres();
-
+  
     let result: any[] = [];
-    let info = {}
-    let movies = [];
-    let newList: any[] = []
-
-    genresList.forEach(async (elem) => {
-      movies = await this.movieRepository.findGenresMovie(elem.id);
-        movies.forEach(async (elem) => {
-          const d = await this.movieRepository.findMovieDetail(elem.movieId);
-          const m = await this.movieRepository.findMovieId(elem.movieId);
-          info = {
-            id: elem.movieId,
-            title: m.title,
-            votes: d.voteCount,
-            average: d.voteAverage,
-            popularity: d.popularity,
-            adult: m.adult,
-          }
-          newList.push(info);
-          info = {};
-        })
+    let newList: any[] = [];
+  
+    for (const genre of genresList) {
+      let movies = [];
+      movies = await this.movieRepository.findGenresMovie(genre.id);
+  
+      for (const movie of movies) {
+        const movieDetail = await this.movieRepository.findMovieDetail(movie.movieId);
+        const movieData = await this.movieRepository.findMovieId(movie.movieId);
+  
+        const info = {
+          id: movie.movieId,
+          title: movieData.title,
+          votes: movieDetail.voteCount,
+          average: movieDetail.voteAverage,
+          popularity: movieDetail.popularity,
+          adult: movieData.adult,
+        };
+  
+        newList.push(info);
+      }
+  
       newList.sort((a, b) => {
         if (b.average !== a.average) {
           return b.average - a.average;
@@ -92,15 +94,16 @@ export class MoviesService {
           return b.popularity - a.popularity;
         }
         return a.title.localeCompare(b.title);
-      })
+      });
+  
       if (x) {
         newList = newList.slice(0, x);
-      }    
+      }
+  
       result.push(newList);
-      movies = []
-      newList = []
-    });
-
+      newList = [];
+    }
+  
     return result;
   }
 }
