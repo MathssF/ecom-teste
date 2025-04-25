@@ -1,9 +1,14 @@
-import { PrismaClient, Company } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+
+export interface companyData {
+  id: string;
+  name: string;
+}
 
 export class CompaniesRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  async createCompany(data: Company) {
+  async createCompany(data: companyData) {
     const existing = await this.prisma.company.findUnique({ where: { id: data.id } });
     if (!existing) {
       return await this.prisma.company.create({ data });
@@ -17,7 +22,7 @@ export class CompaniesRepository {
     return existing;
   }
 
-  async updateCompany(data: Company) {
+  async updateCompany(data: companyData) {
     return await this.prisma.company.update({
       where: { id: data.id },
       data
