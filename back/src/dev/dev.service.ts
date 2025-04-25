@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
-import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
-import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
-import { BasicSeed } from '../../../global/seeds/basic.seeds';
+import { MovieDetailsAPI } from '@global/fetchTMDB/details';
+import { TopRatedMoviesAPI } from '@global/fetchTMDB/top.rated';
+import { TrendingMoviesAPI } from '@global/fetchTMDB/trendings';
+import { BasicSeed } from '@global/seeds/basic.seeds';
 
 
 @Injectable()

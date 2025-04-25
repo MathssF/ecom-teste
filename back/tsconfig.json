@@ -3,7 +3,11 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "../dist/back",
-    "baseUrl": "./"
+    "baseUrl": "./",,
+    "paths": {
+      "@global/*": ["global/*"]
+    },
+    "composite": true
   },
   "include": [
     "./**/*.ts"
