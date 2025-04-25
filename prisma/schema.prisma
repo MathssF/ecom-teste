@@ -3,12 +3,8 @@ generator client {
   output   = "../generated/prisma"
 }
 
-generator migrate {
-  provider = "prisma-migrate"
-}
-
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -16,6 +12,13 @@ model Genre {
   id    String  @id
   name  String  @db.VarChar(20)
   movies GenreMovie[]
+}
+
+model Language {
+  id           String  @id @db.VarChar(2) // iso_639_1, ex: "en", "pt"
+  englishName  String  @db.VarChar(20)
+  trending     TrendingEntry[]
+  movies       Movie[]
 }
 
 model Movie {
@@ -27,7 +30,9 @@ model Movie {
   genres           GenreMovie[]
   details          MovieDetail?
   companies        MovieCompany[]
-  trending         TrendingList[]
+  trending         TrendingStory[]
+
+  language         Language       @relation(fields: [originalLanguage], references: [id])
 }
 
 model GenreMovie {
@@ -68,19 +73,24 @@ model MovieCompany {
 }
 
 model TrendingEntry {
-  id       String   @id
-  datetime DateTime
-  mode     Int
-  movies   TrendingList[]
+  id          String   @id
+  datetime    DateTime
+  mode        Int
+  languageId  String?
+
+  language    Language? @relation(fields: [languageId], references: [id])
+  movies      TrendingStory[]
 }
 
-model TrendingList {
+model TrendingStory {
   trendingId   String
   movieId      String
   votesCount   Int
   votesAverage Float
   popularity   Float
   page         Int
+  rank         Int
+  rankPage     Int
 
   trending TrendingEntry @relation(fields: [trendingId], references: [id], onDelete: Cascade)
   movie    Movie         @relation(fields: [movieId], references: [id], onDelete: Cascade)
