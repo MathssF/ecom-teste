@@ -1,18 +1,23 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../dist/front",
+    "outDir": "../dist",
     "baseUrl": "./",
     "jsx": "preserve",
     "allowJs": true,
     "paths": {
-      "*": ["./*"],
-      "@global/*": ["../../global/*"]
-    }
+      "*": [
+        "./*"
+      ]
+    },
+    "noEmit": true,
+    "isolatedModules": true
   },
   "include": [
     "./**/*",
     "../../global/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

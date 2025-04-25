@@ -5,6 +5,7 @@
   "name": "back",
   "private": true,
   "scripts": {
+    "build:dev": "tsc && nest start --watch",
     "dev": "nest start --watch",
     "build": "tsc"
   }

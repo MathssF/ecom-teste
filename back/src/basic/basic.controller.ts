@@ -7,28 +7,28 @@ import { UpdateBasicDto } from './dto/update-basic.dto';
 export class BasicController {
   constructor(private readonly basicService: BasicService) {}
 
-  @Post()
-  create(@Body() createBasicDto: CreateBasicDto) {
-    return this.basicService.create(createBasicDto);
-  }
+  // @Post()
+  // create(@Body() createBasicDto: CreateBasicDto) {
+  //   return this.basicService.addGenre(createBasicDto);
+  // }
 
-  @Get()
-  findAll() {
-    return this.basicService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.basicService.findAll();
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.basicService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.basicService.findOne(+id);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBasicDto: UpdateBasicDto) {
-    return this.basicService.update(+id, updateBasicDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateBasicDto: UpdateBasicDto) {
+  //   return this.basicService.update(+id, updateBasicDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.basicService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.basicService.remove(+id);
+  // }
 }
