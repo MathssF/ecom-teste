@@ -4,7 +4,6 @@ import { v7 } from 'uuid';
 const uuidv7 = v7();
 
 export interface trendingEntryData {
-  // id: string;
   datetime: Date;
   mode: number;
   languageId?: string;
@@ -43,7 +42,12 @@ export class TrendingsRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async createTrend(data: trendingEntryData) {
-    return await this.prisma.trendingEntry.create({ data });
+    return await this.prisma.trendingEntry.create({
+      data: {
+        id: uuidv7,
+        ...data
+      }
+    });
   }
 
   async createMovieTrending(data: trendingStoryData) {
@@ -155,18 +159,4 @@ export class TrendingsRepository {
     const time = await this.findTrendingEntryById(trendingId);
     return time.datetime;
   }
-
-  // async updateTrend(id: string, data: trendingEntryData) {
-  //   return await this.prisma.trendingEntry.update({
-  //     where: { id },
-  //     data
-  //   });
-  // }
-
-  // async updateMovieTrending(trendingId: string, movieId: string, data: trendingStoryData) {
-  //   return await this.prisma.trendingStory.update({
-  //     where: { trendingId_movieId: { trendingId, movieId } },
-  //     data
-  //   });
-  // }
 }

@@ -4,7 +4,7 @@ import { UpdateBasicDto } from './dto/update-basic.dto';
 
 @Injectable()
 export class BasicService {
-  create(createBasicDto: CreateBasicDto) {
+  add(createBasicDto: CreateBasicDto) {
     return 'This action adds a new basic';
   }
 
