@@ -16,6 +16,7 @@
   "dependencies": {
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
+    "@nestjs/mapped-types": "*",
     "@prisma/client": "^6.6.0",
     "mysql2": "^3.14.0",
     "next": "^15.3.1",
@@ -23,7 +24,7 @@
     "react-dom": "^19.1.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
-    "@nestjs/mapped-types": "*"
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.7",

@@ -73,7 +73,7 @@ model MovieCompany {
 }
 
 model TrendingEntry {
-  id          String   @id
+  id          String   @id  @default(uuid())
   datetime    DateTime
   mode        Int
   languageId  String?

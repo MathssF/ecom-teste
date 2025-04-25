@@ -32,14 +32,7 @@ export class MoviesRepository {
       return await this.prisma.movie.create({ data });
     }
 
-
-    // const hasChanges = ['title', 'originalTitle', 'originalLanguage', 'adult'].some(
-    //   (key) => data[key as keyof movieData] !== existing[key as keyof movieData]
-    // );
-    // if (hasChanges) {
-    //   return await this.updateMovie(data);
-    // }
-    // return existing;
+    this.compareMovie(data, existing);
   }
 
   async addMovieDetail(data: movieDetail) {
@@ -49,15 +42,7 @@ export class MoviesRepository {
       return await this.prisma.movieDetail.create({ data });
     }
 
-    // const hasChanges = ['voteCount', 'voteAverage', 'popularity', 'releaseDate', 'posterPath'].some(
-    //   (key) => data[key as keyof movieDetail]?.toString() !== existing[key as keyof movieDetail]?.toString()
-    // );
-
-    // if (hasChanges) {
-    //   return await this.updateDetail(data);
-    // }
-
-    // return existing;
+    this.compareDetail(data, existing);
   }
 
   async updateMovie(data: movieData) {
@@ -86,7 +71,33 @@ export class MoviesRepository {
     return await this.prisma.genreMovie.findMany({ where: { genreId } });
   }
 
-  async compareMovie(data: movieData, current: movieData) {}
+  async compareMovie(data: movieData, current: movieData) {
+    if (data.id !== current.id) return {};
+    const items = ['title', 'originalTitle', 'originalLanguage', 'adult'];
+    const hasChanges = items.some(
+      (key) => data[
+        key as keyof movieData
+      ]?.toString() !== current[
+        key as keyof movieData
+      ]?.toString()
+    )
+    if (hasChanges) {
+      return await this.updateMovie(data);
+    }
+  }
 
-  async compareDetail(detail: movieDetail, current: movieDetail) {}
+  async compareDetail(detail: movieDetail, current: movieDetail) {
+    if (detail.movieId !== current.movieId) return {};
+    const items = ['voteCount', 'voteAverage', 'popularity', 'releaseDate', 'posterPath'];
+    const hasChanges = items.some(
+      (key) => detail[
+        key as keyof movieDetail
+      ]?.toString() !== current[
+        key as keyof movieDetail
+      ]?.toString()
+    )
+    if (hasChanges) {
+      return await this.updateDetail(detail);
+    }
+  }
 }
