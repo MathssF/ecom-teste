@@ -73,6 +73,18 @@ export class TrendingsRepository {
     });
   }
 
+  async findExistingTrend(mode: number, fromDate: Date, languageId?: string) {
+    return await this.prisma.trendingEntry.findFirst({
+      where: {
+        mode,
+        datetime: {
+          gte: fromDate,
+        },
+        ...(languageId && { languageId })
+      }
+    });
+  }
+
   // Função Importante!
   async findTrendsMovies(movieId: string): Promise<trendingHalfYear> {
     const trends = await this.prisma.trendingStory.finMany({

@@ -1,17 +1,14 @@
 export class CreateTrendingDto {}
 
 export class CreateEntryDto {
-  // id?: string;
   datetime: Date;
   mode: number;
   languageId?: string;
   constructor(
-    // id?: string,
     date: Date,
     mode: number,
     lang?: string
   ) {
-    // this.id = id;
     this.datetime = date;
     this.mode = mode;
     this.languageId = lang;
