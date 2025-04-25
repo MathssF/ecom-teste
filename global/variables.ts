@@ -1,6 +1,7 @@
-// let page: number = 1;
+/* 
+  Todas as Variaveis principais compartilhadas tanto no Front quanto no Back
+*/
 
-// let lang: string = 'en-US';
 export const setLang = [
   'en-US',   // Inglês (padrão)
   'pt-BR',   // Português (Brasil)
@@ -14,7 +15,6 @@ export const setLang = [
   'ru-RU',   // Russo
 ];
 
-// let time_window: string = 'day';
 export const set_time_window = [
   'day',
   'week'

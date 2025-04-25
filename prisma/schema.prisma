@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+generator migrate {
+  provider = "prisma-migrate"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Genre {
+  id    String  @id
+  name  String  @db.VarChar(20)
+  movies GenreMovie[]
+}
+
+model Movie {
+  id               String         @id
+  title            String
+  originalTitle    String
+  originalLanguage String         @db.VarChar(6)
+  adult            Boolean
+  genres           GenreMovie[]
+  details          MovieDetail?
+  companies        MovieCompany[]
+  trending         TrendingList[]
+}
+
+model GenreMovie {
+  genreId String
+  movieId String
+
+  genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@id([genreId, movieId])
+}
+
+model MovieDetail {
+  movieId     String  @id
+  voteCount   Int
+  voteAverage Float
+  popularity  Float
+  releaseDate DateTime
+  posterPath  String?
+
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+}
+
+model Company {
+  id      String @id
+  name    String
+  movies  MovieCompany[]
+}
+
+model MovieCompany {
+  movieId   String
+  companyId String
+
+  movie   Movie   @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@id([movieId, companyId])
+}
+
+model TrendingEntry {
+  id       String   @id
+  datetime DateTime
+  mode     Int
+  movies   TrendingList[]
+}
+
+model TrendingList {
+  trendingId   String
+  movieId      String
+  votesCount   Int
+  votesAverage Float
+  popularity   Float
+  page         Int
+
+  trending TrendingEntry @relation(fields: [trendingId], references: [id], onDelete: Cascade)
+  movie    Movie         @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@id([trendingId, movieId])
+}
