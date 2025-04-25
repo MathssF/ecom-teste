@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -b",
+    "clean": "tsc --build --clean && rm -rf dist"
   },
   "keywords": [],
   "author": "Matheus Flores",
   "license": "ISC",
   "workspaces": [
     "back",
-    "front"
+    "front",
+    "global",
+    "prisma"
   ],
   "dependencies": {
     "@nestjs/common": "^11.1.0",

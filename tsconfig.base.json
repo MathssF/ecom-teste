@@ -16,7 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@back/*": ["back/*"],
-      "@front/*": ["front/*"]
+      "@front/*": ["front/*"],
+      "@global/*": ["global/*"],
+      "@prisma/*": ["prisma/*"]
     }
   },
   "include": ["back/**/*", "front/**/*"],
