@@ -4,8 +4,9 @@ export class GenreEntity {
   id: string;
   name: string;
 
-  constructor(partial: Partial<GenreEntity>) {
-    Object.assign(this, partial);
+  constructor(i: string, n: string) {
+    this.id = i;
+    this.name = n;
   }
 }
 
@@ -13,7 +14,8 @@ export class LanguageEntity {
   id: string;
   english_name: string;
 
-  constructor(partial: Partial<LanguageEntity>) {
-    Object.assign(this, partial);
+  constructor(i: string, en: string) {
+    this.id = i;
+    this.english_name = en;
   }
 }
