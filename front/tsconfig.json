@@ -6,7 +6,7 @@
     "baseUrl": "./",
     "jsx": "preserve",
     "allowJs": true,
-    "noEmit": true,
+    "noEmit": false,
     "isolatedModules": true
   },
   "include": [
