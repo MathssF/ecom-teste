@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDevDto } from './dto/create-dev.dto';
-import { UpdateDevDto } from './dto/update-dev.dto';
 import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
