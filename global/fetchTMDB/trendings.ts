@@ -1,12 +1,12 @@
-export class TrendingMovies {
+export class TrendingMoviesAPI {
   private time_window: string;
   private language: string;
   private apiKey: string;
 
-  constructor(time_window: string = 'day', language: string = 'en-US', apiKey: string) {
+  constructor(time_window: string = 'day', language: string = 'en-US') {
     this.time_window = time_window;
     this.language = language;
-    this.apiKey = apiKey;
+    this.apiKey = process.env.API_KEY!;
   }
 
   private getUrl(): string {
@@ -53,4 +53,4 @@ export class TrendingMovies {
   }
 }
 
-export default TrendingMovies;
+export default TrendingMoviesAPI;

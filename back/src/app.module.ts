@@ -4,9 +4,10 @@ import { AppController } from './app.controller';
 import { BasicModule } from './basic/basic.module';
 import { MoviesModule } from './movies/movies.module';
 import { TrendingsModule } from './trendings/trendings.module';
+import { DevModule } from './dev/dev.module';
 
 @Module({
-  imports: [BasicModule, MoviesModule, TrendingsModule],
+  imports: [BasicModule, MoviesModule, TrendingsModule, DevModule],
   controllers: [AppController],
   providers: [AppService],
   exports: [],

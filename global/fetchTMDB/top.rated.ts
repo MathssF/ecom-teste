@@ -1,10 +1,10 @@
-export class TopRatedMovies {
+export class TopRatedMoviesAPI {
   private language: string;
   private apiKey: string;
 
-  constructor(language: string = 'en-US', apiKey: string) {
+  constructor(language: string = 'en-US') {
     this.language = language;
-    this.apiKey = apiKey;
+    this.apiKey = process.env.API_KEY!;
   }
 
   private getUrl(): string {
@@ -51,4 +51,4 @@ export class TopRatedMovies {
   }
 }
 
-export default TopRatedMovies;
+export default TopRatedMoviesAPI;
