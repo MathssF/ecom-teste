@@ -148,54 +148,46 @@ export class TrendingsRepository {
 
   // Função Importante!
   async findGenresTrend(genres: string[], list: any[]) {
-    let genresCounts: object[] = [];
-
-    genres.forEach((elem) => {
-      genresCounts.push({
-        id: elem,
-        count: 0,
-        list: [],
-        movieIds: [],
-      })
-    })
-
-    const listMapper = list.map(async (elem) => {
-      const hasTrendingStory = await this.prisma.trendingStory.findMany({
-        where: {
-          movieId: elem.movieId
-        }
-      })
+    const genresCounts = genres.map((id) => ({
+      id,
+      count: 0,
+      list: [] as string[],
+      movieIds: [] as string[],
+    }));
+  
+    for (const elem of list) {
+      const trendStories = await this.prisma.trendingStory.findMany({
+        where: { movieId: elem.movieId },
+      });
+  
       let inLimit = false;
-      const dateLimit = hasTrendingStory.map((timeWindows: any) => {
-        const check = this.dateCheck(timeWindows.datetime);
-        if (check) {
+  
+      for (const story of trendStories) {
+        if (this.dateCheck(story.datetime)) {
           inLimit = true;
-          return true;
+          break;
         }
-        return false;
-      })
-      if (inLimit) {
-        const genresFound = await this.prisma.genreMovie.findMany({
-          where: {
-            movieId: elem.movieId
-          }
-        })
-        genresFound.forEach((found: any) => {
-          const el = found.genreId;
-          genresCounts.forEach((mark: any) => {
-            if (el === mark.id) {
-              mark.count ++;
-              mark.list.push(elem.title)
-              mark.movieIds.push(elem.movieId)
-            }
-          })
-        });
       }
-    })
-    
-
+  
+      if (!inLimit) continue;
+  
+      const genresFound = await this.prisma.genreMovie.findMany({
+        where: { movieId: elem.movieId },
+      });
+  
+      for (const found of genresFound) {
+        const genre = genresCounts.find((g) => g.id === found.genreId);
+        if (genre) {
+          genre.count++;
+          genre.list.push(elem.title);
+          genre.movieIds.push(elem.movieId);
+        }
+      }
+    }
+  
     return genresCounts;
   }
+  
 
   dateCheck(dateCheck: Date): Boolean {
     const now = new Date();
