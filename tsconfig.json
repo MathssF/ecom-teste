@@ -3,7 +3,6 @@
   "references": [
     { "path": "./back" },
     { "path": "./front" },
-    { "path": "./global" },
-    { "path": "./prisma" }
+    { "path": "./global" }
   ]
 }

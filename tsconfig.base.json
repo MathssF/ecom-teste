@@ -17,8 +17,7 @@
     "paths": {
       "@back/*": ["back/*"],
       "@front/*": ["front/*"],
-      "@global/*": ["global/*"],
-      "@prisma/*": ["prisma/*"]
+      "@global/*": ["global/*"]
     }
   },
   "include": ["back/**/*", "front/**/*"],

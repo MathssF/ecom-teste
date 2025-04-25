@@ -9,6 +9,9 @@
     },
     "composite": true
   },
+  "references": [
+    { "path": "../global" }
+  ],
   "include": [
     "./**/*.ts"
   ],
