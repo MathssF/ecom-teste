@@ -18,5 +18,7 @@
       "@back/*": ["back/*"],
       "@front/*": ["front/*"]
     }
-  }
+  },
+  "include": ["back/**/*", "front/**/*"],
+  "exclude": ["node_modules"]
 }

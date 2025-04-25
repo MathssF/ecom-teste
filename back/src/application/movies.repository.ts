@@ -17,6 +17,23 @@ export interface movieDetail {
   posterPath?: string;
 }
 
+export interface editMovie {
+  id: string;
+  title?: string;
+  originalTitle?: string;
+  originalLanguage?: string;
+  adult?: boolean;
+}
+
+export interface editDetail {
+  movieId: string;
+  voteCount?: number;
+  voteAverage?: number;
+  popularity?: number;
+  releaseDate?: Date;
+  posterPath?: string;
+}
+
 export interface genreMovie {
   genreId: string;
   movieId: string;
@@ -32,7 +49,7 @@ export class MoviesRepository {
       return await this.prisma.movie.create({ data });
     }
 
-    this.compareMovie(data, existing);
+    return this.compareMovie(data, existing);
   }
 
   async addMovieDetail(data: movieDetail) {
@@ -42,33 +59,45 @@ export class MoviesRepository {
       return await this.prisma.movieDetail.create({ data });
     }
 
-    this.compareDetail(data, existing);
+    return this.compareDetail(data, existing);
   }
 
-  async updateMovie(data: movieData) {
+  async updateMovie(data: editMovie) {
     return await this.prisma.movie.update({
       where: { id: data.id },
       data
     });
   }
 
-  async updateDetail(data: movieDetail) {
+  async updateDetail(data: editDetail) {
     return await this.prisma.movieDetail.update({
       where: { movieId: data.movieId },
       data
     });
   }
 
-  async findMovieId(id: string) {
+  async findMovieId(id: string): Promise<movieData> {
     return await this.prisma.movie.findUnique({ where: { id } });
   }
 
-  async findMovieDetail(movieId: string) {
+  async findMovieDetail(movieId: string): Promise<movieDetail> {
     return await this.prisma.movieDetail.findUnique({ where: { movieId } });
   }
 
   async findMoviesGenre(genreId: string): Promise<genreMovie[]> {
     return await this.prisma.genreMovie.findMany({ where: { genreId } });
+  }
+
+  async findGenresMovie(movieId: string): Promise<genreMovie[]> {
+    return await this.prisma.genreMovie.findMany({ where: { movieId } })
+  }
+
+  async findRelations(genreId: string, movieId: string) {
+    return await this.prisma.genreMovie.findMany({
+      where: {
+        genreId, movieId
+      }
+    })
   }
 
   async compareMovie(data: movieData, current: movieData) {

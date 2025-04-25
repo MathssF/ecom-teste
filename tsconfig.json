@@ -1,21 +1,7 @@
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",    
-    "baseUrl": ".",  // Permite importar com caminhos relativos a partir da raiz do projeto
-    "paths": {
-      "@back/*": ["back/*"],
-      "@front/*": ["front/*"]
-    },
-    "resolveJsonModule": true,
-    "types": ["node"] // Adiciona as definições de tipo do Node
-  },
-  "include": ["back/**/*", "front/**/*"],  // Inclui ambos os diretórios
-  "exclude": ["node_modules"]
+  "files": [],
+  "references": [
+    { "path": "./back" },
+    { "path": "./front" }
+  ]
 }

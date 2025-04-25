@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { v7 } from 'uuid';
+import { MoviesRepository } from './movies.repository';
 
 const uuidv7 = v7();
 
@@ -72,6 +73,7 @@ export class TrendingsRepository {
     });
   }
 
+  // Função Importante!
   async findTrendsMovies(movieId: string, date: Date): Promise<trendingHalfYear> {
     const trends = await this.prisma.trendingStory.finMany({
       where: { movieId }
@@ -142,6 +144,11 @@ export class TrendingsRepository {
       old_count,
       now_count
     };
+  }
+
+  // Função Importante!
+  async findGenresTrend(genres: string[], list: any[]) {
+    
   }
 
   async dateCheck(dateCheck: Date) {

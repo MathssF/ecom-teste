@@ -31,6 +31,10 @@ export class BasicRepository {
     return await this.prisma.language.create({ data });
   }
 
+  async findLang(id: string) {
+    return await this.prisma.language.findUnique({ where: { id } })
+  }
+
   async findLangs() {
     return await this.prisma.language.findMany();
   }
