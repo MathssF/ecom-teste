@@ -14,7 +14,7 @@ export class DevService {
     private readonly basicSeed: BasicSeed,
   ) {}
 
-  async seedStar() {
+  async seedStart() {
     return this.basicSeed.run()
   }
 
