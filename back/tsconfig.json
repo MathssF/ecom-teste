@@ -3,9 +3,9 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "../dist/back",
-    "baseUrl": "./",,
+    "baseUrl": "./",
     "paths": {
-      "@global/*": ["global/*"]
+      "@global/*": ["../global/*"]
     },
     "composite": true
   },
