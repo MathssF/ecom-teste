@@ -44,37 +44,28 @@ export class TopRatedMoviesAPI {
 
   public async getTopRatedMovies(): Promise<any[]> {
     let allMovies: any[] = [];
-
-    // for (let page = 1; page <= 13; page++) {
-    //   const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
-    //   const json: any = await response.json();
-
-    //   const movies = json.results.map((movie: any) => ({
-    //     id: movie.id,
-    //     title: movie.title,
-    //     original_title: movie.original_title,
-    //     original_language: movie.original_language,
-    //     vote_count: movie.vote_count,
-    //     vote_average: movie.vote_average,
-    //     popularity: movie.popularity,
-    //     adult: movie.adult,
-    //     release_date: movie.release_date,
-    //     genre_ids: movie.genre_ids,
-    //     poster_path: movie.poster_path,
-    //   }));
-
-    //   allMovies = [...allMovies, ...movies];
-
-    //   if (allMovies.length >= 250) break;
-    // }
+    console.log('Entrou no top rated')
 
     const pages = Array.from({ length: 13 }, (_, i) => i + 1);
-    const requests = pages.map(page => fetch(`${this.getUrl()}&page=${page}`, this.getOptions()));
+    const requests = pages.map(page => {
+      console.log(`Fazendo requisição para a página ${page}`);
+      return  fetch(`${this.getUrl()}&page=${page}`, this.getOptions())
+        .then(response => {
+          console.log(`Resposta recebida para a página ${page}:`, response.status);
+          return response.json();
+        })
+        .then(json => {
+          console.log(`Dados da página ${page}:`, json);
+          return json;
+        });
+    });
+
+    console.log('Antes do Response');
 
     const responses = await Promise.all(requests);
 
-    const jsonPromises = responses.map(response => response.json());
-    const jsonResults = await Promise.all(jsonPromises);
+    // const jsonPromises = responses.map(response => response.json());
+    const jsonResults = await Promise.all(requests);  //(jsonPromises);
 
     for (const json of jsonResults) {
       const { results } = json as TopRatedMoviesResponse;
@@ -95,6 +86,8 @@ export class TopRatedMoviesAPI {
       allMovies = [...allMovies, ...movies];
       if (allMovies.length >= 250) break;
     }
+
+    console.log('ALL MOVIES: ', allMovies)
 
     return allMovies.slice(0, 250);
   }
