@@ -43,6 +43,16 @@ export class CompaniesRepository {
     return exists;
   }
 
+  async findAllCompanies() {
+    return await this.prisma.company.findMany();
+  }
+
+  async findCompanyById(companyId: string) {
+    return await this.prisma.company.findUnique({
+      where: { id: companyId }
+    });
+  }
+
   async findMoviesCompany(companyId: string) {
     return await this.prisma.movie.findMany({
       where: {

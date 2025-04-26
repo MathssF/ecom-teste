@@ -92,6 +92,14 @@ export class MoviesRepository {
     return await this.prisma.genreMovie.findMany({ where: { movieId } })
   }
 
+  async findAllMovies(): Promise<movieData[]> {
+    return await this.prisma.movie.findMany();
+  }
+
+  async findAllDetails(): Promise<movieDetail[]> {
+    return await this.prisma.movieDetail.findMany();
+  }
+
   async findRelations(genreId: string, movieId: string) {
     return await this.prisma.genreMovie.findMany({
       where: {

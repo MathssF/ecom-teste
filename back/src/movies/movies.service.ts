@@ -27,6 +27,14 @@ export class MoviesService {
     return await this.movieRepository.findMovieDetail(id);
   }
 
+  async findAllMovies() {
+    return await this.movieRepository.findAllMovies();
+  }
+  
+  async findAllDetails() {
+    return await this.movieRepository.findAllDetails();
+  }
+
   async updateMovie(id: string, movieDto: UpdateMovieDto, detailDto: UpdateMovieDetailDto) {
     let movieUpdate = {};
     let detailUpdate = {};

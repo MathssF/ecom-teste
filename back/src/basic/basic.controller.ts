@@ -1,34 +1,54 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { BasicService } from './basic.service';
-import { CreateBasicDto } from './dto/create-basic.dto';
+import { CreateGenreDto, CreateLanguageDto, CreateCompanyDto } from './dto/create-basic.dto';
 import { UpdateBasicDto } from './dto/update-basic.dto';
 
 @Controller('basic')
 export class BasicController {
   constructor(private readonly basicService: BasicService) {}
 
-  // @Post()
-  // create(@Body() createBasicDto: CreateBasicDto) {
-  //   return this.basicService.addGenre(createBasicDto);
-  // }
+  @Get('genres')
+  async findAllGenres() {
+    return this.basicService.findAllGenres();
+  }
 
-  // @Get()
-  // findAll() {
-  //   return this.basicService.findAll();
-  // }
+  @Get('langs')
+  async findAllLangs() {
+    return this.basicService.findAllLangs();
+  }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.basicService.findOne(+id);
-  // }
+  @Get('companies')
+  async findAllCompanies() {
+    return this.basicService.findAllCompanies();
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateBasicDto: UpdateBasicDto) {
-  //   return this.basicService.update(+id, updateBasicDto);
-  // }
+  @Post('genre')
+  async addGenre(@Body() createGenreDto: CreateGenreDto) {
+    return this.basicService.addGenre(createGenreDto);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.basicService.remove(+id);
-  // }
+  @Post('lang')
+  async addLang(@Body() createLanguageDto: CreateLanguageDto) {
+    return this.basicService.addLang(createLanguageDto);
+  }
+
+  @Post('company')
+  async addCompany(@Body() createCompanyDto: CreateCompanyDto) {
+    return this.basicService.addCompany(createCompanyDto);
+  }
+
+  @Get('genre/:id')
+  async findGenreId(@Param('id') id: string) {
+    return this.basicService.findGenreId(id);
+  }
+
+  @Get('lang/:id')
+  async findLangId(@Param('id') id: string) {
+    return this.basicService.findLangId(id);
+  }
+
+  @Get('company/:id')
+  async findCompanyId(@Param('id') id: string) {
+    return this.basicService.findCompanyId(id);
+  }
 }
