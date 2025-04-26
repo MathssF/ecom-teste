@@ -8,6 +8,7 @@ import { MoviesService } from '../movies/movies.service';
 import { TrendingsService } from '../trendings/trendings.service';
 import { CreateMovieDto, CreateMovieDetailDto } from '../movies/dto/create-movie.dto';
 import { CreateEntryDto, CreateStoryDto } from '../trendings/dto/create-trending.dto';
+import { MoviesRepository } from '../application/movies.repository';
 
 @Controller('dev')
 export class DevController {
@@ -16,6 +17,7 @@ export class DevController {
     private readonly basicService: BasicService,
     private readonly movieService: MoviesService,
     private readonly trendingService: TrendingsService,
+    private readonly movieRepository: MoviesRepository
   ) {}
 
   @Post('start-seed')
@@ -46,7 +48,16 @@ export class DevController {
       releaseDate: movieDetails.release_date,
     };
 
-    const createdMovie = await this.movieService.addMovie(movieDto);
+    const movieT: CreateMovieDto = {
+      id: movieDto.id,
+      title: movieDto.title,
+      originalTitle: movieDto.originalTitle,
+      originalLanguage: movieDto.originalLanguage,
+      adult: movieDto.adult,
+    };
+
+    // const createdMovie = await this.movieService.addMovie(movieDto);
+    const createdMovie = await this.movieRepository.addMovie(movieT);
 
     const movieDetailDto = {
       movieId: movieDetails.id,
@@ -57,7 +68,17 @@ export class DevController {
       posterPath: movieDetails.poster_path,
     };
 
-    const setDetails = await this.movieService.addDetail(movieDetailDto);
+    const movieDetailT: CreateMovieDetailDTO = {
+      movieId: movieDetailDto.movieId,
+      voteCount: movieDetailDto.voteCount,
+      voteAverage: movieDetailDto.voteAverage,
+      popularity: movieDetailDto.popularity,
+      releaseDate: movieDetailDto.releaseDate,
+      posterPath: movieDetailDto.posterPath,
+    };
+
+    // const setDetails = await this.movieService.addDetail(movieDetailDto);
+    const setDetails = await this.movieRepository.addMovieDetail(movieDetailT);
 
     return {
       createdMovie, setDetails
@@ -85,8 +106,17 @@ export class DevController {
           posterPath: movieDetails.poster_path,
           releaseDate: movieDetails.release_date,
         };
+
+        const movieT: CreateMovieDto = {
+          id: movieDto.id,
+          title: movieDto.title,
+          originalTitle: movieDto.originalTitle,
+          originalLanguage: movieDto.originalLanguage,
+          adult: movieDto.adult,
+        };
   
-        await this.movieService.addMovie(movieDto);
+        // return await this.movieService.addMovie(movieDto);
+        return await this.movieRepository.addMovie(movieT);
       } catch (error) {
         console.error(`Erro ao adicionar o filme ${movieDetails.title}: `, error);
       }
@@ -119,11 +149,28 @@ export class DevController {
       const { id, title, original_title, original_language, adult, genres, vote_count, vote_average, popularity, release_date, poster_path } = trend;
   
       let movie = await this.movieService.findMovie(id);
+
+      // const movieT: CreateMovieDto = {
+      //   id: movie.id,
+      //   title: movie.title,
+      //   originalTitle: movie.originalTitle,
+      //   originalLanguage: movie.originalLanguage,
+      //   adult: movie.adult,
+      // };
   
       if (!movie) {
         const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
-        movie = await this.movieService.addMovie(movieDto);
-      }
+        // movie = await this.movieService.addMovie(movieDto);
+        movie = await this.movieRepository.addMovie(movieT);
+      } // else {
+      //   const movieT: CreateMovieDto = {
+      //     id: movie.id,
+      //     title: movie.title,
+      //     originalTitle: movie.originalTitle,
+      //     originalLanguage: movie.originalLanguage,
+      //     adult: movie.adult,
+      //   };
+      // }
   
       let movieDetail = await this.movieService.findMovieDetail(id);
   
@@ -131,7 +178,8 @@ export class DevController {
         const movieDetailDto = new CreateMovieDetailDto(
           id, vote_count, vote_average, popularity, new Date(release_date), poster_path
         );
-        movieDetail = await this.movieService.addDetail(movieDetailDto);
+        // movieDetail = await this.movieService.addDetail(movieDetailDto);
+        movieDetail = await this.movieRepository.addMovieDetail(movieDetailDto)
       }
 
       const storyDto = new CreateStoryDto(entryResult.result.id, movie.id, vote_count, vote_average, popularity, 1, 1, 1);

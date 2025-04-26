@@ -19,14 +19,14 @@ export class MoviesController {
 
   @Post()
   async createMovie(@Body() createMovieDto: CreateMovieDto) {
-    return await this.moviesService.addMovie(createMovieDto as CreateMovieDto);
-    // return await this.movieRepository.addMovie(createMovieDto);
+    // return await this.moviesService.addMovie(createMovieDto as CreateMovieDto);
+    return await this.movieRepository.addMovie(createMovieDto);
   }
 
   @Post('detail')
   async createMovieDetail(@Body() createDetailDto: CreateMovieDetailDto) {
-    return await this.moviesService.addDetail(createDetailDto as CreateMovieDetailDto);
-    // return await this.createMovieDetail(createDetailDto);
+    // return await this.moviesService.addDetail(createDetailDto as CreateMovieDetailDto);
+    return await this.createMovieDetail(createDetailDto);
   }
 
   @Get('set-movie/:id')

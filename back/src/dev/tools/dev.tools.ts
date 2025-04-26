@@ -6,10 +6,12 @@ export class DevTools {
   ) {}
 
   async DevError(msg: string, path: string, method: string) {
-    return await this.prisma.DevError.create({
-      message: msg,
-      path: path,
-      method: method,
+    return await this.prisma.devError.create({
+      data: {
+        message: msg.length > 999 ? msg.substring(0, 990) + '...' : msg,
+        path: path,
+        method: method,
+      }
     })
   }
 }

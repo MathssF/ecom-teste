@@ -87,25 +87,36 @@ export class TrendingsRepository {
 
   // Função Importante!
   async findTrendsMovies(movieId: string): Promise<trendingHalfYear> {
-    const trends = await this.prisma.trendingStory.finMany({
+    const trends = await this.prisma.trendingStory.findMany({
       where: { movieId }
     });
-    if (trends.lenght === 0) {
+    if (trends.length === 0) {
       return {
         total: 0
       }
     }
 
-    const compares:trendingCompareData[] = trends.map(async (elem: trendingStoryData) => {
-      const time = await this.trendDate(elem.trendingId);
-      return {
-        trendingId: elem.trendingId,
-        datetime: time,
-        votesCount: elem.votesCount,
-        votesAverage: elem.votesAverage,
-        popularity: elem.popularity
-      };
-    })
+    // const compares:trendingCompareData[] = trends.map(async (elem: trendingStoryData) => {
+    //   const time = await this.trendDate(elem.trendingId);
+    //   return {
+    //     trendingId: elem.trendingId,
+    //     datetime: time,
+    //     votesCount: elem.votesCount,
+    //     votesAverage: elem.votesAverage,
+    //     popularity: elem.popularity
+    //   };
+    // })
+    const compares: trendingCompareData[] = await Promise.all(
+      trends.map(async (elem: trendingStoryData) => {
+        return {
+          trendingId: elem.trendingId,
+          datetime: new Date(), // ou outro valor
+          votesCount: elem.votesCount,
+          votesAverage: elem.votesAverage,
+          popularity: elem.popularity
+        };
+      })
+    );
 
     const filteredTrends = compares.filter((elem: trendingCompareData) => this.dateCheck(elem.datetime));
     if (filteredTrends.length === 0) {
@@ -175,7 +186,12 @@ export class TrendingsRepository {
       let inLimit = false;
   
       for (const story of trendStories) {
-        if (this.dateCheck(story.datetime)) {
+        const setDate = await this.prisma.trendingEntry.findUnique({
+          where: {
+            id: story.trendingId
+          }
+        })
+        if (this.dateCheck(setDate.datetime)) {
           inLimit = true;
           break;
         }

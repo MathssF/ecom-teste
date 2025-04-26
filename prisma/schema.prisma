@@ -100,12 +100,12 @@ model TrendingStory {
 
 model DevError {
   id        Int     @id @default(autoincrement())
-  message   String
-  path      String
-  method    String
+  message   String  @db.VarChar(1000)
+  path      String  @db.VarChar(100)
+  method    String  @db.VarChar(10)
 }
 
 model DevNotes {
-  id        Int    @id @default(autoincrement())
-  message   String
+  id        Int     @id @default(autoincrement())
+  message   String  @db.VarChar(1000)
 }

@@ -1,5 +1,5 @@
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateMovieDto, CreateMovieDetailDto } from '@back/movies/dto/create-movie.dto';
+// import { CreateMovieDto, CreateMovieDetailDto } from '../movies/dto/create-movie.dto';
 
 export interface movieData {
   id: string;
@@ -43,8 +43,8 @@ export interface genreMovie {
 export class MoviesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  // async addMovie(data: movieData) {
-    async addMovie(data: CreateMovieDto) {
+  async addMovie(data: movieData) {
+    // async addMovie(data: CreateMovieDto) {
     if (!data) {
       throw new Error('Need info!');
     }
@@ -57,8 +57,8 @@ export class MoviesRepository {
     return this.compareMovie(data, existing);
   }
 
-  // async addMovieDetail(data: movieDetail) {
-  async addMovieDetail(data: CreateMovieDetailDto) {
+  async addMovieDetail(data: movieDetail) {
+  // async addMovieDetail(data: CreateMovieDetailDto) {
 
     if (!data) {
       throw new Error('Need info!');
