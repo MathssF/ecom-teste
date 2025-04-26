@@ -5,7 +5,8 @@
     "outDir": "../dist/back",
     "baseUrl": "./",
     "paths": {
-      "@global/*": ["../global/*"]
+      "@global/*": ["../global/*"],
+      "@back/*": ["./src/*"]
     },
     "composite": true
   },

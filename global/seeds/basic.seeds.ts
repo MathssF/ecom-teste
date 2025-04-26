@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import { PrismaService } from '../../back/src/prisma/prisma.service';
 import { Genres, Languages } from "../tables/seed.tables";
 

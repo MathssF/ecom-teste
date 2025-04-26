@@ -3,7 +3,17 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "../dist/global",
-    "composite": true
+    "composite": true,
+    "baseUrl": "./",
+    "paths": {
+      "@back/*": ["../back/src/*"]
+    }
   },
-  "include": ["**/*.ts", "../back/src/application/basic.seeds.ts", "../back/src/application/seed.tables.ts"]
+  "references": [
+    { "path": "../back" }
+  ],
+  "include": [
+    "**/*.ts",
+    "../back/src/**/*.ts"
+  ]
 }

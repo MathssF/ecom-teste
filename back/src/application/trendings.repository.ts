@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { v7 } from 'uuid';
 import { MoviesRepository, movieData, movieDetail } from './movies.repository';

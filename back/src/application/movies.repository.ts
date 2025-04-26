@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 export interface movieData {
