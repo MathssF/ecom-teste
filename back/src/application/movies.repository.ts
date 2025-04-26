@@ -89,20 +89,20 @@ export class MoviesRepository {
   async findMovieDetail(movieId: string): Promise<movieDetail | null> {
     // return await this.prisma.movieDetail.findUnique({ where: { movieId } });
     const movieDetail = await this.prisma.movieDetail.findUnique({ where: { movieId } });
-    if (movieDetail && !movieDetail.posterPath) {
-      // movieDetail?.posterPath = 'nothing'
-      const adjustMovieDetail: movieDetail = {
-        movieId: movieDetail.movieId,
-        voteCount: movieDetail.voteCount,
-        voteAverage: movieDetail.voteAverage,
-        popularity: movieDetail.popularity,
-        releaseDate: movieDetail.releaseDate,
-        posterPath: 'nothing',
-      }
-
-      return adjustMovieDetail;
+    if (!movieDetail) {
+      return null;
     }
-    return movieDetail;
+  
+    const adjustedMovieDetail: movieDetail = {
+      movieId: movieDetail.movieId,
+      voteCount: movieDetail.voteCount,
+      voteAverage: movieDetail.voteAverage,
+      popularity: movieDetail.popularity,
+      releaseDate: movieDetail.releaseDate,
+      posterPath: movieDetail.posterPath ?? 'nothing', // aqui garante nunca null
+    };
+  
+    return adjustedMovieDetail;
   }
 
   async findMoviesGenre(genreId: string): Promise<genreMovie[] | null> {
@@ -118,7 +118,23 @@ export class MoviesRepository {
   }
 
   async findAllDetails(): Promise<movieDetail[] | null> {
-    return await this.prisma.movieDetail.findMany();
+    // return await this.prisma.movieDetail.findMany();
+    const movieList = await this.prisma.movieDetail.findMany();
+    const adjustedList: movieDetail[] = [];
+    for (const movie of movieList) {
+      const adjustedMovieDetail: movieDetail = {
+        movieId: movie.movieId,
+        voteCount: movie.voteCount,
+        voteAverage: movie.voteAverage,
+        popularity: movie.popularity,
+        releaseDate: movie.releaseDate,
+        posterPath: movie.posterPath ?? 'nothing'
+      }
+
+      adjustedList.push(adjustedMovieDetail);
+    }
+
+    return adjustedList;
   }
 
   async findRelations(genreId: string, movieId: string) {
