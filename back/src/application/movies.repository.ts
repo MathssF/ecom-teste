@@ -14,7 +14,7 @@ export interface movieDetail {
   voteAverage: number;
   popularity: number;
   releaseDate: Date;
-  posterPath: string | null;
+  posterPath: string | undefined | null;
 }
 
 export interface editMovie {
@@ -56,6 +56,9 @@ export class MoviesRepository {
   }
 
   async addMovieDetail(data: movieDetail) {
+    if (!data) {
+      throw new Error('Need info!');
+    }
     const existing = await this.findMovieDetail(data.movieId);
 
     if (!existing) {

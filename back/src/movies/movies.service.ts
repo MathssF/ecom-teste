@@ -11,12 +11,22 @@ export class MoviesService {
     private readonly movieRepository: MoviesRepository,
     private readonly basic: BasicService,
   ) {}
+
   async addMovie(dto: CreateMovieDto): Promise<CreateMovieDto> {
-    return await this.addMovie(dto);
+    if (!dto || Object.keys(dto).length === 0) {
+      throw new Error('DTO is required');
+    }
+    return await this.movieRepository.addMovie(dto);
   }
 
   async addDetail(dto: CreateMovieDetailDto): Promise<CreateMovieDetailDto> {
-    return await this.addDetail(dto);
+    if (!dto || Object.keys(dto).length === 0) {
+      throw new Error('DTO is required');
+    }
+
+    dto.posterPath = dto.posterPath ?? null;
+
+    return await this.movieRepository.addMovieDetail(dto);
   }
 
   async findMovie(id: string): Promise<movieData | null> {
@@ -62,11 +72,15 @@ export class MoviesService {
   }
 
   async findMoviesGenre(id: string): Promise<genreMovie[] | null> {
-    return await this.movieRepository.findMoviesGenre(id);
+    const movies = await this.movieRepository.findMoviesGenre(id);
+    if (!movies) {
+      throw new Error('No movies found');
+    }
+    return movies;
   }
 
   async findGenresMovie(id: string): Promise<genreMovie[] | null> {
-    return await this.movieRepository.findGenresMovie(id);
+    return await this.movieRepository.findGenresMovie(id) ?? [];
   }
 
   async listMoviesByGenres(x?: number): Promise<any[]> {
@@ -82,16 +96,19 @@ export class MoviesService {
       for (const movie of movies) {
         const movieDetail = await this.movieRepository.findMovieDetail(movie.movieId);
         const movieData = await this.movieRepository.findMovieId(movie.movieId);
-  
+        
+        if (!movieData || !movieDetail) {
+          continue;
+        }
         const info = {
-          id: movie.movieId,
-          title: movieData.title,
+           id: movie.movieId,
+            title: movieData.title,
           votes: movieDetail.voteCount,
           average: movieDetail.voteAverage,
           popularity: movieDetail.popularity,
           adult: movieData.adult,
         };
-  
+
         newList.push(info);
       }
   

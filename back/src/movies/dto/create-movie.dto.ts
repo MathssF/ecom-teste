@@ -50,12 +50,12 @@ export class CreateMovieDetailDto {
   voteAverage: number;
   popularity: number;
   releaseDate: Date;
-  posterPath?: string;
+  posterPath: string | undefined | null;
 
   constructor(
     id: string, votes: number,
     voteAverage: number, popularity: number,
-    releaseDate: Date, posterPath?: string,
+    releaseDate: Date, posterPath?: string | undefined | null,
     ) {
     this.movieId = id;
     this.voteCount = votes;
