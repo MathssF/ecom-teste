@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export class MovieDetailsAPI {
   private language: string;
   private apiKey: string;

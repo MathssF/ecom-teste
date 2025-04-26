@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import { Genres, Languages } from "../tables/seed.tables";
-import { Injectable } from '@nestjs/common';
+// import { Injectable } from '@nestjs/common';
 
 
-@Injectable()
+// @Injectable()
 export class BasicSeed {
   constructor(private readonly prisma: PrismaClient) {}
 

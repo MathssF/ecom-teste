@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export class TopRatedMoviesAPI {
   private language: string;
   private apiKey: string;
@@ -22,6 +25,7 @@ export class TopRatedMoviesAPI {
   }
 
   public async getTopRatedMovies(): Promise<any[]> {
+    console.log(this.apiKey);
     let allMovies: any[] = [];
 
     for (let page = 1; page <= 13; page++) {

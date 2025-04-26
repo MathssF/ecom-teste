@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export class TrendingMoviesAPI {
   private time_window: string;
   private language: string;
