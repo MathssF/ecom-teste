@@ -97,3 +97,15 @@ model TrendingStory {
 
   @@id([trendingId, movieId])
 }
+
+model DevError {
+  id        Int     @id @default(autoincrement())
+  message   String
+  path      String
+  method    String
+}
+
+model DevNotes {
+  id        Int    @id @defaul(autoincrement())
+  message   String
+}
