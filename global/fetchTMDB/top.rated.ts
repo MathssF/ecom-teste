@@ -17,6 +17,7 @@ interface Movie {
 
 interface TopRatedMoviesResponse {
   results: Movie[];
+  total_pages: number;
 }
 
 export class TopRatedMoviesAPI {
@@ -42,33 +43,24 @@ export class TopRatedMoviesAPI {
     };
   }
 
-  public async getTopRatedMovies(): Promise<any[]> {
+  public async getTopRatedMovies(): Promise<{ allMovies: any[], pageSelects: { page: number, results: number }[] }> {
     let allMovies: any[] = [];
-    console.log('Entrou no top rated')
-
-    const pages = Array.from({ length: 13 }, (_, i) => i + 1);
-    const requests = pages.map(page => {
+    let pageSelects: { page: number, results: number }[] = [];
+    let page = 1;
+    let totalPages = 1;
+  
+    while (allMovies.length < 250 && page <= totalPages) {
       console.log(`Fazendo requisição para a página ${page}`);
-      return  fetch(`${this.getUrl()}&page=${page}`, this.getOptions())
-        .then(response => {
-          console.log(`Resposta recebida para a página ${page}:`, response.status);
-          return response.json();
-        })
-        .then(json => {
-          console.log(`Dados da página ${page}:`, json);
-          return json;
-        });
-    });
-
-    console.log('Antes do Response');
-
-    const responses = await Promise.all(requests);
-
-    // const jsonPromises = responses.map(response => response.json());
-    const jsonResults = await Promise.all(requests);  //(jsonPromises);
-
-    for (const json of jsonResults) {
-      const { results } = json as TopRatedMoviesResponse;
+      
+      const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
+      console.log(`Resposta recebida para a página ${page}:`, response.status);
+  
+      const json = await response.json();
+      console.log(`Dados da página ${page}:`, json);
+  
+      const { results, total_pages } = json as TopRatedMoviesResponse;
+      totalPages = total_pages;
+  
       const movies = results.map((movie: any) => ({
         id: movie.id,
         title: movie.title,
@@ -83,12 +75,16 @@ export class TopRatedMoviesAPI {
         poster_path: movie.poster_path,
       }));
   
+      pageSelects.push({ page, results: results.length });
+  
       allMovies = [...allMovies, ...movies];
-      if (allMovies.length >= 250) break;
+  
+      page++;
     }
-
-    console.log('ALL MOVIES: ', allMovies)
-
-    return allMovies.slice(0, 250);
+  
+    return {
+      allMovies: allMovies.slice(0, 250),
+      pageSelects
+    };
   }
 }
