@@ -28,7 +28,10 @@ export class BasicRepository {
   }
 
   async addLang(data: langData) {
-    return await this.prisma.language.create({ data });
+    return await this.prisma.language.create({ data: {
+      id: data.id,
+      englishName: data.english_name,
+    } });
   }
 
   async findLang(id: string) {

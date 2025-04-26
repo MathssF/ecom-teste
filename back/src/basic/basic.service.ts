@@ -20,7 +20,7 @@ export class BasicService {
   }
 
 
-  async findGenreId(id: string): Promise<GenreEntity> {
+  async findGenreId(id: string): Promise<GenreEntity | null> {
     return await this.basic.findGenreId(id);
   }
 

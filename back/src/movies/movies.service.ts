@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateMovieDto, CreateMovieDetailDto } from './dto/create-movie.dto';
 import { UpdateMovieDto, UpdateMovieDetailDto } from './dto/update-movie.dto';
 import { BasicService } from '../basic/basic.service';
-import { MoviesRepository } from '../application/movies.repository';
+import { MoviesRepository, movieData, movieDetail, genreMovie } from '../application/movies.repository';
 import { CompaniesRepository } from '../application/companies.repository';
 
 @Injectable()
@@ -19,19 +19,19 @@ export class MoviesService {
     return await this.addDetail(dto);
   }
 
-  async findMovie(id: string) {
+  async findMovie(id: string): Promise<movieData | null> {
     return await this.movieRepository.findMovieId(id);
   }
 
-  async findMovieDetail(id: string) {
+  async findMovieDetail(id: string): Promise<movieDetail | null> {
     return await this.movieRepository.findMovieDetail(id);
   }
 
-  async findAllMovies() {
+  async findAllMovies(): Promise<movieData[] | null> {
     return await this.movieRepository.findAllMovies();
   }
   
-  async findAllDetails() {
+  async findAllDetails(): Promise<movieDetail[] | null> {
     return await this.movieRepository.findAllDetails();
   }
 
@@ -61,11 +61,11 @@ export class MoviesService {
     return { movieUpdate, detailUpdate };
   }
 
-  async findGenresMovie(id: string) {
+  async findMoviesGenre(id: string): Promise<genreMovie[] | null> {
     return await this.movieRepository.findMoviesGenre(id);
   }
 
-  async findMoviesGenre(id: string) {
+  async findGenresMovie(id: string): Promise<genreMovie[] | null> {
     return await this.movieRepository.findGenresMovie(id);
   }
 

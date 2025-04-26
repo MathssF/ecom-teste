@@ -207,6 +207,5 @@ export const Languages = [
   { id: "he", english_name: "Hebrew",name: "עִבְרִית" }, 
   { id: "hi", english_name: "Hindi",name: "हिन्दी" }, 
   { id: "hy", english_name: "Armenian",name: "" }, 
-  { id: "yo", english_name: "Yoruba",name: "Èdè Yorùbá"
-  }
+  { id: "yo", english_name: "Yoruba",name: "Èdè Yorùbá" }
 ];

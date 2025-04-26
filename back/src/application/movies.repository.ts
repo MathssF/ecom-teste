@@ -14,7 +14,7 @@ export interface movieDetail {
   voteAverage: number;
   popularity: number;
   releaseDate: Date;
-  posterPath?: string;
+  posterPath: string | null;
 }
 
 export interface editMovie {
@@ -43,6 +43,9 @@ export class MoviesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async addMovie(data: movieData) {
+    if (!data) {
+      throw new Error('Need info!');
+    }
     const existing = await this.findMovieId(data.id);
 
     if (!existing) {
@@ -76,27 +79,27 @@ export class MoviesRepository {
     });
   }
 
-  async findMovieId(id: string): Promise<movieData> {
+  async findMovieId(id: string): Promise<movieData | null> {
     return await this.prisma.movie.findUnique({ where: { id } });
   }
 
-  async findMovieDetail(movieId: string): Promise<movieDetail> {
+  async findMovieDetail(movieId: string): Promise<movieDetail | null> {
     return await this.prisma.movieDetail.findUnique({ where: { movieId } });
   }
 
-  async findMoviesGenre(genreId: string): Promise<genreMovie[]> {
+  async findMoviesGenre(genreId: string): Promise<genreMovie[] | null> {
     return await this.prisma.genreMovie.findMany({ where: { genreId } });
   }
 
-  async findGenresMovie(movieId: string): Promise<genreMovie[]> {
+  async findGenresMovie(movieId: string): Promise<genreMovie[] | null> {
     return await this.prisma.genreMovie.findMany({ where: { movieId } })
   }
 
-  async findAllMovies(): Promise<movieData[]> {
+  async findAllMovies(): Promise<movieData[] | null> {
     return await this.prisma.movie.findMany();
   }
 
-  async findAllDetails(): Promise<movieDetail[]> {
+  async findAllDetails(): Promise<movieDetail[] | null> {
     return await this.prisma.movieDetail.findMany();
   }
 
