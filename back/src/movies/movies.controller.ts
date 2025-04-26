@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
+import { MoviesRepository } from '../application/movies.repository'; // Por falta de outra opção
 import {
   CreateMovieDto,
   CreateMovieDetailDto,
@@ -11,36 +12,41 @@ import {
 
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+  constructor(
+    private readonly moviesService: MoviesService,
+    private readonly movieRepository: MoviesRepository,
+  ) {}
 
   @Post()
   async createMovie(@Body() createMovieDto: CreateMovieDto) {
-    return this.moviesService.addMovie(createMovieDto);
+    // return await this.moviesService.addMovie(createMovieDto);
+    return await this.movieRepository.addMovie(createMovieDto);
   }
 
   @Post('detail')
   async createMovieDetail(@Body() createDetailDto: CreateMovieDetailDto) {
-    return this.moviesService.addDetail(createDetailDto);
+    // return await this.moviesService.addDetail(createDetailDto);
+    return await this.createMovieDetail(createDetailDto);
   }
 
   @Get('set-movie/:id')
   async findOne(@Param('id') id: string) {
-    return this.moviesService.findMovie(id);
+    return await this.moviesService.findMovie(id);
   }
 
   @Get('set-detail/:id')
   async findDetail(@Param('id') id: string) {
-    return this.moviesService.findMovieDetail(id);
+    return await this.moviesService.findMovieDetail(id);
   }
 
   @Get('list/movies')
 async findAllMovies() {
-  return this.moviesService.findAllMovies();
+  return await this.moviesService.findAllMovies();
 }
 
 @Get('list/details')
 async findAllDetails() {
-  return this.moviesService.findAllDetails();
+  return await this.moviesService.findAllDetails();
 }
 
   @Patch('update/:id')
@@ -49,22 +55,22 @@ async findAllDetails() {
     @Body('movie') movieDto: UpdateMovieDto,
     @Body('detail') detailDto: UpdateMovieDetailDto,
   ) {
-    return this.moviesService.updateMovie(id, movieDto, detailDto);
+    return await this.moviesService.updateMovie(id, movieDto, detailDto);
   }
 
   @Get('set-genres/:id')
   async findGenres(@Param('id') id: string) {
-    return this.moviesService.findGenresMovie(id);
+    return await this.moviesService.findGenresMovie(id);
   }
 
   @Get('genres/:id')
   async findMoviesByGenre(@Param('id') id: string) {
-    return this.moviesService.findMoviesGenre(id);
+    return await this.moviesService.findMoviesGenre(id);
   }
 
   @Get('list/by-genres')
   async listByGenres(@Query('limit') limit?: string) {
     const x = limit ? parseInt(limit, 10) : undefined;
-    return this.moviesService.listMoviesByGenres(x);
+    return await this.moviesService.listMoviesByGenres(x);
   }
 }

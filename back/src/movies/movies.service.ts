@@ -12,22 +12,13 @@ export class MoviesService {
     private readonly basic: BasicService,
   ) {}
 
-  async addMovie(dto: CreateMovieDto | undefined): Promise<CreateMovieDto> {
-    if (!dto || Object.keys(dto).length === 0) {
-      throw new Error('DTO is required');
-    }
-    return await this.movieRepository.addMovie(dto);
-  }
-
-  async addDetail(dto: CreateMovieDetailDto | undefined): Promise<CreateMovieDetailDto> {
-    if (!dto || Object.keys(dto).length === 0) {
-      throw new Error('DTO is required');
-    }
-
-    dto.posterPath = dto.posterPath ?? null;
-
-    return await this.movieRepository.addMovieDetail(dto);
-  }
+  // async addMovie(dto: CreateMovieDto): Promise<CreateMovieDto> {
+  //   return await this.movieRepository.addMovie(dto);
+  // }
+  
+  // async addDetail(dto: CreateMovieDetailDto): Promise<CreateMovieDetailDto> {
+  //   return await this.movieRepository.addMovieDetail(dto);
+  // }
 
   async findMovie(id: string): Promise<movieData | null> {
     return await this.movieRepository.findMovieId(id);

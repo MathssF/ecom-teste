@@ -14,7 +14,7 @@ export interface movieDetail {
   voteAverage: number;
   popularity: number;
   releaseDate: Date;
-  posterPath: string | undefined | null;
+  posterPath: string;
 }
 
 export interface editMovie {

@@ -1,8 +1,19 @@
+import { IsString, IsBoolean, IsNumber, IsDate, IsOptional } from 'class-validator';
+
 export class CreateMovieDto {
+  @IsString()
   id: string;
+
+  @IsString()
   title: string;
+
+  @IsString()
   originalTitle: string;
+
+  @IsString()
   originalLanguage: string;
+
+  @IsBoolean()
   adult: boolean;
 
   constructor(
@@ -29,11 +40,24 @@ interface editMovie {
 }
 
 export class EditMovieDto {
+  @IsString()
   id: string;
+
+  @IsOptional()
+  @IsString()
   title?: string;
+
+  @IsOptional()
+  @IsString()
   originalTitle?: string;
+
+  @IsOptional()
+  @IsString()
   originalLanguage?: string;
-  adult?: boolean
+
+  @IsOptional()
+  @IsBoolean()
+  adult?: boolean;
 
   constructor(data: editMovie) {
     this.id = data.id;
@@ -45,25 +69,39 @@ export class EditMovieDto {
 }
 
 export class CreateMovieDetailDto {
+  @IsString()
   movieId: string;
+
+  @IsNumber()
   voteCount: number;
+
+  @IsNumber()
   voteAverage: number;
+
+  @IsNumber()
   popularity: number;
+
+  @IsDate()
   releaseDate: Date;
-  posterPath: string | undefined | null;
+
+  @IsString()
+  posterPath: string;
 
   constructor(
-    id: string, votes: number,
-    voteAverage: number, popularity: number,
-    releaseDate: Date, posterPath?: string | undefined | null,
-    ) {
+    id: string,
+    votes: number,
+    voteAverage: number,
+    popularity: number,
+    releaseDate: Date,
+    posterPath: string
+  ) {
     this.movieId = id;
     this.voteCount = votes;
     this.voteAverage = voteAverage;
     this.popularity = popularity;
     this.releaseDate = releaseDate;
     this.posterPath = posterPath;
-    }
+  }
 }
 
 interface editDetail {
@@ -76,21 +114,35 @@ interface editDetail {
 }
 
 export class EditMovieDetailDto {
+  @IsString()
   movieId: string;
+
+  @IsOptional()
+  @IsNumber()
   voteCount?: number;
+
+  @IsOptional()
+  @IsNumber()
   voteAverage?: number;
+
+  @IsOptional()
+  @IsNumber()
   popularity?: number;
+
+  @IsOptional()
+  @IsDate()
   releaseDate?: Date;
+
+  @IsOptional()
+  @IsString()
   posterPath?: string;
 
-  constructor(
-    data: editDetail
-    ) {
+  constructor(data: editDetail) {
     this.movieId = data.movieId;
     this.voteCount = data.voteCount;
     this.voteAverage = data.voteAverage;
     this.popularity = data.popularity;
     this.releaseDate = data.releaseDate;
     this.posterPath = data.posterPath;
-    }
+  }
 }
