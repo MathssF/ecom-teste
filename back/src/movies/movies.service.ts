@@ -12,11 +12,11 @@ export class MoviesService {
     private readonly basic: BasicService,
   ) {}
 
-  // async addMovie(dto: CreateMovieDto): Promise<CreateMovieDto> {
+  // async addMovie(dto: Required<CreateMovieDto>): Promise<CreateMovieDto> {
   //   return await this.movieRepository.addMovie(dto);
   // }
   
-  // async addDetail(dto: CreateMovieDetailDto): Promise<CreateMovieDetailDto> {
+  // async addDetail(dto: Required<CreateMovieDetailDto>): Promise<CreateMovieDetailDto> {
   //   return await this.movieRepository.addMovieDetail(dto);
   // }
 
