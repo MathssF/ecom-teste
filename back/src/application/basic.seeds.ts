@@ -1,16 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-import { Genres, Languages } from "../tables/seed.tables";
-// import { Injectable } from '@nestjs/common';
+import { Genres, Languages } from "../../../global/tables/seed.tables";
 
 
-// @Injectable()
 export class BasicSeed {
   constructor(private readonly prisma: PrismaClient) {}
 
   async run() {
-    console.log("Genres:", Genres);
-    console.log("Languages:", Languages);
-
     await this.seedGenres();
     await this.seedLanguages();
   }

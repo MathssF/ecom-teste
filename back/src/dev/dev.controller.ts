@@ -6,8 +6,8 @@ import { DevService } from './dev.service';
 import { BasicService } from '../basic/basic.service';
 import { MoviesService } from '../movies/movies.service';
 import { TrendingsService } from '../trendings/trendings.service';
-import { CreateMovieDto, CreateMovieDetailDto } from 'src/movies/dto/create-movie.dto';
-import { CreateEntryDto, CreateStoryDto } from 'src/trendings/dto/create-trending.dto';
+import { CreateMovieDto, CreateMovieDetailDto } from '../movies/dto/create-movie.dto';
+import { CreateEntryDto, CreateStoryDto } from '../trendings/dto/create-trending.dto';
 
 @Controller('dev')
 export class DevController {
@@ -139,7 +139,7 @@ export class DevController {
     }
 
     return { message: 'Tendências processadas com sucesso!' };
-    
+
   }
 
   @Post('/error')
