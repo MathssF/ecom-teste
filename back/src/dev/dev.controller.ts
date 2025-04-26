@@ -3,9 +3,9 @@ import {
   RequestMapping
 } from '@nestjs/common';
 import { DevService } from './dev.service';
-import { BasicService } from 'src/basic/basic.service';
-import { MoviesService } from 'src/movies/movies.service';
-import { TrendingsService } from 'src/trendings/trendings.service';
+import { BasicService } from '../basic/basic.service';
+import { MoviesService } from '../movies/movies.service';
+import { TrendingsService } from '../trendings/trendings.service';
 
 @Controller('dev')
 export class DevController {
