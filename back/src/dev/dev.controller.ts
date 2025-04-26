@@ -47,4 +47,8 @@ export class DevController {
   @Post('/trends')
   async postTrends() {}
 
+  @Post('/error')
+  async postError(msg: string, path: string, method: string) {
+    return await this.devService.devError(msg, path, method);
+  }
 }

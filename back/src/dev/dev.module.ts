@@ -8,12 +8,17 @@ import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { BasicSeed } from '../../../global/seeds/basic.seeds';
+import { DevTools } from './tools/dev.tools';
 
 
 @Module({
   imports: [BasicModule, MoviesModule, TrendingsModule],
   controllers: [DevController],
-  providers: [DevService, MovieDetailsAPI, TopRatedMoviesAPI, TrendingMoviesAPI, BasicSeed],
+  providers: [
+    DevService, MovieDetailsAPI,
+    TopRatedMoviesAPI, TrendingMoviesAPI,
+    BasicSeed, DevTools
+  ],
   exports: [],
 })
 export class DevModule {}

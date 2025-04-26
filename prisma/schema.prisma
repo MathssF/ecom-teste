@@ -106,6 +106,6 @@ model DevError {
 }
 
 model DevNotes {
-  id        Int    @id @defaul(autoincrement())
+  id        Int    @id @default(autoincrement())
   message   String
 }

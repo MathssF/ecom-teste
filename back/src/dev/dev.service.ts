@@ -3,6 +3,7 @@ import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { BasicSeed } from '../../../global/seeds/basic.seeds';
+import { DevTools } from './tools/dev.tools';
 
 
 @Injectable()
@@ -12,6 +13,7 @@ export class DevService {
     private readonly topRatedAPI: TopRatedMoviesAPI,
     private readonly trendingsAPI: TrendingMoviesAPI,
     private readonly basicSeed: BasicSeed,
+    private readonly devTools: DevTools,
   ) {}
 
   async seedStart() {
@@ -32,5 +34,9 @@ export class DevService {
     const movieId = Number(id);
     const details = await this.movieDetailAPI.getMovieDetails(movieId);
     return details;
+  }
+
+  async devError(msg: string, path:string, method: string) {
+    return await this.devTools.DevError(msg, path, method);
   }
 }
