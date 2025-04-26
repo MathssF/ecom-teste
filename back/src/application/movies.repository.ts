@@ -87,7 +87,22 @@ export class MoviesRepository {
   }
 
   async findMovieDetail(movieId: string): Promise<movieDetail | null> {
-    return await this.prisma.movieDetail.findUnique({ where: { movieId } });
+    // return await this.prisma.movieDetail.findUnique({ where: { movieId } });
+    const movieDetail = await this.prisma.movieDetail.findUnique({ where: { movieId } });
+    if (movieDetail && !movieDetail.posterPath) {
+      // movieDetail?.posterPath = 'nothing'
+      const adjustMovieDetail: movieDetail = {
+        movieId: movieDetail.movieId,
+        voteCount: movieDetail.voteCount,
+        voteAverage: movieDetail.voteAverage,
+        popularity: movieDetail.popularity,
+        releaseDate: movieDetail.releaseDate,
+        posterPath: 'nothing',
+      }
+
+      return adjustMovieDetail;
+    }
+    return movieDetail;
   }
 
   async findMoviesGenre(genreId: string): Promise<genreMovie[] | null> {

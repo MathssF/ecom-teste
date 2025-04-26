@@ -8,9 +8,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({
-    whitelist: true, // Remove campos que não existem no DTO
-    forbidNonWhitelisted: true, // Dispara erro se o corpo da requisição mandar algo a mais
-    transform: true, // Faz o @Body virar instância real da classe
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
   }));
   
   await app.listen(port);
