@@ -5,5 +5,5 @@
     "outDir": "../dist/global",
     "composite": true
   },
-  "include": ["**/*.ts", "../back/src/application/basic.seeds.ts"]
+  "include": ["**/*.ts", "../back/src/application/basic.seeds.ts", "../back/src/application/seed.tables.ts"]
 }

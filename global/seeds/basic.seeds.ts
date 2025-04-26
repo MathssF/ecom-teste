@@ -1,9 +1,10 @@
 import { PrismaClient } from '@prisma/client';
-import { Genres, Languages } from "../../../global/tables/seed.tables";
+import { PrismaService } from '../../back/src/prisma/prisma.service';
+import { Genres, Languages } from "../tables/seed.tables";
 
 
 export class BasicSeed {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async run() {
     await this.seedGenres();

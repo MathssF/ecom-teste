@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 export interface genreData {
   id: string;
@@ -11,7 +12,7 @@ export interface langData {
 }
 
 export class BasicRepository {
-  constructor(protected readonly prisma: PrismaClient) {}
+  constructor(protected readonly prisma: PrismaService) {}
 
   async addGenre(data: genreData) {
     return await this.prisma.genre.create({ data });

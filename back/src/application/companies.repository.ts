@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 export interface companyData {
   id: string;
@@ -6,7 +7,7 @@ export interface companyData {
 }
 
 export class CompaniesRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async createCompany(data: companyData) {
     const existing = await this.prisma.company.findUnique({ where: { id: data.id } });

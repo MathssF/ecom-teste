@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 export interface movieData {
   id: string;
@@ -40,7 +41,7 @@ export interface genreMovie {
 }
 
 export class MoviesRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async addMovie(data: movieData) {
     const existing = await this.findMovieId(data.id);
