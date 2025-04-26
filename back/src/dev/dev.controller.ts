@@ -32,7 +32,7 @@ export class DevController {
   @Get('/top-rated')
   async findTopRateds() {
     const topList = await this.devService.callTopRated();
-    return topList
+    return topList;
   }
 
   @Post('/top-rated')
@@ -40,13 +40,11 @@ export class DevController {
 
   @Get('/trends')
   async findTrends() {
-
+    const trendsList = await this.devService.callTrendings();
+    return trendsList;
   }
 
   @Post('/trends')
-  async postTrends() {
+  async postTrends() {}
 
-  }
-
-  
 }

@@ -43,7 +43,9 @@ export class TopRatedMoviesAPI {
     };
   }
 
-  public async getTopRatedMovies(): Promise<{ allMovies: any[], pageSelects: { page: number, results: number }[] }> {
+  public async getTopRatedMovies(): Promise<{
+    allMovies: any[], pageSelects: { page: number, results: number }[]
+  }> {
     let allMovies: any[] = [];
     let pageSelects: { page: number, results: number }[] = [];
     let page = 1;
@@ -60,6 +62,9 @@ export class TopRatedMoviesAPI {
   
       const { results, total_pages } = json as TopRatedMoviesResponse;
       totalPages = total_pages;
+
+      // console.log('Final das requisições');
+
   
       const movies = results.map((movie: any) => ({
         id: movie.id,
@@ -81,6 +86,11 @@ export class TopRatedMoviesAPI {
   
       page++;
     }
+
+    console.log('Final das Páginas, Última: ', page);
+    console.log('Page Selects: ', pageSelects);
+    console.log('Movie 1: ', allMovies[1]);
+    console.log('Moovie 200: ', allMovies[200]);
   
     return {
       allMovies: allMovies.slice(0, 250),

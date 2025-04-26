@@ -20,14 +20,17 @@ export class DevService {
 
   async callTopRated() {
     const tops = await this.topRatedAPI.getTopRatedMovies();
+    return tops;
   }
 
   async callTrendings() {
     const trends = await this.trendingsAPI.getTrendingMovies();
+    return trends;
   }
 
   async callDetails(id: string) {
     const movieId = Number(id);
     const details = await this.movieDetailAPI.getMovieDetails(movieId);
+    return details;
   }
 }
