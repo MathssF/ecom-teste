@@ -12,13 +12,21 @@ export class MoviesService {
     private readonly basic: BasicService,
   ) {}
 
-  // async addMovie(dto: Required<CreateMovieDto>): Promise<CreateMovieDto> {
-  //   return await this.movieRepository.addMovie(dto);
-  // }
+  async addMovie(dto: Required<CreateMovieDto>): Promise<CreateMovieDto> {
+    try {
+      return await this.movieRepository.addMovie(dto as CreateMovieDto);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
   
-  // async addDetail(dto: Required<CreateMovieDetailDto>): Promise<CreateMovieDetailDto> {
-  //   return await this.movieRepository.addMovieDetail(dto);
-  // }
+  async addDetail(dto: Required<CreateMovieDetailDto>): Promise<CreateMovieDetailDto> {
+    try {
+      return await this.movieRepository.addMovieDetail(dto as CreateMovieDetailDto);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 
   async findMovie(id: string): Promise<movieData | null> {
     return await this.movieRepository.findMovieId(id);

@@ -2,18 +2,23 @@ import { IsString, IsBoolean, IsNumber, IsDate, IsOptional } from 'class-validat
 
 export class CreateMovieDto {
   @IsString()
+  @IsNotEmpty()
   id: string;
 
   @IsString()
+  @IsNotEmpty()
   title: string;
 
   @IsString()
+  @IsNotEmpty()
   originalTitle: string;
 
   @IsString()
+  @IsNotEmpty()
   originalLanguage: string;
 
   @IsBoolean()
+  @IsNotEmpty()
   adult: boolean;
 
   constructor(
@@ -41,6 +46,7 @@ interface editMovie {
 
 export class EditMovieDto {
   @IsString()
+  @IsNotEmpty()
   id: string;
 
   @IsOptional()
