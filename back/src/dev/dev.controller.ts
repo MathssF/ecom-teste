@@ -148,31 +148,15 @@ export class DevController {
     for (const trend of trendsList) {
       const { id, title, original_title, original_language, adult, genres, vote_count, vote_average, popularity, release_date, poster_path } = trend;
   
-      let movie = await this.movieService.findMovie(id);
-
-      // const movieT: CreateMovieDto = {
-      //   id: movie.id,
-      //   title: movie.title,
-      //   originalTitle: movie.originalTitle,
-      //   originalLanguage: movie.originalLanguage,
-      //   adult: movie.adult,
-      // };
+      let movie: CreateMovieDto = await this.movieService.findMovie(id);
   
       if (!movie) {
         const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
         // movie = await this.movieService.addMovie(movieDto);
-        movie = await this.movieRepository.addMovie(movieT);
-      } // else {
-      //   const movieT: CreateMovieDto = {
-      //     id: movie.id,
-      //     title: movie.title,
-      //     originalTitle: movie.originalTitle,
-      //     originalLanguage: movie.originalLanguage,
-      //     adult: movie.adult,
-      //   };
-      // }
+        movie = await this.movieRepository.addMovie(movieDto);
+      }
   
-      let movieDetail = await this.movieService.findMovieDetail(id);
+      let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(id);
   
       if (!movieDetail) {
         const movieDetailDto = new CreateMovieDetailDto(
