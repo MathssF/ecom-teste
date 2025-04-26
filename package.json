@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -b",
     "clean": "tsc --build --clean && rm -rf dist",
-    "start:back": "node dist/back/main.js"
+    "start:back": "node -r tsconfig-paths/register dist/back/main.js"
   },
   "keywords": [],
   "author": "Matheus Flores",
@@ -15,13 +15,13 @@
   "workspaces": [
     "back",
     "front",
-    "global",
-    "prisma"
+    "global"
   ],
   "dependencies": {
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
     "@nestjs/mapped-types": "*",
+    "@nestjs/platform-express": "^11.1.0",
     "@prisma/client": "^6.6.0",
     "mysql2": "^3.14.0",
     "next": "^15.3.1",

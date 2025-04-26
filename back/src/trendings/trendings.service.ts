@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEntryDto, CreateStoryDto } from './dto/create-trending.dto';
-import { TrendingsRepository } from 'src/application/trendings.repository';
-import { BasicService } from 'src/basic/basic.service';
+import { TrendingsRepository } from '../application/trendings.repository';
+import { BasicService } from '../basic/basic.service';
 
 @Injectable()
 export class TrendingsService {

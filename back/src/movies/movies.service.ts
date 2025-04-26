@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMovieDto, CreateMovieDetailDto } from './dto/create-movie.dto';
 import { UpdateMovieDto, UpdateMovieDetailDto } from './dto/update-movie.dto';
-import { BasicService } from 'src/basic/basic.service';
-import { MoviesRepository } from 'src/application/movies.repository';
-import { CompaniesRepository } from 'src/application/companies.repository';
+import { BasicService } from '../basic/basic.service';
+import { MoviesRepository } from '../application/movies.repository';
+import { CompaniesRepository } from '../application/companies.repository';
 
 @Injectable()
 export class MoviesService {
