@@ -43,7 +43,7 @@ export interface genreMovie {
 export class MoviesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async addMovie(data: movieData) {
+  async addMovie(data: movieData): Promise<movieData> {
     // async addMovie(data: CreateMovieDto) {
     if (!data) {
       throw new Error('Need info!');
@@ -55,9 +55,10 @@ export class MoviesRepository {
     }
 
     return this.compareMovie(data, existing);
+    // if (compare === {})
   }
 
-  async addMovieDetail(data: movieDetail) {
+  async addMovieDetail(data: movieDetail): Promise<movieDetail> {
   // async addMovieDetail(data: CreateMovieDetailDto) {
 
     if (!data) {
@@ -150,7 +151,7 @@ export class MoviesRepository {
   }
 
   async compareMovie(data: movieData, current: movieData) {
-    if (data.id !== current.id) return {};
+    // if (data.id !== current.id) return {};
     const items = ['title', 'originalTitle', 'originalLanguage', 'adult'];
     const hasChanges = items.some(
       (key) => data[
@@ -165,7 +166,7 @@ export class MoviesRepository {
   }
 
   async compareDetail(detail: movieDetail, current: movieDetail) {
-    if (detail.movieId !== current.movieId) return {};
+    // if (detail.movieId !== current.movieId) return {};
     const items = ['voteCount', 'voteAverage', 'popularity', 'releaseDate', 'posterPath'];
     const hasChanges = items.some(
       (key) => detail[

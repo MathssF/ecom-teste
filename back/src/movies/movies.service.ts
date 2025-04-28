@@ -13,7 +13,8 @@ export class MoviesService {
     private readonly basic: BasicService,
   ) {}
 
-  async addMovie(dto: Required<CreateMovieDto>): Promise<CreateMovieDto> {
+  async addMovie(dto: Required<CreateMovieDto>): Promise<movieData> {
+    // }: Promise<CreateMovieDto> {
     try {
       // const plainData = instanceToPlain(dto);
       const data: movieData = {
@@ -29,7 +30,8 @@ export class MoviesService {
     }
   }
   
-  async addDetail(dto: Required<CreateMovieDetailDto>): Promise<CreateMovieDetailDto> {
+  async addDetail(dto: Required<CreateMovieDetailDto>): Promise<movieDetail> {
+    // }: Promise<CreateMovieDetailDto> {
     try {
       // const plainData = instanceToPlain(dto);
       const data: movieDetail = {

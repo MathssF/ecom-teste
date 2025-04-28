@@ -19,8 +19,8 @@ export class MoviesController {
 
   @Post()
   async createMovie(@Body() createMovieDto: CreateMovieDto) {
-    // return await this.moviesService.addMovie(createMovieDto as CreateMovieDto);
-    return await this.movieRepository.addMovie(createMovieDto);
+    return await this.moviesService.addMovie(createMovieDto);
+    // return await this.movieRepository.addMovie(createMovieDto);
   }
 
   @Post('detail')
