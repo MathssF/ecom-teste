@@ -14,9 +14,7 @@ export class MoviesService {
   ) {}
 
   async addMovie(dto: Required<CreateMovieDto>): Promise<movieData> {
-    // }: Promise<CreateMovieDto> {
     try {
-      // const plainData = instanceToPlain(dto);
       const data: movieData = {
         id: dto.id,
         title: dto.title,
@@ -31,9 +29,7 @@ export class MoviesService {
   }
   
   async addDetail(dto: Required<CreateMovieDetailDto>): Promise<movieDetail> {
-    // }: Promise<CreateMovieDetailDto> {
     try {
-      // const plainData = instanceToPlain(dto);
       const data: movieDetail = {
         movieId: dto.movieId,
         voteCount: dto.voteCount,
@@ -118,7 +114,6 @@ export class MoviesService {
     let result: any[] = [];
   
     for (const genre of genresList) {
-      // let movies = [];
       const movies = await this.movieRepository.findGenresMovie(genre.id) ?? [];
 
 
@@ -154,7 +149,6 @@ export class MoviesService {
       });
   
       result.push(x ? newList.slice(0, x) : newList);
-      // newList = [];
     }
   
     return result;

@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-// import { MoviesRepository } from '../application/movies.repository'; // Por falta de outra opção
 import {
   CreateMovieDto,
   CreateMovieDetailDto,
@@ -14,18 +13,15 @@ import {
 export class MoviesController {
   constructor(
     private readonly moviesService: MoviesService,
-    // private readonly movieRepository: MoviesRepository,
   ) {}
 
   @Post()
   async createMovie(@Body() createMovieDto: CreateMovieDto) {
     return await this.moviesService.addMovie(createMovieDto);
-    // return await this.movieRepository.addMovie(createMovieDto);
   }
 
   @Post('detail')
   async createMovieDetail(@Body() createDetailDto: CreateMovieDetailDto) {
-    // return await this.moviesService.addDetail(createDetailDto as CreateMovieDetailDto);
     return await this.createMovieDetail(createDetailDto);
   }
 

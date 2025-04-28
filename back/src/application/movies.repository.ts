@@ -1,5 +1,4 @@
 import { PrismaService } from '../prisma/prisma.service';
-// import { CreateMovieDto, CreateMovieDetailDto } from '../movies/dto/create-movie.dto';
 
 export interface movieData {
   id: string;
@@ -44,7 +43,6 @@ export class MoviesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async addMovie(data: movieData): Promise<movieData> {
-    // async addMovie(data: CreateMovieDto) {
     if (!data) {
       throw new Error('Need info!');
     }
@@ -55,12 +53,9 @@ export class MoviesRepository {
     }
 
     return this.compareMovie(data, existing);
-    // if (compare === {})
   }
 
   async addMovieDetail(data: movieDetail): Promise<movieDetail> {
-  // async addMovieDetail(data: CreateMovieDetailDto) {
-
     if (!data) {
       throw new Error('Need info!');
     }
@@ -92,7 +87,6 @@ export class MoviesRepository {
   }
 
   async findMovieDetail(movieId: string): Promise<movieDetail | null> {
-    // return await this.prisma.movieDetail.findUnique({ where: { movieId } });
     const movieDetail = await this.prisma.movieDetail.findUnique({ where: { movieId } });
     if (!movieDetail) {
       return null;
@@ -123,7 +117,6 @@ export class MoviesRepository {
   }
 
   async findAllDetails(): Promise<movieDetail[] | null> {
-    // return await this.prisma.movieDetail.findMany();
     const movieList = await this.prisma.movieDetail.findMany();
     const adjustedList: movieDetail[] = [];
     for (const movie of movieList) {
@@ -151,7 +144,6 @@ export class MoviesRepository {
   }
 
   async compareMovie(data: movieData, current: movieData) {
-    // if (data.id !== current.id) return {};
     const items = ['title', 'originalTitle', 'originalLanguage', 'adult'];
     const hasChanges = items.some(
       (key) => data[
@@ -166,7 +158,6 @@ export class MoviesRepository {
   }
 
   async compareDetail(detail: movieDetail, current: movieDetail) {
-    // if (detail.movieId !== current.movieId) return {};
     const items = ['voteCount', 'voteAverage', 'popularity', 'releaseDate', 'posterPath'];
     const hasChanges = items.some(
       (key) => detail[
