@@ -25,9 +25,17 @@ export class DevService {
     return tops;
   }
 
+  async callTopPage(page: number) {
+    return await this.topRatedAPI.getTopsByPage(page)
+  }
+
   async callTrendings() {
     const trends = await this.trendingsAPI.getTrendingMovies();
     return trends;
+  }
+
+  async callTrendPage(page: number) {
+    return await this.trendingsAPI.getTrendByPage(page);
   }
 
   async callDetails(id: string) {

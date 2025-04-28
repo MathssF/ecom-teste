@@ -56,4 +56,9 @@ export class TopRatedMoviesAPI {
 
     return allMovies.slice(0, 250)
   }
+
+  public async getTopsByPage(page: number): Promise<any> {
+    const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
+    return await response.json();
+  }
 }

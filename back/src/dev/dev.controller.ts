@@ -20,10 +20,11 @@ export class DevController {
     private readonly movieRepository: MoviesRepository
   ) {}
 
-  @Post('start-seed')
-  async startSeed() {
-    return await this.devService.seedStart()
-  }
+  // @Post('start-seed')
+  // async startSeed() {
+  //   return await this.devService.seedStart()
+  // }
+  // Comentado por segurança!
 
   @Get('/movie/:movieId')
   async findOneMovie(@Param('movieId') movieId: string) {
@@ -56,7 +57,8 @@ export class DevController {
       adult: movieDto.adult,
     };
 
-    const createdMovie = await this.movieRepository.addMovie(movieT);
+    // const createdMovie = await this.movieRepository.addMovie(movieT);
+    const createdMovie = await this.movieService.addMovie(movieT);
 
     const movieDetailDto = {
       movieId: movieDetails.id,
@@ -76,7 +78,8 @@ export class DevController {
       posterPath: movieDetailDto.posterPath,
     };
 
-    const setDetails = await this.movieRepository.addMovieDetail(movieDetailT);
+    // const setDetails = await this.movieRepository.addMovieDetail(movieDetailT);
+    const setDetails = await this.movieService.addDetail(movieDetailT);
 
     return {
       createdMovie, setDetails
@@ -87,6 +90,13 @@ export class DevController {
   async findTopRateds() {
     const topList = await this.devService.callTopRated();
     return topList;
+  }
+
+  @Get('top-rated/:page')
+  async findTopPage(
+    @Param('page') page: number
+  ) {
+    return await this.devService.callTopPage(page);
   }
 
   @Post('/top-rated')
@@ -113,7 +123,8 @@ export class DevController {
           adult: movieDto.adult,
         };
   
-        return await this.movieRepository.addMovie(movieT);
+        // return await this.movieRepository.addMovie(movieT);
+        return await this.movieService.addMovie(movieT);
       } catch (error) {
         console.error(`Erro ao adicionar o filme ${movieDetails.title}: `, error);
       }
@@ -124,6 +135,13 @@ export class DevController {
   async findTrends() {
     const trendsList = await this.devService.callTrendings();
     return trendsList;
+  }
+
+  @Get('/trends/:page')
+  async findTrendPage(
+    @Param('page') page: number
+  ) {
+    return await this.devService.callTrendPage(page);
   }
 
   @Post('/trends/:mode')
@@ -149,7 +167,8 @@ export class DevController {
   
       if (!movie) {
         const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
-        movie = await this.movieRepository.addMovie(movieDto);
+        // movie = await this.movieRepository.addMovie(movieDto);
+        movie = await this.movieService.addMovie(movieDto);
       }
   
       let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(id);
@@ -158,7 +177,8 @@ export class DevController {
         const movieDetailDto = new CreateMovieDetailDto(
           id, vote_count, vote_average, popularity, new Date(release_date), poster_path
         );
-        movieDetail = await this.movieRepository.addMovieDetail(movieDetailDto)
+        // movieDetail = await this.movieRepository.addMovieDetail(movieDetailDto);
+        movieDetail = await this.movieService.addDetail(movieDetailDto);
       }
 
       const storyDto = new CreateStoryDto(entryResult.result.id, movie.id, vote_count, vote_average, popularity, 1, 1, 1);

@@ -22,3 +22,9 @@ https://chatgpt.com/share/680bf3f8-45c8-800e-b52e-e92517f11c81
 https://chatgpt.com/c/680bf10d-c080-800e-aa7c-67054dc1e9f4
 
 https://chatgpt.com/share/680bf409-11d0-800e-9496-a46b6ef4878c
+
+
+## Outros Chats:
+
+https://chatgpt.com/c/680fd5dc-f93c-800e-95bd-1231690b643e
+https://chatgpt.com/share/680fe41b-8b2c-800e-ad41-2ab09ee79407

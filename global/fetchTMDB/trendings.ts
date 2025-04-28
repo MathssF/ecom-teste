@@ -54,4 +54,9 @@ export class TrendingMoviesAPI {
 
     return allMovies.slice(0, 250);
   }
+
+  public async getTrendByPage(page: number): Promise<any> {
+    const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
+    return await response.json();
+  }
 }
