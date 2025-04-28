@@ -15,8 +15,15 @@ export class MoviesService {
 
   async addMovie(dto: Required<CreateMovieDto>): Promise<CreateMovieDto> {
     try {
-      const plainData = instanceToPlain(dto);
-      return await this.movieRepository.addMovie(plainData as movieData);
+      // const plainData = instanceToPlain(dto);
+      const data: movieData = {
+        id: dto.id,
+        title: dto.title,
+        originalTitle: dto.originalTitle,
+        originalLanguage: dto.originalLanguage,
+        adult: dto.adult,
+      };
+      return await this.movieRepository.addMovie(data);
     } catch (err) {
       throw new Error(err);
     }
@@ -24,8 +31,16 @@ export class MoviesService {
   
   async addDetail(dto: Required<CreateMovieDetailDto>): Promise<CreateMovieDetailDto> {
     try {
-      const plainData = instanceToPlain(dto);
-      return await this.movieRepository.addMovieDetail(plainData as movieDetail);
+      // const plainData = instanceToPlain(dto);
+      const data: movieDetail = {
+        movieId: dto.movieId,
+        voteCount: dto.voteCount,
+        voteAverage: dto.voteAverage,
+        popularity: dto.popularity,
+        releaseDate: dto.releaseDate,
+        posterPath: dto.posterPath,
+      };
+      return await this.movieRepository.addMovieDetail(data);
     } catch (err) {
       throw new Error(err);
     }
