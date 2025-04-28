@@ -77,8 +77,21 @@ export class DevController {
 
     const setDetails = await this.movieService.addDetail(movieDetailT);
 
+    const genreRelations = await Promise.all(
+      movieDto.genres.map(async (genre) => {
+        try {
+          return await this.movieService.addGenreToMovie(movieDto.id, genre.id);
+        } catch (error) {
+          console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movieDto.id}`, error);
+          return null;
+        }
+      })
+    );
+
     return {
-      createdMovie, setDetails
+      createdMovie,
+      setDetails,
+      genreRelations: genreRelations.filter(rel => rel !== null)
     }
   }
   
@@ -107,7 +120,6 @@ export class DevController {
           originalTitle: movieDetails.original_title,
           originalLanguage: movieDetails.original_language,
           adult: movieDetails.adult,
-          // genres: movieDetails.genres.map((genre: any) => ({ id: genre.id })),
           genres: movieDetails.genre_ids.map((genreId: number) => ({ id: genreId })),
           posterPath: movieDetails.poster_path,
           releaseDate: movieDetails.release_date,
@@ -121,9 +133,47 @@ export class DevController {
           adult: movieDto.adult,
         };
   
-        // return await this.movieService.addMovie(movieT);
         const createdMovie = await this.movieService.addMovie(movieT);
         results.push(createdMovie);
+
+        const movieDetailDto = {
+          movieId: movieDto.id,
+          voteCount: movieDetails.vote_count,
+          voteAverage: movieDetails.vote_average,
+          popularity: movieDetails.popularity,
+          releaseDate: movieDetails.release_date,
+          posterPath: movieDetails.poster_path,
+        };
+  
+        const movieDetailT: CreateMovieDetailDto = {
+          movieId: movieDetailDto.movieId,
+          voteCount: movieDetailDto.voteCount,
+          voteAverage: movieDetailDto.voteAverage,
+          popularity: movieDetailDto.popularity,
+          releaseDate: movieDetailDto.releaseDate,
+          posterPath: movieDetailDto.posterPath,
+        };
+  
+        const createdDetail = await this.movieService.addDetail(movieDetailT);
+
+        const genreRelations = await Promise.all(
+          movieDto.genres.map(async (genre) => {
+            try {
+              return await this.movieService.addGenreToMovie(movieDto.id, genre.id);
+            } catch (error) {
+              console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movieDto.id}`, error);
+              return null;
+            }
+          })
+        );
+
+        results.push({
+          createdMovie,
+          createdDetail,
+          genres: genreRelations.filter(rel => rel !== null),
+        });
+
+        
       } catch (error) {
         console.error(`Erro ao adicionar o filme ${movieDetails.title}: `, error);
       }
