@@ -4,6 +4,7 @@ import { UpdateMovieDto, UpdateMovieDetailDto } from './dto/update-movie.dto';
 import { BasicService } from '../basic/basic.service';
 import { MoviesRepository, movieData, movieDetail, genreMovie } from '../application/movies.repository';
 import { CompaniesRepository } from '../application/companies.repository';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class MoviesService {
@@ -12,21 +13,23 @@ export class MoviesService {
     private readonly basic: BasicService,
   ) {}
 
-  // async addMovie(dto: Required<CreateMovieDto>): Promise<CreateMovieDto> {
-  //   try {
-  //     return await this.movieRepository.addMovie(dto as CreateMovieDto);
-  //   } catch (err) {
-  //     throw new Error(err);
-  //   }
-  // }
+  async addMovie(dto: Required<CreateMovieDto>): Promise<CreateMovieDto> {
+    try {
+      const plainData = instanceToPlain(dto);
+      return await this.movieRepository.addMovie(plainData as movieData);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
   
-  // async addDetail(dto: Required<CreateMovieDetailDto>): Promise<CreateMovieDetailDto> {
-  //   try {
-  //     return await this.movieRepository.addMovieDetail(dto as CreateMovieDetailDto);
-  //   } catch (err) {
-  //     throw new Error(err);
-  //   }
-  // }
+  async addDetail(dto: Required<CreateMovieDetailDto>): Promise<CreateMovieDetailDto> {
+    try {
+      const plainData = instanceToPlain(dto);
+      return await this.movieRepository.addMovieDetail(plainData as movieDetail);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 
   async findMovie(id: string): Promise<movieData | null> {
     return await this.movieRepository.findMovieId(id);

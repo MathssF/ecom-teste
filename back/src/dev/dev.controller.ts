@@ -56,7 +56,6 @@ export class DevController {
       adult: movieDto.adult,
     };
 
-    // const createdMovie = await this.movieService.addMovie(movieDto);
     const createdMovie = await this.movieRepository.addMovie(movieT);
 
     const movieDetailDto = {
@@ -68,7 +67,7 @@ export class DevController {
       posterPath: movieDetails.poster_path,
     };
 
-    const movieDetailT: CreateMovieDetailDTO = {
+    const movieDetailT: CreateMovieDetailDto = {
       movieId: movieDetailDto.movieId,
       voteCount: movieDetailDto.voteCount,
       voteAverage: movieDetailDto.voteAverage,
@@ -77,7 +76,6 @@ export class DevController {
       posterPath: movieDetailDto.posterPath,
     };
 
-    // const setDetails = await this.movieService.addDetail(movieDetailDto);
     const setDetails = await this.movieRepository.addMovieDetail(movieDetailT);
 
     return {
@@ -115,7 +113,6 @@ export class DevController {
           adult: movieDto.adult,
         };
   
-        // return await this.movieService.addMovie(movieDto);
         return await this.movieRepository.addMovie(movieT);
       } catch (error) {
         console.error(`Erro ao adicionar o filme ${movieDetails.title}: `, error);
@@ -152,7 +149,6 @@ export class DevController {
   
       if (!movie) {
         const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
-        // movie = await this.movieService.addMovie(movieDto);
         movie = await this.movieRepository.addMovie(movieDto);
       }
   
@@ -162,7 +158,6 @@ export class DevController {
         const movieDetailDto = new CreateMovieDetailDto(
           id, vote_count, vote_average, popularity, new Date(release_date), poster_path
         );
-        // movieDetail = await this.movieService.addDetail(movieDetailDto);
         movieDetail = await this.movieRepository.addMovieDetail(movieDetailDto)
       }
 
