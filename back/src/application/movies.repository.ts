@@ -144,6 +144,7 @@ export class MoviesRepository {
   }
 
   async compareMovie(data: movieData, current: movieData) {
+    if (current.id !== data.id) return current;
     const items = ['title', 'originalTitle', 'originalLanguage', 'adult'];
     const hasChanges = items.some(
       (key) => data[
@@ -158,6 +159,7 @@ export class MoviesRepository {
   }
 
   async compareDetail(detail: movieDetail, current: movieDetail) {
+    if (current.movieId !== detail.movieId) return current;
     const items = ['voteCount', 'voteAverage', 'popularity', 'releaseDate', 'posterPath'];
     const hasChanges = items.some(
       (key) => detail[

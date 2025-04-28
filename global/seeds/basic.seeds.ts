@@ -1,13 +1,15 @@
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../back/src/prisma/prisma.service';
 import { Genres, Languages } from "../tables/seed.tables";
 
-
+@Injectable()
 export class BasicSeed {
   constructor(private readonly prisma: PrismaService) {}
 
   async run() {
     await this.seedGenres();
     await this.seedLanguages();
+    console.log("Seeds Completas!");
   }
 
   private async seedGenres() {
