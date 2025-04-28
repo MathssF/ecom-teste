@@ -8,7 +8,6 @@ import { MoviesService } from '../movies/movies.service';
 import { TrendingsService } from '../trendings/trendings.service';
 import { CreateMovieDto, CreateMovieDetailDto } from '../movies/dto/create-movie.dto';
 import { CreateEntryDto, CreateStoryDto } from '../trendings/dto/create-trending.dto';
-import { MoviesRepository } from '../application/movies.repository';
 
 @Controller('dev')
 export class DevController {
@@ -17,7 +16,6 @@ export class DevController {
     private readonly basicService: BasicService,
     private readonly movieService: MoviesService,
     private readonly trendingService: TrendingsService,
-    private readonly movieRepository: MoviesRepository
   ) {}
 
   // @Post('start-seed')
@@ -57,7 +55,6 @@ export class DevController {
       adult: movieDto.adult,
     };
 
-    // const createdMovie = await this.movieRepository.addMovie(movieT);
     const createdMovie = await this.movieService.addMovie(movieT);
 
     const movieDetailDto = {
@@ -78,7 +75,6 @@ export class DevController {
       posterPath: movieDetailDto.posterPath,
     };
 
-    // const setDetails = await this.movieRepository.addMovieDetail(movieDetailT);
     const setDetails = await this.movieService.addDetail(movieDetailT);
 
     return {
@@ -102,6 +98,7 @@ export class DevController {
   @Post('/top-rated')
   async postTopRateds() {
     const topList = await this.devService.callTopRated();
+    const results = [];
     for (const movieDetails of topList) {
       try {
         const movieDto = {
@@ -123,12 +120,14 @@ export class DevController {
           adult: movieDto.adult,
         };
   
-        // return await this.movieRepository.addMovie(movieT);
         return await this.movieService.addMovie(movieT);
+        const createdMovie = await this.movieService.addMovie(movieT);
+        results.push(createdMovie);
       } catch (error) {
         console.error(`Erro ao adicionar o filme ${movieDetails.title}: `, error);
       }
     }
+    return { message: 'Top rated movies processed.', total: results.length, movies: results };
   }  
 
   @Get('/trends')
@@ -167,7 +166,6 @@ export class DevController {
   
       if (!movie) {
         const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
-        // movie = await this.movieRepository.addMovie(movieDto);
         movie = await this.movieService.addMovie(movieDto);
       }
   
@@ -177,7 +175,6 @@ export class DevController {
         const movieDetailDto = new CreateMovieDetailDto(
           id, vote_count, vote_average, popularity, new Date(release_date), poster_path
         );
-        // movieDetail = await this.movieRepository.addMovieDetail(movieDetailDto);
         movieDetail = await this.movieService.addDetail(movieDetailDto);
       }
 
