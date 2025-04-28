@@ -21,7 +21,7 @@ export class DevService {
   }
 
   async callTopRated() {
-    const tops = await this.topRatedAPI.getTopRatedMovies();
+    const tops = await this.topRatedAPI.getTopRatedMovies({ dev: true });
     return tops;
   }
 
@@ -30,7 +30,7 @@ export class DevService {
   }
 
   async callTrendings() {
-    const trends = await this.trendingsAPI.getTrendingMovies();
+    const trends = await this.trendingsAPI.getTrendingMovies({ dev: true });
     return trends;
   }
 

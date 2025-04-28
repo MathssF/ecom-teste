@@ -39,27 +39,6 @@ export class TopRatedMoviesAPI {
     if (data?.setLimitPages && data.limitPages && data.limitPages > 0 && data.limitPages <= 50) {
       maxPages = data.limitPages;
     }
-
-    // while (allMovies.length < 250 && page <= totalPages) {
-    //   const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
-    //   const json: any = await response.json();
-
-    //   const movies = json.results.map((movie: any) => ({
-    //     id: movie.id,
-    //     title: movie.title,
-    //     original_title: movie.original_title,
-    //     original_language: movie.original_language,
-    //     vote_count: movie.vote_count,
-    //     vote_average: movie.vote_average,
-    //     popularity: movie.popularity,
-    //     adult: movie.adult,
-    //     release_date: movie.release_date,
-    //     genre_ids: movie.genre_ids,
-    //     poster_path: movie.poster_path,
-    //     page: page,
-    //     rank: allMovies.length + 1,
-    //     rankPage: (allMovies.length + 21 - (20 * page))
-    //   }));
   
     while (page <= totalPages && page <= maxPages && allMovies.length < maxItems) {
       const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
@@ -80,7 +59,6 @@ export class TopRatedMoviesAPI {
           poster_path: movie.poster_path,
         };
 
-        // Só adiciona page/rank/pageRank se dev for true
         if (data?.dev) {
           const globalIndex = allMovies.length + index + 1;
           movieData.page = page;
@@ -94,10 +72,11 @@ export class TopRatedMoviesAPI {
       allMovies = [...allMovies, ...movies];
 
       totalPages = json.total_pages;
+      if (allMovies.length >= maxItems) break;
       page++;
     }
 
-    return allMovies.slice(0, 250)
+    return allMovies.slice(0, maxItems);
   }
 
   public async getTopsByPage(page: number): Promise<any> {

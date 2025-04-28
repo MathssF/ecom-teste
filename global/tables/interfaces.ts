@@ -6,3 +6,7 @@ export interface limitsData {
   limitItems?: number,
   limitPages?: number,
 }
+
+export interface customQuery {
+  setLanguage?: string,
+}
