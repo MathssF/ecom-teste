@@ -86,14 +86,36 @@ export class MoviesService {
       delete detailToUpdate.posterPath;
     }
 
-    // if (Object.keys(detailBasic).length > 0) {
-    //   detailUpdate = await this.movieRepository.updateDetail({
-    //     movieId: id,
-    //     ...detailBasic
-    //   })
-    // }
+    if (Object.keys(detailBasic).length > 0) {
+      detailUpdate = await this.movieRepository.updateDetail({
+        movieId: id,
+        ...detailBasic
+      })
+    }
 
     return { movieUpdate, detailUpdate };
+  }
+
+  async addGenreToMovie(movieId: string, genreId: string): Promise<genreMovie> {
+    const movie = await this.movieRepository.findMovieId(movieId);
+    if (!movie) {
+      throw new Error(`Filme com ID ${movieId} não encontrado.`);
+    }
+  
+    const genre = await this.basic.findGenreId(genreId);
+    if (!genre) {
+      throw new Error(`Gênero com ID ${genreId} não encontrado.`);
+    }
+  
+    const existingRelation = await this.movieRepository.findRelations(genreId, movieId);
+    if (existingRelation.length > 0) {
+      throw new Error(`Relação entre filme ${movieId} e gênero ${genreId} já existe.`);
+    }
+  
+    return await this.movieRepository.addGenreMovie({
+      genreId,
+      movieId,
+    });
   }
 
   async findMoviesGenre(id: string): Promise<genreMovie[] | null> {

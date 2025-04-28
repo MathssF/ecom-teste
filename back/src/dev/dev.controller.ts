@@ -107,7 +107,8 @@ export class DevController {
           originalTitle: movieDetails.original_title,
           originalLanguage: movieDetails.original_language,
           adult: movieDetails.adult,
-          genres: movieDetails.genres.map((genre: any) => ({ id: genre.id })),
+          // genres: movieDetails.genres.map((genre: any) => ({ id: genre.id })),
+          genres: movieDetails.genre_ids.map((genreId: number) => ({ id: genreId })),
           posterPath: movieDetails.poster_path,
           releaseDate: movieDetails.release_date,
         };
@@ -120,7 +121,7 @@ export class DevController {
           adult: movieDto.adult,
         };
   
-        return await this.movieService.addMovie(movieT);
+        // return await this.movieService.addMovie(movieT);
         const createdMovie = await this.movieService.addMovie(movieT);
         results.push(createdMovie);
       } catch (error) {

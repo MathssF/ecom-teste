@@ -104,6 +104,19 @@ export class MoviesRepository {
     return adjustedMovieDetail;
   }
 
+  async addGenreMovie(data: genreMovie): Promise<genreMovie> {
+    if (!data.genreId || !data.movieId) {
+      throw new Error('Genre ID and Movie ID are required.');
+    }
+    
+    return await this.prisma.genreMovie.create({
+      data: {
+        genreId: data.genreId,
+        movieId: data.movieId
+      }
+    });
+  }
+
   async findMoviesGenre(genreId: string): Promise<genreMovie[] | null> {
     return await this.prisma.genreMovie.findMany({ where: { genreId } });
   }
