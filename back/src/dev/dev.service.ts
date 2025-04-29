@@ -46,11 +46,11 @@ export class DevService {
     return details;
   }
 
-  async devError(msg: string, path:string, method: string) {
-    return await this.devTools.DevError(msg, path, method);
-  }
-
   async deleteAllMovies() {
     return await this.devRepository.dellMovies();
+  }
+
+  async devError(msg: string, path:string, method: string) {
+    return await this.devTools.DevError(msg, path, method);
   }
 }

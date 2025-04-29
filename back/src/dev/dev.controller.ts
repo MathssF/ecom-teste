@@ -194,6 +194,7 @@ export class DevController {
     if (mode === 3) return entryResult;
 
     const trendsList = await this.devService.callTrendings();
+    console.log('Trendings: ', trendsList);
     const results = [];
 
     if (mode === 4) {

@@ -64,7 +64,7 @@ export class TrendingMoviesAPI {
           const globalIndex = allMovies.length + index + 1;
           movieData.page = page;
           movieData.rank = globalIndex;
-          movieData.pageRank = globalIndex - (20 * (page - 1));
+          movieData.rankPage = globalIndex - (20 * (page - 1));
         }
 
         return movieData;
