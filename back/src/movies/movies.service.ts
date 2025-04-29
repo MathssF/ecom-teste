@@ -37,7 +37,7 @@ export class MoviesService {
         voteCount: dto.voteCount,
         voteAverage: dto.voteAverage,
         popularity: dto.popularity,
-        releaseDate: dto.releaseDate,
+        releaseDate: new Date(dto.releaseDate),
         posterPath: dto.posterPath,
       };
       return await this.movieRepository.addMovieDetail(data);

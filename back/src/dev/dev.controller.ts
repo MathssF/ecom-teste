@@ -196,7 +196,8 @@ export class DevController {
     for (const trend of trendsList) {
       const {
         id, title, original_title, original_language, adult,
-        genres_id, vote_count, vote_average, popularity, release_date, poster_path
+        genres_id, vote_count, vote_average, popularity, release_date, poster_path,
+        page, rank, rankPage
       } = trend;
 
     let movie: CreateMovieDto = await this.movieService.findMovie(id);
@@ -220,25 +221,28 @@ export class DevController {
           return await this.movieService.addGenreToMovie(
             movie.id.toString(), genre.id.toString()
           );
-        } catch (error) {
-          console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
-          return null;
-        }
-      })
-    );
+          } catch (error) {
+            console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
+            return null;
+          }
+        })
+      );
 
-    const storyDto = new CreateStoryDto(entryResult.result.id, movie.id, vote_count, vote_average, popularity, 1, 1, 1);
-    await this.trendingService.addStory(storyDto);
+      const storyDto = new CreateStoryDto(
+        entryResult.result.id, movie.id, vote_count,
+        vote_average, popularity, page, rank, pageRank
+      );
+      await this.trendingService.addStory(storyDto);
 
-    results.push({
-      movie,
-      movieDetail,
-      genres: genreRelations.filter(rel => rel !== null),
-    });
+      results.push({
+        movie,
+        movieDetail,
+        genres: genreRelations.filter(rel => rel !== null),
+      });
+    }
+
+    return { message: 'Tendências processadas com sucesso!', total: results.length, movies: results };
   }
-
-  return { message: 'Tendências processadas com sucesso!', total: results.length, movies: results };
-}
 
   @Post('/error')
   async postError(msg: string, path: string, method: string) {

@@ -111,7 +111,7 @@ export class MoviesRepository {
       voteAverage: movieDetail.voteAverage,
       popularity: movieDetail.popularity,
       releaseDate: new Date(movieDetail.releaseDate),
-      posterPath: movieDetail.posterPath ?? 'nothing', // aqui garante nunca null
+      posterPath: movieDetail.posterPath ?? 'nothing',
     };
   
     return adjustedMovieDetail;
