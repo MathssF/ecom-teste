@@ -98,16 +98,6 @@ export class TrendingsRepository {
       }
     }
 
-    // const compares:trendingCompareData[] = trends.map(async (elem: trendingStoryData) => {
-    //   const time = await this.trendDate(elem.trendingId);
-    //   return {
-    //     trendingId: elem.trendingId,
-    //     datetime: time,
-    //     votesCount: elem.votesCount,
-    //     votesAverage: elem.votesAverage,
-    //     popularity: elem.popularity
-    //   };
-    // })
     const compares: trendingCompareData[] = await Promise.all(
       trends.map(async (elem: trendingStoryData) => {
         return {

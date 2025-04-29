@@ -33,7 +33,7 @@ export class MoviesService {
   async addDetail(dto: Required<CreateMovieDetailDto>): Promise<movieDetail> {
     try {
       const data: movieDetail = {
-        movieId: dto.movieId,
+        movieId: dto.movieId.toString(),
         voteCount: dto.voteCount,
         voteAverage: dto.voteAverage,
         popularity: dto.popularity,

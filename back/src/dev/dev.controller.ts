@@ -140,7 +140,10 @@ export class DevController {
         const genreRelations = await Promise.all(
           genres.map(async (genre) => {
             try {
-              return await this.movieService.addGenreToMovie(movie.id, genre.id);
+              return await this.movieService.addGenreToMovie(
+                movie.id.toString(),
+                genre.id.toString(),
+              );
             } catch (error) {
               console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
               return null;
@@ -191,7 +194,10 @@ export class DevController {
     const results = [];
 
     for (const trend of trendsList) {
-      const { id, title, original_title, original_language, adult, genres_id, vote_count, vote_average, popularity, release_date, poster_path } = trend;
+      const {
+        id, title, original_title, original_language, adult,
+        genres_id, vote_count, vote_average, popularity, release_date, poster_path
+      } = trend;
 
     let movie: CreateMovieDto = await this.movieService.findMovie(id);
 
@@ -211,7 +217,9 @@ export class DevController {
     const genreRelations = await Promise.all(
       genres.map(async (genre) => {
         try {
-          return await this.movieService.addGenreToMovie(movie.id, genre.id);
+          return await this.movieService.addGenreToMovie(
+            movie.id.toString(), genre.id.toString()
+          );
         } catch (error) {
           console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
           return null;

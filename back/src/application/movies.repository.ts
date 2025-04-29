@@ -110,7 +110,7 @@ export class MoviesRepository {
       voteCount: movieDetail.voteCount,
       voteAverage: movieDetail.voteAverage,
       popularity: movieDetail.popularity,
-      releaseDate: movieDetail.releaseDate,
+      releaseDate: new Date(movieDetail.releaseDate),
       posterPath: movieDetail.posterPath ?? 'nothing', // aqui garante nunca null
     };
   
@@ -151,7 +151,7 @@ export class MoviesRepository {
         voteCount: movie.voteCount,
         voteAverage: movie.voteAverage,
         popularity: movie.popularity,
-        releaseDate: movie.releaseDate,
+        releaseDate: new Date (movie.releaseDate),
         posterPath: movie.posterPath ?? 'nothing'
       }
 
