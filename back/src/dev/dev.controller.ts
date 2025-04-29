@@ -191,8 +191,39 @@ export class DevController {
       return entryResult;
     }
 
+    if (mode === 3) return entryResult;
+
     const trendsList = await this.devService.callTrendings();
     const results = [];
+
+    if (mode === 4) {
+      const basicResults = trendsList.map((trend) => {
+        const {
+          id, title, vote_count, vote_average,
+          popularity, release_date, page, rank, rankPage
+        } = trend;
+  
+        return {
+          id,
+          title,
+          vote_count,
+          vote_average,
+          popularity,
+          release_date,
+          page,
+          rank,
+          rankPage
+        };
+      });
+      return {
+        finish: true,
+        message: 'Mode de test, mode = 4:',
+        total: basicResults.length,
+        results: basicResults,
+      }
+    } 
+
+    const skippedStoryIds: string[] = [];
 
     for (const trend of trendsList) {
       const {
@@ -222,7 +253,6 @@ export class DevController {
       movieDetail = await this.movieService.addDetail(movieDetailDto);
     }
 
-    // const genres = genres_id.map((genreId: number) => ({ id: genreId.toString() }));
     const genres = Array.isArray(genres_id)
       ? genres_id.map((genreId: number) => ({ id: genreId.toString() }))
       : [];
@@ -239,6 +269,16 @@ export class DevController {
         })
       );
 
+      if (mode === 5) {
+        skippedStoryIds.push(movie.id.toString());
+        continue;
+      }
+
+      if (!entryResult.result?.id) {
+        console.error('entryResult.result.id está indefinido', entryResult);
+        continue;
+      }
+
       const storyDto = new CreateStoryDto(
         entryResult.result.id, movie.id, vote_count,
         vote_average, popularity, page, rank, rankPage
@@ -252,10 +292,24 @@ export class DevController {
       });
     }
 
+    if (mode === 5) {
+      return {
+        finish: true,
+        message: 'Percorreu a lista, sem criar histórias.',
+        total: skippedStoryIds.length,
+        movieIds: skippedStoryIds
+      };
+    }
+
     return {
       message: 'Tendências processadas com sucesso!',
       total: results.length, movies: results
     };
+  }
+
+  @Delete('delete-movies')
+  async deleteAllMovies() {
+    return await this.devService.deleteAllMovies();
   }
 
   @Post('/error')

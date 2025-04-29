@@ -41,4 +41,13 @@ export class TrendingsController {
   async findGenresxTrend(@Body() topRated: any[]) {
     return await this.trendingsService.findGenresxTrend(topRated);
   }
+
+  @Delete('del-entry/:id')
+  async deleteTrend(@Param('id') id: string) {
+    return await this.trendingsService.deleteTrend(id);
+  }
+  @Delete('del-all-entries')
+  async deleteAllTrends() {
+    return await this.trendingsService.deleteAllTrends();
+  }
 }

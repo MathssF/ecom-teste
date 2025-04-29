@@ -4,6 +4,7 @@ import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { BasicSeed } from '../../../global/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
+import { DevRepository } from '@back/application/dev.repository';
 
 
 @Injectable()
@@ -14,6 +15,7 @@ export class DevService {
     private readonly trendingsAPI: TrendingMoviesAPI,
     private readonly basicSeed: BasicSeed,
     private readonly devTools: DevTools,
+    private readonly devRepository: DevRepository,
   ) {}
 
   async seedStart() {
@@ -46,5 +48,9 @@ export class DevService {
 
   async devError(msg: string, path:string, method: string) {
     return await this.devTools.DevError(msg, path, method);
+  }
+
+  async deleteAllMovies() {
+    return await this.devRepository.dellMovies();
   }
 }

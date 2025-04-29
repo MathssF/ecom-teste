@@ -11,6 +11,7 @@ import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { BasicSeed } from '../../../global/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
 import { MoviesRepository } from '../application/movies.repository';
+import { DevRepository } from '../application/dev.repository';
 
 
 @Module({
@@ -20,7 +21,7 @@ import { MoviesRepository } from '../application/movies.repository';
     DevService, MovieDetailsAPI,
     TopRatedMoviesAPI, TrendingMoviesAPI,
     BasicSeed, DevTools, PrismaService,
-    MoviesRepository
+    MoviesRepository, DevRepository
   ],
   exports: [],
 })

@@ -224,4 +224,13 @@ export class TrendingsRepository {
     const time = await this.findTrendingEntryById(trendingId);
     return time.datetime;
   }
+
+  async deleteTrend(trendingId: string) {
+    return await this.prisma.trendingEntry.delete({
+      where: { id: trendingId }
+    });
+  }
+  async deleteAllTrends() {
+    return await this.prisma.trendingEntry.deleteMany();
+  }
 }

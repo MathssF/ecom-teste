@@ -18,6 +18,12 @@ export class TrendingsService {
       limitDate = new Date(now.getTime() - 24 * 60 * 60 * 1000); // 24 horas atrás
     } else if (dto.mode === 2) {
       limitDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 dias atrás
+    } else if (dto.mode === 3 || 4 || 5) {
+      return {
+        finish: true,
+        message: 'Mode de teste',
+        dto
+      }
     } else {
       throw new Error(`Modo inválido: ${dto.mode}`);
     }
@@ -66,5 +72,12 @@ export class TrendingsService {
       return elem.id;
     })
     const topTrendings = await this.trendingRepository.findGenresTrend(genresName, topRated);
+  }
+
+  async deleteTrend(trendId: string) {
+    return await this.trendingRepository.deleteTrend(trendId);
+  }
+  async deleteAllTrends() {
+    return await this.trendingRepository.deleteAllTrends();
   }
 }

@@ -15,7 +15,6 @@ export class MoviesService {
 
   async addMovie(dto: Required<CreateMovieDto>): Promise<movieData> {
     try {
-      console.log('Try do MovieService')
       const data: movieData = {
         id: dto.id,
         title: dto.title,
@@ -25,7 +24,6 @@ export class MoviesService {
       };
       return await this.movieRepository.addMovie(data);
     } catch (err) {
-      console.log('Erro no MovieService');
       throw new Error(err);
     }
   }
