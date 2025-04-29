@@ -46,13 +46,19 @@ export class MoviesRepository {
     if (!data) {
       throw new Error('Need info!');
     }
-    const existing = await this.findMovieId(data.id);
+    console.log('Movie no Repository!');
+    console.log('Como Chega:', data);
+    const existing = await this.findMovieIdWithLang(data.id, data.originalLanguage);
+
+    console.log('Existing: ', existing);
 
     if (!existing) {
+      console.log('Entrou no If para ser lançado')
       return await this.prisma.movie.create({ data });
     }
 
-    return this.compareMovie(data, existing);
+    console.log('Saiu do IF');
+    return await this.compareMovie(data, existing);
   }
 
   async addMovieDetail(data: movieDetail): Promise<movieDetail> {
@@ -80,6 +86,15 @@ export class MoviesRepository {
       where: { movieId: data.movieId },
       data
     });
+  }
+
+  async findMovieIdWithLang(id: string, languageId: string): Promise<movieData | null> {
+    console.log('Entrou no Existing com o id: ', id);
+    const language = await this.prisma.language.findUnique({ where: { id: languageId }})
+    if (!language) {
+      throw new Error(`Idioma '${languageId}' não encontrado para o filme com id '${id}'.`);
+    }
+    return await this.prisma.movie.findUnique({ where: { id } });
   }
 
   async findMovieId(id: string): Promise<movieData | null> {
