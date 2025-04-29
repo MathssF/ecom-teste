@@ -191,38 +191,9 @@ export class DevController {
       return entryResult;
     }
 
-    if (mode === 3) return entryResult;
-
     const trendsList = await this.devService.callTrendings();
     console.log('Trendings: ', trendsList);
     const results = [];
-
-    if (mode === 4) {
-      const basicResults = trendsList.map((trend) => {
-        const {
-          id, title, vote_count, vote_average,
-          popularity, release_date, page, rank, rankPage
-        } = trend;
-  
-        return {
-          id,
-          title,
-          vote_count,
-          vote_average,
-          popularity,
-          release_date,
-          page,
-          rank,
-          rankPage
-        };
-      });
-      return {
-        finish: true,
-        message: 'Mode de test, mode = 4:',
-        total: basicResults.length,
-        results: basicResults,
-      }
-    } 
 
     const skippedStoryIds: string[] = [];
 
@@ -270,11 +241,6 @@ export class DevController {
         })
       );
 
-      if (mode === 5) {
-        skippedStoryIds.push(movie.id.toString());
-        continue;
-      }
-
       if (!entryResult.result?.id) {
         console.error('entryResult.result.id está indefinido', entryResult);
         continue;
@@ -291,15 +257,6 @@ export class DevController {
         movieDetail,
         genres: genreRelations.filter(rel => rel !== null),
       });
-    }
-
-    if (mode === 5) {
-      return {
-        finish: true,
-        message: 'Percorreu a lista, sem criar histórias.',
-        total: skippedStoryIds.length,
-        movieIds: skippedStoryIds
-      };
     }
 
     return {
