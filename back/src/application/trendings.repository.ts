@@ -1,6 +1,7 @@
 import { PrismaService } from '../prisma/prisma.service';
 import { v7 } from 'uuid';
 import { MoviesRepository, movieData, movieDetail } from './movies.repository';
+import { Injectable } from '@nestjs/common';
 
 const uuidv7 = v7();
 
@@ -39,6 +40,7 @@ export interface trendingHalfYear {
     now_count?: number;
 }
 
+@Injectable()
 export class TrendingsRepository {
   constructor(private readonly prisma: PrismaService) {}
 

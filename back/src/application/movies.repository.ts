@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 export interface movieData {
@@ -39,6 +40,7 @@ export interface genreMovie {
   movieId: string;
 }
 
+@Injectable()
 export class MoviesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -46,24 +48,16 @@ export class MoviesRepository {
     if (!data) {
       throw new Error('Need info!');
     }
-    console.log('Movie no Repository!');
-    console.log('Como Chega:', data);
     const existing = await this.prisma.movie.findUnique({
       where: { id: data.id },
-      include: { language: true }
     })
 
-    console.log('Existing: ', existing);
-
     if (!existing) {
-      console.log('Entrou no If para ser lançado')
       const lang = await this.prisma.language.findUnique({
         where: { id: data.originalLanguage }
       })
-      return await this.prisma.movie.create({ data });
+      return await this.prisma.movie.create({ data: data });
     }
-
-    console.log('Saiu do IF');
     return await this.compareMovie(data, existing);
   }
 
@@ -74,7 +68,14 @@ export class MoviesRepository {
     const existing = await this.findMovieDetail(data.movieId);
 
     if (!existing) {
-      return await this.prisma.movieDetail.create({ data });
+      return await this.prisma.movieDetail.create({ data: {
+        movieId: data.movieId,
+        voteCount: data.voteCount,
+        voteAverage: data.voteAverage,
+        popularity: data.popularity,
+        releaseDate: new Date(data.releaseDate),
+        posterPath: data.posterPath
+      } });
     }
 
     return this.compareDetail(data, existing);
@@ -83,23 +84,15 @@ export class MoviesRepository {
   async updateMovie(data: editMovie) {
     return await this.prisma.movie.update({
       where: { id: data.id },
-      data
+      data: data
     });
   }
 
   async updateDetail(data: editDetail) {
     return await this.prisma.movieDetail.update({
       where: { movieId: data.movieId },
-      data
+      data: data
     });
-  }
-
-  async findMovieIdWithLang(id: string, languageId: string): Promise<movieData | null> {
-    const language = await this.prisma.language.findUnique({ where: { id: languageId }})
-    if (!language) {
-      throw new Error(`Idioma '${languageId}' não encontrado para o filme com id '${id}'.`);
-    }
-    return await this.prisma.movie.findUnique({ where: { id } });
   }
 
   async findMovieId(id: string): Promise<movieData | null> {

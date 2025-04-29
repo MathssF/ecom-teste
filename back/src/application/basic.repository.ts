@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 export interface genreData {
@@ -10,6 +11,7 @@ export interface langData {
   english_name: string;
 }
 
+@Injectable()
 export class BasicRepository {
   constructor(protected readonly prisma: PrismaService) {}
 

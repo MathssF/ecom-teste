@@ -151,8 +151,8 @@ export class MoviesService {
           continue;
         }
         const info = {
-           id: movie.movieId,
-            title: movieData.title,
+          id: movie.movieId,
+          title: movieData.title,
           votes: movieDetail.voteCount,
           average: movieDetail.voteAverage,
           popularity: movieDetail.popularity,

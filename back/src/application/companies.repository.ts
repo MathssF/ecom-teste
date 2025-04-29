@@ -1,10 +1,13 @@
 import { PrismaService } from '../prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
+
 
 export interface companyData {
   id: string;
   name: string;
 }
 
+@Injectable()
 export class CompaniesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
