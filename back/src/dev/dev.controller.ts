@@ -112,74 +112,55 @@ export class DevController {
   async postTopRateds() {
     const topList = await this.devService.callTopRated();
     const results = [];
-    for (const movieDetails of topList) {
-      try {
-        const movieDto = {
-          id: movieDetails.id,
-          title: movieDetails.title,
-          originalTitle: movieDetails.original_title,
-          originalLanguage: movieDetails.original_language,
-          adult: movieDetails.adult,
-          genres: movieDetails.genre_ids.map((genreId: number) => ({ id: genreId })),
-          posterPath: movieDetails.poster_path,
-          releaseDate: movieDetails.release_date,
-        };
-
-        const movieT: CreateMovieDto = {
-          id: movieDto.id,
-          title: movieDto.title,
-          originalTitle: movieDto.originalTitle,
-          originalLanguage: movieDto.originalLanguage,
-          adult: movieDto.adult,
-        };
   
-        const createdMovie = await this.movieService.addMovie(movieT);
-        results.push(createdMovie);
-
-        const movieDetailDto = {
-          movieId: movieDto.id,
-          voteCount: movieDetails.vote_count,
-          voteAverage: movieDetails.vote_average,
-          popularity: movieDetails.popularity,
-          releaseDate: movieDetails.release_date,
-          posterPath: movieDetails.poster_path,
+    for (const movie of topList) {
+      try {
+        const movieT: CreateMovieDto = {
+          id: movie.id.toString(),
+          title: movie.title,
+          originalTitle: movie.original_title,
+          originalLanguage: movie.original_language,
+          adult: movie.adult,
         };
+        console.log('movieT:', movieT);
+        const createdMovie = await this.movieService.addMovie(movieT);
   
         const movieDetailT: CreateMovieDetailDto = {
-          movieId: movieDetailDto.movieId,
-          voteCount: movieDetailDto.voteCount,
-          voteAverage: movieDetailDto.voteAverage,
-          popularity: movieDetailDto.popularity,
-          releaseDate: movieDetailDto.releaseDate,
-          posterPath: movieDetailDto.posterPath,
+          movieId: movie.id.toString(),
+          voteCount: movie.vote_count,
+          voteAverage: movie.vote_average,
+          popularity: movie.popularity,
+          releaseDate: movie.release_date,
+          posterPath: movie.poster_path,
         };
   
         const createdDetail = await this.movieService.addDetail(movieDetailT);
-
+  
+        const genres = movie.genre_ids.map((genreId: number) => ({ id: genreId.toString() }));
         const genreRelations = await Promise.all(
-          movieDto.genres.map(async (genre) => {
+          genres.map(async (genre) => {
             try {
-              return await this.movieService.addGenreToMovie(movieDto.id, genre.id);
+              return await this.movieService.addGenreToMovie(movie.id, genre.id);
             } catch (error) {
-              console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movieDto.id}`, error);
+              console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
               return null;
             }
           })
         );
-
+  
         results.push({
           createdMovie,
           createdDetail,
           genres: genreRelations.filter(rel => rel !== null),
         });
-
-        
+  
       } catch (error) {
-        console.error(`Erro ao adicionar o filme ${movieDetails.title}: `, error);
+        console.error(`Erro ao adicionar o filme ${movie.title}: `, error);
       }
     }
+  
     return { message: 'Top rated movies processed.', total: results.length, movies: results };
-  }  
+  }
 
   @Get('/trends')
   async findTrends() {
@@ -195,9 +176,7 @@ export class DevController {
   }
 
   @Post('/trends/:mode')
-  async postTrends(
-    @Param('mode') mode: number
-  ) {
+  async postTrends(@Param('mode') mode: number) {
     const now = new Date();
     const limitDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
@@ -209,33 +188,49 @@ export class DevController {
     }
 
     const trendsList = await this.devService.callTrendings();
+    const results = [];
 
     for (const trend of trendsList) {
-      const { id, title, original_title, original_language, adult, genres, vote_count, vote_average, popularity, release_date, poster_path } = trend;
-  
-      let movie: CreateMovieDto = await this.movieService.findMovie(id);
-  
-      if (!movie) {
-        const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
-        movie = await this.movieService.addMovie(movieDto);
-      }
-  
-      let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(id);
-  
-      if (!movieDetail) {
-        const movieDetailDto = new CreateMovieDetailDto(
-          id, vote_count, vote_average, popularity, new Date(release_date), poster_path
-        );
-        movieDetail = await this.movieService.addDetail(movieDetailDto);
-      }
+      const { id, title, original_title, original_language, adult, genres_id, vote_count, vote_average, popularity, release_date, poster_path } = trend;
 
-      const storyDto = new CreateStoryDto(entryResult.result.id, movie.id, vote_count, vote_average, popularity, 1, 1, 1);
-      await this.trendingService.addStory(storyDto);
+    let movie: CreateMovieDto = await this.movieService.findMovie(id);
+
+    if (!movie) {
+      const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
+      movie = await this.movieService.addMovie(movieDto);
     }
 
-    return { message: 'Tendências processadas com sucesso!' };
+    let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(id);
 
+    if (!movieDetail) {
+      const movieDetailDto = new CreateMovieDetailDto(id, vote_count, vote_average, popularity, new Date(release_date), poster_path);
+      movieDetail = await this.movieService.addDetail(movieDetailDto);
+    }
+
+    const genres = genres_id.map((genreId: number) => ({ id: genreId.toString() }));
+    const genreRelations = await Promise.all(
+      genres.map(async (genre) => {
+        try {
+          return await this.movieService.addGenreToMovie(movie.id, genre.id);
+        } catch (error) {
+          console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
+          return null;
+        }
+      })
+    );
+
+    const storyDto = new CreateStoryDto(entryResult.result.id, movie.id, vote_count, vote_average, popularity, 1, 1, 1);
+    await this.trendingService.addStory(storyDto);
+
+    results.push({
+      movie,
+      movieDetail,
+      genres: genreRelations.filter(rel => rel !== null),
+    });
   }
+
+  return { message: 'Tendências processadas com sucesso!', total: results.length, movies: results };
+}
 
   @Post('/error')
   async postError(msg: string, path: string, method: string) {
