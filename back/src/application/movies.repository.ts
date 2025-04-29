@@ -48,6 +48,7 @@ export class MoviesRepository {
     }
     console.log('Movie no Repository!');
     console.log('Como Chega:', data);
+    console.log('Language que será passado no find abaixo:', data.originalLanguage);
     const existing = await this.findMovieIdWithLang(data.id, data.originalLanguage);
 
     console.log('Existing: ', existing);
@@ -90,11 +91,35 @@ export class MoviesRepository {
 
   async findMovieIdWithLang(id: string, languageId: string): Promise<movieData | null> {
     console.log('Entrou no Existing com o id: ', id);
+    console.log('languageId:', languageId);
     const language = await this.prisma.language.findUnique({ where: { id: languageId }})
+    console.log('Language', language);
     if (!language) {
+      console.log('Entrou no erro do Lang')
       throw new Error(`Idioma '${languageId}' não encontrado para o filme com id '${id}'.`);
     }
-    return await this.prisma.movie.findUnique({ where: { id } });
+    // console.log('Tentou ir para o fingUnique');
+    // return await this.prisma.movie.findUnique({ where: { id } });
+
+    try {
+      // Consulta para encontrar o idioma
+      const language = await this.prisma.language.findUnique({ where: { id: languageId } });
+      console.log('Resultado da consulta ao idioma:', language);
+  
+      if (!language) {
+        console.log(`Idioma '${languageId}' não encontrado no banco de dados.`);
+        throw new Error(`Idioma '${languageId}' não encontrado para o filme com id '${id}'.`);
+      }
+  
+      // Se o idioma foi encontrado, continue com a consulta do filme
+      const movie = await this.prisma.movie.findUnique({ where: { id } });
+      console.log('Resultado da consulta ao filme:', movie);
+  
+      return movie;
+    } catch (error) {
+      console.log('Erro ao procurar o idioma ou filme:', error);
+      throw new Error(`Erro ao procurar o filme com id '${id}' ou o idioma '${languageId}'.`);
+    }
   }
 
   async findMovieId(id: string): Promise<movieData | null> {
