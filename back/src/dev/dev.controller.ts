@@ -179,7 +179,8 @@ export class DevController {
   }
 
   @Post('/trends/:mode')
-  async postTrends(@Param('mode') mode: number) {
+  async postTrends(@Param('mode') modeParam: string) {
+    const mode = parseInt(modeParam, 10);
     const now = new Date();
     const limitDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
@@ -200,21 +201,31 @@ export class DevController {
         page, rank, rankPage
       } = trend;
 
-    let movie: CreateMovieDto = await this.movieService.findMovie(id);
+    let movie: CreateMovieDto = await this.movieService.findMovie(id.toString());
 
     if (!movie) {
-      const movieDto = new CreateMovieDto(id, title, original_title, original_language, adult);
+      const movieDto = new CreateMovieDto(
+        id.toString(), title, original_title, original_language, adult
+      );
       movie = await this.movieService.addMovie(movieDto);
     }
 
-    let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(id);
+    let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(
+      id.toString()
+    );
 
     if (!movieDetail) {
-      const movieDetailDto = new CreateMovieDetailDto(id, vote_count, vote_average, popularity, new Date(release_date), poster_path);
+      const movieDetailDto = new CreateMovieDetailDto(
+        id.toString(), vote_count, vote_average,
+        popularity, release_date ? new Date(release_date) : null,
+        poster_path);
       movieDetail = await this.movieService.addDetail(movieDetailDto);
     }
 
-    const genres = genres_id.map((genreId: number) => ({ id: genreId.toString() }));
+    // const genres = genres_id.map((genreId: number) => ({ id: genreId.toString() }));
+    const genres = Array.isArray(genres_id)
+      ? genres_id.map((genreId: number) => ({ id: genreId.toString() }))
+      : [];
     const genreRelations = await Promise.all(
       genres.map(async (genre) => {
         try {
@@ -230,7 +241,7 @@ export class DevController {
 
       const storyDto = new CreateStoryDto(
         entryResult.result.id, movie.id, vote_count,
-        vote_average, popularity, page, rank, pageRank
+        vote_average, popularity, page, rank, rankPage
       );
       await this.trendingService.addStory(storyDto);
 
@@ -241,7 +252,10 @@ export class DevController {
       });
     }
 
-    return { message: 'Tendências processadas com sucesso!', total: results.length, movies: results };
+    return {
+      message: 'Tendências processadas com sucesso!',
+      total: results.length, movies: results
+    };
   }
 
   @Post('/error')
