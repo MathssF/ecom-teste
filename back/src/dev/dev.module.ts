@@ -10,8 +10,8 @@ import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { BasicSeed } from '../../../global/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
-import { MoviesRepository } from '../application/movies.repository';
-import { DevRepository } from '../application/dev.repository';
+// import { MoviesRepository } from '../application/movies.repository';
+import { DevRepository } from './tools/dev.repository';
 
 
 @Module({
@@ -21,7 +21,8 @@ import { DevRepository } from '../application/dev.repository';
     DevService, MovieDetailsAPI,
     TopRatedMoviesAPI, TrendingMoviesAPI,
     BasicSeed, DevTools, PrismaService,
-    MoviesRepository, DevRepository
+    // MoviesRepository,
+    DevRepository
   ],
   exports: [],
 })

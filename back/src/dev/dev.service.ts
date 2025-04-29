@@ -4,7 +4,7 @@ import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { BasicSeed } from '../../../global/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
-import { DevRepository } from '../application/dev.repository';
+import { DevRepository } from './tools/dev.repository';
 
 
 @Injectable()

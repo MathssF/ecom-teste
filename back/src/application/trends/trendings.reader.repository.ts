@@ -1,73 +1,10 @@
-import { PrismaService } from '../prisma/prisma.service';
-import { v7 } from 'uuid';
-import { MoviesRepository, movieData, movieDetail } from './movies.repository';
+import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-
-const uuidv7 = v7();
-
-export function dateCheck(dateCheck: Date): Boolean {
-  const now = new Date();
-  const halfYear = new Date(now.setMonth(now.getMonth() - 6));
-  return dateCheck >= halfYear;
-}
-
-export interface trendingEntryData {
-  datetime: Date;
-  mode: number;
-  languageId?: string;
-}
-
-export interface trendingStoryData {
-  trendingId: string;
-  movieId: string;
-  votesCount: number;
-  votesAverage: number;
-  popularity: number;
-  page: number;
-  rank: number;
-  rankPage: number;
-}
-
-export interface trendingCompareData {
-  trendingId: string;
-  datetime: Date;
-  votesCount: number;
-  votesAverage: number;
-  popularity: number;
-}
-
-export interface trendingHalfYear {
-    total: number;
-    min_popularity?: number;
-    max_popularity?: number;
-    min_average?: number;
-    max_average?: number;
-    old_count?: number;
-    now_count?: number;
-}
+import { trendingStoryData, trendingCompareData } from './trendings.repository';
 
 @Injectable()
-export class TrendingsRepository {
+export class TrendingsReaderRepository {
   constructor(private readonly prisma: PrismaService) {}
-
-  async createTrend(data: trendingEntryData) {
-    return await this.prisma.trendingEntry.create({
-      data: {
-        id: uuidv7,
-        ...data
-      }
-    });
-  }
-
-  async createMovieTrending(data: trendingStoryData) {
-    return await this.prisma.trendingStory.create({ data });
-  }
-
-  async findTrendingEntryById(id: string) {
-    return await this.prisma.trendingEntry.findUnique({
-      where: { id }
-    });
-  }
 
   async findTrendingStory(trendingId: string, movieId: string) {
     return await this.prisma.trendingStory.findUnique({
@@ -81,38 +18,13 @@ export class TrendingsRepository {
     });
   }
 
-  async findExistingTrend(mode: number, fromDate: Date, languageId?: string) {
-    return await this.prisma.trendingEntry.findFirst({
-      where: {
-        mode,
-        datetime: {
-          gte: fromDate,
-        },
-        ...(languageId && { languageId })
-      }
-    });
-  }
-
-  async findByTrendingAndMovie(trendingId: string, movieId: string) {
-    return await this.prisma.trendingStory.findUnique({
-      where: {
-        trendingId_movieId: {
-          trendingId,
-          movieId
-        }
-      }
-    });
-  }
-
-  // Função Importante!
-  async findTrendsMovies(movieId: string): Promise<trendingHalfYear> {
+  async findTrendsMovies(movieId: string) {
     const trends = await this.prisma.trendingStory.findMany({
       where: { movieId }
     });
+
     if (trends.length === 0) {
-      return {
-        total: 0
-      }
+      return { total: 0 };
     }
 
     const compares: trendingCompareData[] = await Promise.all(
@@ -127,11 +39,9 @@ export class TrendingsRepository {
       })
     );
 
-    const filteredTrends = compares.filter((elem: trendingCompareData) => this.dateCheck(elem.datetime));
+    const filteredTrends = compares.filter((elem: trendingCompareData) => dateCheck(elem.datetime));
     if (filteredTrends.length === 0) {
-      return {
-        total: 0
-      };
+      return { total: 0 };
     }
 
     let total = 0;
@@ -144,14 +54,14 @@ export class TrendingsRepository {
 
     filteredTrends.forEach((elem) => {
       total++;
-  
+
       if (elem.popularity < min_popularity) {
         min_popularity = elem.popularity;
       }
       if (elem.popularity > max_popularity) {
         max_popularity = elem.popularity;
       }
-  
+
       if (elem.votesAverage < min_average) {
         min_average = elem.votesAverage;
       }
@@ -178,7 +88,6 @@ export class TrendingsRepository {
     };
   }
 
-  // Função Importante!
   async findGenresTrend(genres: string[], list: any[]) {
     const genresCounts = genres.map((id) => ({
       id,
@@ -186,32 +95,32 @@ export class TrendingsRepository {
       list: [] as string[],
       movieIds: [] as string[],
     }));
-  
+
     for (const elem of list) {
       const trendStories = await this.prisma.trendingStory.findMany({
         where: { movieId: elem.movieId },
       });
-  
+
       let inLimit = false;
-  
+
       for (const story of trendStories) {
         const setDate = await this.prisma.trendingEntry.findUnique({
           where: {
             id: story.trendingId
           }
         })
-        if (this.dateCheck(setDate.datetime)) {
+        if (dateCheck(setDate.datetime)) {
           inLimit = true;
           break;
         }
       }
-  
+
       if (!inLimit) continue;
-  
+
       const genresFound = await this.prisma.genreMovie.findMany({
         where: { movieId: elem.movieId },
       });
-  
+
       for (const found of genresFound) {
         const genre = genresCounts.find((g) => g.id === found.genreId);
         if (genre) {
@@ -221,33 +130,7 @@ export class TrendingsRepository {
         }
       }
     }
-  
+
     return genresCounts;
-  }
-  
-
-  dateCheck(dateCheck: Date): Boolean {
-    const now = new Date();
-
-    const halfYear = new Date(now.setMonth(now.getMonth() - 6))
-
-    if (dateCheck >= halfYear) {
-      return true;
-    }
-    return false;
-  }
-
-  async trendDate(trendingId: string) {
-    const time = await this.findTrendingEntryById(trendingId);
-    return time.datetime;
-  }
-
-  async deleteTrend(trendingId: string) {
-    return await this.prisma.trendingEntry.delete({
-      where: { id: trendingId }
-    });
-  }
-  async deleteAllTrends() {
-    return await this.prisma.trendingEntry.deleteMany();
   }
 }
