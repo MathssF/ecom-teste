@@ -4,6 +4,8 @@ import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { limitsData } from '../../../global/tables/interfaces';
 import {
   MovieData,
+  TopRatedResult,
+  TopRatedList,
   TopRatedContextType,
   TopRatedPageContextType,
 } from './interfaces/top-rated.interfaces';
@@ -11,7 +13,7 @@ import {
 const TopRatedContext = createContext<TopRatedContextType | undefined>(undefined);
 const TopRatedPageContext = createContext<TopRatedPageContextType | undefined>(undefined);
 
-export const TopRatedProvider = () => {
+export const TopRatedProvider = ({ children }: { children: ReactNode }) => {
   const [movies, setMovies] = useState<MovieData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,14 +28,14 @@ export const TopRatedProvider = () => {
       setMovies(topList)
     } catch (err: any) {
       setError(err.message || 'Erro ao buscar os Top Rateds');
-      setMovies(null);
+      setMovies([]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <TopRatedContext.Provider value={{ movies, loading, error, fetchMovie }}>
+    <TopRatedContext.Provider value={{ movies, loading, error, fetchTopRated }}>
       {children}
     </TopRatedContext>
   )
@@ -47,36 +49,39 @@ export const useRated = () => {
   return context;
 };
 
-export const TopRatedPagesProvider = () => {
-  const [movies, setMovies] = useState<MovieData[]>([]);
+export const TopRatedPagesProvider = ({ children }: { children: ReactNode }) => {
+  const [currentPage, setCurrentPage] = useState<number | null>(null);
+  const [pageData, setPageData] = useState<TopRatedList | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchTopRatedPage = async (page: number, data?: limitsData) =>  {
     setLoading(true);
     setError(null);
+    setCurrentPage(page);
 
     try {
       const api = new TopRatedMoviesAPI();
       const topList = await api.getTopsByPage(page, data);
-      setMovies(topList)
+      setPageData(topList)
     } catch (err: any) {
       setError(err.message || 'Erro ao buscar os Top Rateds');
-      setMovies(null);
+      setPageData(null);
+      setCurrentPage(null)
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <TopRatedPageContext.Provider value={{ movies, loading, error, fetchMovie }}>
+    <TopRatedPageContext.Provider value={{ currentPage, movies, loading, error, fetchTopRatedPage }}>
       {children}
     </TopRatedPageContext>
   )
 }
 
 export const useRatedPages = () => {
-  const context = useContext(TopRatedContext);
+  const context = useContext(TopRatedPageContext);
   if (context === undefined) {
     throw new Error('');
   }

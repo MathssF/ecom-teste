@@ -1,4 +1,5 @@
 import { limitsData } from '../tables/interfaces';
+import { set_time_window } from 'tables/variables';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -13,7 +14,10 @@ export class TrendingMoviesAPI {
     this.apiKey = process.env.API_KEY!;
   }
 
-  private getUrl(): string {
+  private getUrl(mode?: number): string {
+    if (mode) {
+      this.time_window = set_time_window[mode - 1];
+    }
     return `https://api.themoviedb.org/3/trending/movie/${this.time_window}?language=${this.language}`;
   }
 
@@ -27,13 +31,16 @@ export class TrendingMoviesAPI {
     };
   }
 
-  public async getTrendingMovies(data?: limitsData): Promise<any[]> {
+  public async getTrendingMovies(mode: number, data?: limitsData): Promise<any[]> {
     let allMovies: any[] = [];
 
     let page = 1;
     let maxItems = 250;
     let maxPages = 13;
 
+    if (mode !== 1 && mode !== 2) {
+      throw new Error('O :mode precisa ser ou 1, ou 2');
+    }
     if (data?.setLimitItems && data.limitItems && data.limitItems > 0 && data.limitItems <= 1000) {
       maxItems = data.limitItems;
     }
@@ -63,17 +70,22 @@ export class TrendingMoviesAPI {
           poster_path: movie.poster_path,
         };
 
+        if (data?.frontEndPage || data?.dev || data?.persistence) {
+          movieData.page = page;
+        }
+
         if (data?.dev || data?.persistence) {
           const globalIndex = allMovies.length + index + 1;
-          movieData.page = page;
           movieData.rank = globalIndex;
           movieData.rankPage = globalIndex - (20 * (page - 1));
         }
 
         if (data?.showFullApi) {
-          if (data?.dev) {
-            const globalIndex = allMovies.length + index + 1;
+          if (data?.frontEndPage || data?.dev || data?.persistence) {
             movie.page = page;
+          }
+          if (data?.dev || data?.persistence) {
+            const globalIndex = allMovies.length + index + 1;
             movie.rank = globalIndex;
             movie.rankPage = globalIndex - (20 * (page - 1));
           }

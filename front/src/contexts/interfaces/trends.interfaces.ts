@@ -1,4 +1,5 @@
 import { limitsData } from '../../../../global/tables/interfaces';
+import { MovieDetail } from '@prisma/client';
 
 export interface TrendingResult {
   adult: boolean;
@@ -18,7 +19,6 @@ export interface TrendingResult {
   vote_count: number;
   page?: number;
   rank?: number;
-  pageRank?: number;
   rankPage?: number;
 }
 
@@ -30,15 +30,17 @@ export interface TrendingList {
 }
 
 export interface TrendsContextType {
+  modeCall: number;
   movies: TrendingResult[];
   loading: boolean;
   error: string | null;
-  fetchTrending: (data?: limitsData) => void;
+  fetchTrending: (mode: number, data?: limitsData) => void;
 }
 
 export interface TrendsPageContextType {
+  modeCall: number;
   pageData: TrendingList | null;
   loading: boolean;
   error: string | null;
-  fetchTrendingPage: (page: number, data?: limitsData) => void;
+  fetchTrendingPage: (mode: number, page: number, data?: limitsData) => void;
 }
