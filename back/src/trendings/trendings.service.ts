@@ -1,12 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEntryDto, CreateStoryDto } from './dto/create-trending.dto';
-import { TrendingsRepository } from '../application/trendings.repository';
+import { TrendingsRepository } from '../application/trendings.utils';
 import { BasicService } from '../basic/basic.service';
+import { TrendingsReaderRepository } from '../application/trends/trendings.reader.repository';
+import { TrendingsFactoryRepository } from '../application/trends/trendings.factory.repository';
+import { TrendingsDeveloperRepository } from '../application/trends/trendings.developer.repository';
+import { TrendingsValidationRepository } from '../application/trends/trendings.validations.repository';
 
 @Injectable()
 export class TrendingsService {
   constructor(
     private readonly trendingRepository: TrendingsRepository,
+    private readonly factory: TrendingsFactoryRepository,
+    private readonly reader: TrendingsReaderRepository,
+    private readonly developer: TrendingsDeveloperRepository,
+    private readonly validator: TrendingsValidationRepository,
     private readonly basic: BasicService,
   ) {}
 
@@ -15,14 +23,14 @@ export class TrendingsService {
     let limitDate: Date;
 
     if (dto.mode === 1) {
-      limitDate = new Date(now.getTime() - 24 * 60 * 60 * 1000); // 24 horas atrás
+      limitDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
     } else if (dto.mode === 2) {
-      limitDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 dias atrás
+      limitDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     } else {
       throw new Error(`Modo inválido: ${dto.mode}`);
     }
 
-    const existing = await this.trendingRepository.findExistingTrend(dto.mode, limitDate);
+    const existing = await this.validator.findExistingTrend(dto.mode, limitDate, dto.languageId);
 
     if (existing) {
       return { 
@@ -32,46 +40,47 @@ export class TrendingsService {
       };
     }
 
-    const result = await this.trendingRepository.createTrend(dto);
+    this.validator.validateData(dto); // valida dados
+
+    const result = await this.factory.createTrend(dto);
     return {
       finish: true,
       message: 'Entrada validada!',
       result,
-    }
+    };
   }
 
   async addStory(dto: CreateStoryDto) {
-    return await this.trendingRepository.createMovieTrending(dto);
+    return await this.factory.createMovieTrending(dto);
   }
 
   async findTrendId(id: string) {
-    return await this.trendingRepository.findTrendingEntryById(id);
+    return await this.reader.findTrendingEntryById(id);
   }
 
   async findStory(movieId: string, trendId: string) {
-    return await this.trendingRepository.findTrendingStory(movieId, trendId)
+    return await this.reader.findTrendingStory(trendId, movieId);
   }
 
-  async findMovies(id: string) {
-    return await this.trendingRepository.findMoviesInTrending(id);
+  async findMovies(trendId: string) {
+    return await this.reader.findMoviesInTrending(trendId);
   }
 
-  async findTrendxMovies(id: string) {
-    return await this.trendingRepository.findTrendsMovies(id);
+  async findTrendxMovies(movieId: string) {
+    return await this.reader.findTrendsMovies(movieId);
   }
 
   async findGenresxTrend(topRated: any[]) {
     const genres = await this.basic.findAllGenres();
-    const genresName = genres.map((elem) => {
-      return elem.id;
-    })
-    const topTrendings = await this.trendingRepository.findGenresTrend(genresName, topRated);
+    const genreIds = genres.map(g => g.id);
+    return await this.reader.findGenresTrend(genreIds, topRated);
   }
 
   async deleteTrend(trendId: string) {
-    return await this.trendingRepository.deleteTrend(trendId);
+    return await this.developer.deleteTrend(trendId);
   }
+
   async deleteAllTrends() {
-    return await this.trendingRepository.deleteAllTrends();
+    return await this.developer.deleteAllTrends();
   }
 }

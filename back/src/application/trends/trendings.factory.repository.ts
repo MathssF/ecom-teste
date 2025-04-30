@@ -1,7 +1,7 @@
 import { PrismaService } from '../../prisma/prisma.service';
 import { v7 } from 'uuid';
 import { Injectable } from '@nestjs/common';
-import { trendingEntryData, trendingStoryData } from '../trendings.repository';
+import { trendingEntryData, trendingStoryData } from '../trendings.utils';
 
 const uuidv7 = v7();
 
