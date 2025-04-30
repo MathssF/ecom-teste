@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGenreDto, CreateLanguageDto } from './dto/create-basic.dto';
-import { BasicRepository } from '../application/basic.repository';
+import { BasicRepository } from '../application/basic/basic.repository';
 import { GenreEntity } from './entities/basic.entity';
-import { CompaniesRepository } from '../application/companies.repository';
+import { CompaniesRepository } from '../application/basic/companies.repository';
 
 
 @Injectable()
