@@ -38,9 +38,29 @@ export class ApiController {
   @Get('top-by-year/:year?')
   async findTopByYear() {}
 
-  @Get('/trends')
-  async findTrends(@Query() query: limitsData) {
-    const trendsList = await this.apiService.callTrendings(query);
+  // @Get('/trends-day')
+  // async findTrends(
+  //   @Query() query: limitsData
+  // ) {
+  //   const trendsList = await this.apiService.callTrendings(1, query);
+  //   return trendsList;
+  // }
+  // @Get('/trends-week')
+  // async findTrends(
+  //   @Query() query: limitsData
+  // ) {
+  //   const trendsList = await this.apiService.callTrendings(2, query);
+  //   return trendsList;
+  // }
+
+  @Get('/trends-day')
+  @Get('/trends-week')
+  async findTrendsUnified(
+    @Query() query: limitsData,
+    @Req() req: Request
+  ) {
+    const isWeek = req.path.includes('week');
+    const trendsList = await this.apiService.callTrendings(isWeek ? 2 : 1, query);
     return trendsList;
   }
 

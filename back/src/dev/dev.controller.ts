@@ -172,7 +172,7 @@ export class DevController {
   @Get('/trends')
   async findTrends(
     @Query() mode: number,
-    @Query() query: limitsData,
+    @Query() data: limitsData,
   ) {
     let setMode = 2;
     if (mode === 1) setMode = 1;
@@ -205,7 +205,7 @@ export class DevController {
       return entryResult;
     }
 
-    const trendsList = await this.devService.callTrendings();
+    const trendsList = await this.devService.callTrendings(mode);
     console.log('Trendings: ', trendsList);
     const results = [];
 

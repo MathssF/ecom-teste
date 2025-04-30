@@ -26,9 +26,9 @@ export class ApiService {
 
   async callTopGenres(data?: limitsData) {
     let genreRef: { id: number; name: string } | null = null;
-    if (data?.setGenre && data?.chooseGenreRef) {
+    if (data.setGenre && data.chooseGenreRef) {
       genreRef = await this.apiTools.validadeGenreRef({
-        setGenre: true, chooseGenreRef: data.chooseGenreRef 
+        chooseGenreRef: data.chooseGenreRef 
       }, Genres);
     }
     const tops = await this.topRatedAPI.getTopRatedMovies({
@@ -41,8 +41,8 @@ export class ApiService {
     })
   }
 
-  async callTrendings(data?: limitsData) {
-    const trends = await this.trendingsAPI.getTrendingMovies(data);
+  async callTrendings(mode: number, data?: limitsData) {
+    const trends = await this.trendingsAPI.getTrendingMovies(mode, data);
     return trends;
   }
 

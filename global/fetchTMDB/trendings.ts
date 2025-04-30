@@ -1,5 +1,5 @@
 import { limitsData } from '../tables/interfaces';
-import { set_time_window } from 'tables/variables';
+import { set_time_window } from '../tables/variables';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
