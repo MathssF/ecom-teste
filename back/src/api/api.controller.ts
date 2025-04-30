@@ -30,14 +30,24 @@ export class ApiController {
     return await this.apiService.callTopPage(page, query);
   }
 
-  @Get('top-genres/:id?')
-  async findTopGenres() {}
+  @Get('top-genres')
+  @Get('top-genres/:id')
+  async findTopGenres(
+    @Query() query: limitsData,
+    @Param('id') id?: string,
+  ) {}
 
   @Get('genres-popularity')
-  async genresPop() {}
+  @Get('genres-popularity/:id')
+  async genresPop(
+    @Query() query: limitsData,
+    @Param('id') id?: string,
+  ) {}
 
-  @Get('top-by-year/:year?')
-  async findTopByYear() {}
+  @Get('top-by-year/:year')
+  async findTopByYear(
+    @Param('year') year: string,
+  ) {}
 
   @Get('/trends-day')
   @Get('/trends-week')
