@@ -46,8 +46,8 @@ export class ApiService {
     return trends;
   }
 
-  async callTrendPage(page: number, data?: limitsData) {
-    return await this.trendingsAPI.getTrendByPage(page, data);
+  async callTrendPage(mode: number, page: number, data?: limitsData) {
+    return await this.trendingsAPI.getTrendByPage(mode, page, data);
   }
 
   async callDetails(id: string, data?: limitsData) {

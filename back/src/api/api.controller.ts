@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { ApiService } from './api.service';
 import { limitsData } from '../../../global/tables/interfaces';
 
@@ -38,37 +39,25 @@ export class ApiController {
   @Get('top-by-year/:year?')
   async findTopByYear() {}
 
-  // @Get('/trends-day')
-  // async findTrends(
-  //   @Query() query: limitsData
-  // ) {
-  //   const trendsList = await this.apiService.callTrendings(1, query);
-  //   return trendsList;
-  // }
-  // @Get('/trends-week')
-  // async findTrends(
-  //   @Query() query: limitsData
-  // ) {
-  //   const trendsList = await this.apiService.callTrendings(2, query);
-  //   return trendsList;
-  // }
-
   @Get('/trends-day')
   @Get('/trends-week')
   async findTrendsUnified(
     @Query() query: limitsData,
-    @Req() req: Request
+    @Req() req: Request,
   ) {
     const isWeek = req.path.includes('week');
     const trendsList = await this.apiService.callTrendings(isWeek ? 2 : 1, query);
     return trendsList;
   }
 
-  @Get('/trends/:page')
+  @Get('/trends-day/:page')
+  @Get('/trends-week/:page')
   async findTrendPage(
     @Param('page') page: number,
-    @Query() query: limitsData
+    @Query() query: limitsData,
+    @Req() req: Request,
   ) {
-    return await this.apiService.callTrendPage(page, query);
+    const isWeek = req.path.includes('week');
+    return await this.apiService.callTrendPage(isWeek ? 2 : 1, page, query);
   }
 }
