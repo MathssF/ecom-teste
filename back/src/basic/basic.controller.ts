@@ -27,21 +27,6 @@ export class BasicController {
     return this.basicService.findAllCompanies();
   }
 
-  // @Post('genre')
-  // async addGenre(@Body() createGenreDto: CreateGenreDto) {
-  //   return this.basicService.addGenre(createGenreDto);
-  // }
-
-  // @Post('lang')
-  // async addLang(@Body() createLanguageDto: CreateLanguageDto) {
-  //   return this.basicService.addLang(createLanguageDto);
-  // }
-
-  // @Post('company')
-  // async addCompany(@Body() createCompanyDto: CreateCompanyDto) {
-  //   return this.basicService.addCompany(createCompanyDto);
-  // }
-
   @Get('genre/:id')
   async findGenreId(@Param('id') id: string) {
     return this.basicService.findGenreId(id);

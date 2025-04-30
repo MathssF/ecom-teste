@@ -15,10 +15,6 @@ export interface langData {
 export class BasicRepository {
   constructor(protected readonly prisma: PrismaService) {}
 
-  // async addGenre(data: genreData) {
-  //   return await this.prisma.genre.create({ data });
-  // }
-
   async findGenreId(id: string) {
     return await this.prisma.genre.findUnique({
       where: { id }
@@ -28,13 +24,6 @@ export class BasicRepository {
   async findAllGenres() {
     return await this.prisma.genre.findMany();
   }
-
-  // async addLang(data: langData) {
-  //   return await this.prisma.language.create({ data: {
-  //     id: data.id,
-  //     englishName: data.english_name,
-  //   } });
-  // }
 
   async findLang(id: string) {
     return await this.prisma.language.findUnique({ where: { id } })

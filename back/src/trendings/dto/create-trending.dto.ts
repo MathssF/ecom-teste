@@ -1,5 +1,3 @@
-export class CreateTrendingDto {}
-
 export class CreateEntryDto {
   datetime: Date;
   mode: number;
