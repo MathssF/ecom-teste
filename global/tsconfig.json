@@ -6,11 +6,13 @@
     "composite": true,
     "baseUrl": "./",
     "paths": {
-      "@back/*": ["../back/src/*"]
+      "@back/*": ["../back/src/*"],
+      "@front/*": ["..front/src/*"]
     }
   },
   "references": [
-    { "path": "../back" }
+    { "path": "../back" },
+    { "path": "../front" }
   ],
   "include": [
     "**/*.ts",

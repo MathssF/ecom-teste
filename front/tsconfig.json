@@ -4,11 +4,17 @@
     "rootDir": "./",
     "outDir": "../dist/front",
     "baseUrl": "./",
+    "paths": {
+      "@global/*": ["../global/*"]
+    },
     "jsx": "preserve",
     "allowJs": true,
     "noEmit": false,
     "isolatedModules": true
   },
+  "references": [
+    { "path": "../global" }
+  ],
   "include": [
     "./**/*"
   ],
