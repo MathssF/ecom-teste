@@ -1,4 +1,8 @@
+# Todos os Links, do Back, e do Front End.
+
 ## Api Direta:
+
+### Rotas:
 
 Rotas da API que apenas retornam as informações cruas do TMDb sem trata-las na persistência nem nada.
 
@@ -12,18 +16,57 @@ GET 'http://localhost:3000/api/trends'            // Veja a lista dos filmes do 
 GET 'http://localhost:3000/api/trends/:page'      // Veja a Lista, Escolha a página
 GET 'http://localhost:3000/api/trends/1'          // Exempĺo, página 1
 
+### Infos:
+
 Pode opicionalmente adicionar um corpo a requisição:
 
 {
-  
+  showFullApi: boolean,
+  setLimitItems: boolean,
+  setLimitPages: boolean,
+  limitItems: number,
+  limitPages: number,
+  setLang: boolean,
+  chooseLang: string,
 }
+
+Todas são opicionais. Mas com as seguintes lógicas:
+
+showFullApi: Mostra informações a mais do que apenas as básicas.
+(As que tem páginas, já são true por padrão)
+
+setLimitItems + limitItems: Para requisições '/top-rated' e '/trends',
+define o limite de itens no resultado.
+
+setLimitPages + limitPages: Para requisições '/top-rated' e '/trends',
+define o limite de pages no resultado.
+
+setLang + chooseLang: Para qualquer requisição, define a lingua usada.
+
+## Api Basic:
+
+## Api Movies:
+
+## Api Trendings:
+
+## Client
 
 ## Dev:
 
 Rotas para Desenvolvimento, teste, e apresentação, e não para Produção
 
-GET 'http://localhost:3000/dev/top-rated'
-GET 'http://localhost:3000/dev/trends/1'
-GET 'http://localhost:3000/dev/trends/2'
-GET 'http://localhost:3000/dev/movie/:movieId'
+GET  'http://localhost:3000/dev/movie/:movieId'   // Vê os dados do filme
+POST 'http://localhost:3000/dev/movie/:movieId'   // Salva o filme na Persistência
+GET  'http://localhost:3000/dev/top-rated'        // Vê a lista dos filmes mais bem avaliados
+GET  'http://localhost:3000/dev/top-rated/:page'  // Vê a lista dos filmes, por página
+GET  'http://localhost:3000/dev/top-rated/1'      // Vê a lista dos filmes, na página 1
+POST 'http://localhost:3000/dev/top-rated'        // Salva os filmes na Persitência
+GET  'http://localhost:3000/dev/trends'           // Vê a lista dos filmes do momento
+GET  'http://localhost:3000/dev/trends/:page'     // Vê a lista dos filmes, por página
+GET  'http://localhost:3000/dev/trends/1'         // Vê a lista dos filmes, na página 1
+POST 'http://localhost:3000/dev/trends/:mode'     // Salva os filmes na Persitência, selecione o Mode
+POST 'http://localhost:3000/dev/trends/1'         // Salva os filmes do dia
+POST 'http://localhost:3000/dev/trends/2'         // Salva os filmes da semana
+
+A rota DEV tem o mesmo corpo da rota API (Api Direta)
 
