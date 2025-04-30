@@ -70,6 +70,16 @@ export class TrendingMoviesAPI {
           movieData.rankPage = globalIndex - (20 * (page - 1));
         }
 
+        if (data?.showFullApi) {
+          if (data?.dev) {
+            const globalIndex = allMovies.length + index + 1;
+            movie.page = page;
+            movie.rank = globalIndex;
+            movie.pageRank = globalIndex - (20 * (page - 1));
+          }
+          return movie;
+        }
+
         return movieData;
       });
 
