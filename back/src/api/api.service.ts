@@ -5,6 +5,7 @@ import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { limitsData } from '../../../global/tables/interfaces';
 import { ApiTools } from './tools/api.tools';
 import { Genres } from '../../../global/tables/seed.tables';
+import { GenresType } from './tools/api.interfaces';
 import { MovieDetails } from '../../../global/tables/results/details.interfaces';
 import {
   TopRatedResult,
@@ -34,7 +35,7 @@ export class ApiService {
   }
 
   async callTopGenres(data?: limitsData) {
-    let genreRef: { id: number; name: string } | null = null;
+    let genreRef: GenresType | null = null;
     if (data.setGenre && data.chooseGenreRef) {
       genreRef = await this.apiTools.validadeGenreRef({
         chooseGenreRef: data.chooseGenreRef 
@@ -44,10 +45,10 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    const trends = await this.trendingsAPI.getTrendingMovies(2, {
-      frontEndPage: true,
-      setLimitPages: true, limitPages: 20
-    })
+    // const trends = await this.trendingsAPI.getTrendingMovies(2, {
+    //   frontEndPage: true,
+    //   setLimitPages: true, limitPages: 20
+    // })
   }
 
   async callTrendings(mode: number, data?: limitsData) {

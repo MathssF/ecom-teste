@@ -1,14 +1,58 @@
-export class ApiTools {
-  constructor(
-    //
-  ) {}
+import { GenresNotes, GenresResult, GenresType } from "./api.interfaces";
+import { MovieDetails } from '../../../../global/tables/results/details.interfaces';
+import {
+  TopRatedResult,
+  TopRatedList
+} from '../../../../global/tables/results/top-rated.interfaces';
+import {
+  TrendingResult,
+  TrendingList
+} from '../../../../global/tables/results/trends.interfaces';
+import { Genres } from "../../../../global/tables/seed.tables";
 
-  async filterByGenres() {
-    //
+export class ApiTools {
+  constructor() {}
+
+  async filterByGenres(tops: any, reference: GenresType | null): GenresResult[] | null {
+    let genres: GenresType[] = [];
+    let genresResult: GenresResult[] = [];
+    if (reference === null) {
+      genres = Genres;
+    } else {
+      genres.push(reference);
+    }
+    genresResult = genres.map((elem) => {
+      const movies = tops.filter((movie: any) => movie.genre_id?.includes(genre.id));
+      const totalVotes = movies.reduce((sum, movie) => sum + movie.votesCounts, 0);
+      const ratingSum = movies.reduce((sum, movie) => sum + movie.voteAverage, 0);
+      const weightedSum = movies.reduce(
+        (sum, movie) => sum + (movie.voteAverage * movie.votesCounts), 0
+      );
+      const moviesRattingAverage = movies.length > 0 ? ratingSum / movies.length : 0;
+      const moviesWeightedAvarege = totalVotes > 0 ? weightedSum / totalVotes : 0;
+      return {
+        id: genres.id,
+        name: genre.name,
+        movies: movies,
+        moviesRattingAverage,
+        moviesWeightedAvarege
+      }
+    });
+    return genresResult;
   }
 
-  async noteByGenres() {
-    //
+  async noteByGenres(list: any, reference: GenresType | null) {
+    let genres: GenresType[] = [];
+    let genresNotes: GenresNotes[] = [];
+    if (reference === null) {
+      genres = Genres;
+    } else {
+      genres.push(reference);
+    }
+    genresNotes = genres.map((elem) => {
+      const movies = list.filter((movie: any) => movie.genre_id?.includes(genre.id));
+
+    })
   }
 
   async filterByYear() {
