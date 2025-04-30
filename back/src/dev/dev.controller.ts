@@ -1,6 +1,6 @@
 import {
   Controller, Get, Post, Body, Patch, Param, Delete,
-  RequestMapping
+  RequestMapping, Query
 } from '@nestjs/common';
 import { DevService } from './dev.service';
 import { BasicService } from '../basic/basic.service';
@@ -28,7 +28,7 @@ export class DevController {
   async findOneMovie(
     @Param('movieId') movieId: string,
     @Query() query: limitsData
-    ) {
+  ) {
     const foundMovie = await this.devService.callDetails(movieId);
     return foundMovie;
   }
@@ -170,8 +170,7 @@ export class DevController {
   }
 
   @Get('/trends')
-    @Query() query: limitsData
-    async findTrends() {
+  async findTrends(@Query() query: limitsData) {
     const trendsList = await this.devService.callTrendings();
     return trendsList;
   }
