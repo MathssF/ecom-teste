@@ -14,3 +14,11 @@ export interface limitsData {
   chooseGenreRef?: number | string,
   choseYear?: string,
 }
+
+export interface topItem {}
+
+export interface trendItem {}
+
+export interface topList {}
+
+export interface trendList {}
