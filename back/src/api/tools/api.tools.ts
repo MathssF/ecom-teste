@@ -42,16 +42,14 @@ export class ApiTools {
   }
 
   async noteByGenres(list: any, reference: GenresType | null) {
-    let genres: GenresType[] = [];
-    let genresNotes: GenresNotes[] = [];
-    if (reference === null) {
-      genres = Genres;
-    } else {
-      genres.push(reference);
-    }
-    genresNotes = genres.map((elem) => {
-      const movies = list.filter((movie: any) => movie.genre_id?.includes(genre.id));
-
+    const genres: GenresResult[] | null = this.filterByGenres(list, reference);
+    const result = genres.map((elem) => {
+      return {
+        id,
+        name,
+        moviesRattingAverage,
+        moviesWeightedAvarege
+      }
     })
   }
 
