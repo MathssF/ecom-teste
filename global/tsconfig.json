@@ -7,7 +7,7 @@
     "baseUrl": "./",
     "paths": {
       "@back/*": ["../back/src/*"],
-      "@front/*": ["..front/src/*"]
+      "@front/*": ["../front/src/*"]
     }
   },
   "references": [

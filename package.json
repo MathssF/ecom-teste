@@ -8,7 +8,9 @@
     "build": "tsc -b",
     "clean": "tsc --build --clean && rm -rf dist",
     "start:back": "tsc -b && node -r tsconfig-paths/register dist/back/main.js",
-    "dev:back": "ts-node -r tsconfig-paths/register back/main.ts"
+    "start:front": "next build && PORT=$PORT_FRONT next start",
+    "dev:back": "ts-node -r tsconfig-paths/register back/main.ts",
+    "dev:front": "PORT=$PORT_FRONT next dev"
   },
   "keywords": [],
   "author": "Matheus Flores",
