@@ -1,6 +1,6 @@
 import { PrismaService } from '../prisma/prisma.service';
 import { v7 } from 'uuid';
-import { MoviesRepository, movieData, movieDetail } from './movies.repository';
+import { MoviesRepository, movieData, movieDetail } from './movies.interfaces';
 import { Injectable } from '@nestjs/common';
 
 const uuidv7 = v7();
