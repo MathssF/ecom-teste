@@ -5,6 +5,15 @@ import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { limitsData } from '../../../global/tables/interfaces';
 import { ApiTools } from './tools/api.tools';
 import { Genres } from '../../../global/tables/seed.tables';
+import { MovieDetails } from '../../../global/tables/results/details.interfaces';
+import {
+  TopRatedResult,
+  TopRatedList
+} from '../../../global/tables/results/top-rated.interfaces';
+import {
+  TrendingResult,
+  TrendingList
+} from '../../../global/tables/results/trends.interfaces';
 
 @Injectable()
 export class ApiService {
