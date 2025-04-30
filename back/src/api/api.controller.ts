@@ -29,25 +29,25 @@ export class ApiController {
     return await this.apiService.callTopPage(page, query);
   }
 
-  @Get('top-genres')
+  @Get('top-genres/:id?')
   async findTopGenres() {}
 
-  @Get('top-genres/:id')
-  async findTopGenresId(
-    @Param('id') id: string,
-  ) {}
+  // @Get('top-genres/:id')
+  // async findTopGenresId(
+  //   @Param('id') id: string,
+  // ) {}
 
   @Get('genres-popularity')
   async genresPop() {}
 
-  @Get('top-by-year')
+  @Get('top-by-year/:year?')
   async findTopByYear() {}
 
 
-  @Get('top-by-year/:year')
-  async findTopByYearId(
-    @Param('year') year: string,
-  ) {}
+  // @Get('top-by-year/:year')
+  // async findTopByYearId(
+  //   @Param('year') year: string,
+  // ) {}
 
   @Get('/trends')
   async findTrends(@Query() query: limitsData) {
