@@ -37,7 +37,7 @@ export class MovieDetailsAPI {
 
     const movie: any = await response.json();
 
-    return {
+    const movieDetails = {
       id: movie.id,
       title: movie.title,
       original_title: movie.original_title,
@@ -59,5 +59,34 @@ export class MovieDetailsAPI {
         origin_country: c.origin_country,
       })),
     };
+
+    if (data?.showFullApi) {
+      return {
+        ...movieDetails,
+        belongs_to_collection: movie.belongs_to_collection,
+        budget: movie.budget,
+        homepage: movie.homepage,
+        imdb_id: movie.imdb_id,
+        production_companies: movie.production_companies?.map((c: any) => ({
+          id: c.id,
+          name: c.name,
+          logo_path: c.logo_path,
+          origin_country: c.origin_country,
+        })),
+        production_countries: movie.production_countries?.map((c: any) => ({
+          iso_3166_1: c.iso_3166_1,
+          name: c.name,
+        })),
+        revenue: movie.revenue,
+        spoken_languages: movie.spoken_languages?.map((s: any) => ({
+          english_name: s.english_name,
+          iso_639_1: s.iso_639_1,
+          name: s.name,
+        })),
+        video: movie.video,
+      };
+    }
+
+    return movieDetails;
   }
 }
