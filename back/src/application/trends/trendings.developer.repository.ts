@@ -1,14 +1,8 @@
-/*
-
-OBS: APENAS PARA PERIODO DE DESENVOLVIMENTO!!!
-
-*/
-
 import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class TrendingsDeveloperRepository {
+export class TrendingsPurgeRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async deleteTrend(trendingId: string) {

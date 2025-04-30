@@ -3,11 +3,11 @@ import { PrismaService } from '../prisma/prisma.service';
 import { TrendingsService } from './trendings.service';
 import { TrendingsController } from './trendings.controller';
 import { BasicModule } from '../basic/basic.module';
-import { TrendingsRepository } from '../application/trendings.utils';
+import { TrendingsRepository } from '../application/trends/trendings.utils';
 import { TrendingsFactoryRepository } from '../application/trends/trendings.factory.repository';
 import { TrendingsReaderRepository } from '../application/trends/trendings.reader.repository';
 import { TrendingsValidationRepository } from '../application/trends/trendings.validations.repository';
-import { TrendingsDeveloperRepository } from '../application/trends/trendings.developer.repository';
+import { TrendingsPurgeRepository } from '../application/trends/trendings.purge.repository';
 
 @Module({
   imports: [BasicModule],
@@ -18,7 +18,7 @@ import { TrendingsDeveloperRepository } from '../application/trends/trendings.de
     TrendingsFactoryRepository,
     TrendingsReaderRepository,
     TrendingsValidationRepository,
-    TrendingsDeveloperRepository,
+    TrendingsPurgeRepository,
     PrismaService,
   ],
   exports: [TrendingsService],

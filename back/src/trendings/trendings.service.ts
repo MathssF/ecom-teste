@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEntryDto, CreateStoryDto } from './dto/create-trending.dto';
-import { TrendingsRepository } from '../application/trendings.utils';
+import { TrendingsRepository } from '../application/trends/trendings.utils';
 import { BasicService } from '../basic/basic.service';
 import { TrendingsReaderRepository } from '../application/trends/trendings.reader.repository';
 import { TrendingsFactoryRepository } from '../application/trends/trendings.factory.repository';
-import { TrendingsDeveloperRepository } from '../application/trends/trendings.developer.repository';
+import { TrendingsPurgeRepository } from '../application/trends/trendings.purge.repository';
 import { TrendingsValidationRepository } from '../application/trends/trendings.validations.repository';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class TrendingsService {
     private readonly trendingRepository: TrendingsRepository,
     private readonly factory: TrendingsFactoryRepository,
     private readonly reader: TrendingsReaderRepository,
-    private readonly developer: TrendingsDeveloperRepository,
+    private readonly purge: TrendingsPurgeRepository,
     private readonly validator: TrendingsValidationRepository,
     private readonly basic: BasicService,
   ) {}
@@ -77,10 +77,10 @@ export class TrendingsService {
   }
 
   async deleteTrend(trendId: string) {
-    return await this.developer.deleteTrend(trendId);
+    return await this.purge.deleteTrend(trendId);
   }
 
   async deleteAllTrends() {
-    return await this.developer.deleteAllTrends();
+    return await this.purge.deleteAllTrends();
   }
 }
