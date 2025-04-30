@@ -10,19 +10,37 @@ import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { BasicSeed } from '../../../global/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
-// import { MoviesRepository } from '../application/movies.repository';
-import { DevRepository } from './tools/dev.repository';
+
+import { MovieFactoryRepository } from '../application/movies/movie.factory.repository';
+import { MovieReaderRepository } from '../application/movies/movie.reader.repository';
+
+import { TrendingsRepository } from '../application/trends/trendings.utils';
+import { TrendingsFactoryRepository } from '../application/trends/trendings.factory.repository';
+import { TrendingsReaderRepository } from '../application/trends/trendings.reader.repository';
+import { TrendingsValidationRepository } from '../application/trends/trendings.validations.repository';
+import { TrendingsPurgeRepository } from '../application/trends/trendings.purge.repository';
 
 
 @Module({
   imports: [BasicModule, MoviesModule, TrendingsModule],
   controllers: [DevController],
   providers: [
-    DevService, MovieDetailsAPI,
-    TopRatedMoviesAPI, TrendingMoviesAPI,
-    BasicSeed, DevTools, PrismaService,
-    // MoviesRepository,
-    DevRepository
+    DevService,
+    MovieDetailsAPI,
+    TopRatedMoviesAPI,
+    TrendingMoviesAPI,
+    BasicSeed,
+    DevTools,
+    PrismaService,
+
+    MovieFactoryRepository,
+    MovieReaderRepository,
+
+    TrendingsRepository,
+    TrendingsFactoryRepository,
+    TrendingsReaderRepository,
+    TrendingsValidationRepository,
+    TrendingsPurgeRepository,
   ],
   exports: [],
 })

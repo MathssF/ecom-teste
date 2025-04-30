@@ -3,6 +3,7 @@ import { CreateGenreDto, CreateLanguageDto } from './dto/create-basic.dto';
 import { BasicRepository } from '../application/basic/basic.repository';
 import { GenreEntity } from './entities/basic.entity';
 import { CompaniesRepository } from '../application/basic/companies.repository';
+import { BasicSeed } from '../../../global/seeds/basic.seeds';
 
 
 @Injectable()
@@ -10,7 +11,13 @@ export class BasicService {
   constructor(
     private readonly basic: BasicRepository,
     private readonly companies: CompaniesRepository,
+    private readonly basicSeed: BasicSeed,
   ) {}
+
+  async seedStart() {
+    return await this.basicSeed.run()
+  }
+
   addGenre(dto: CreateGenreDto) {
     return this.basic.addGenre(dto);
   }

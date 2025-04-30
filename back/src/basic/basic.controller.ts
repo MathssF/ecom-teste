@@ -7,6 +7,11 @@ import { UpdateBasicDto } from './dto/update-basic.dto';
 export class BasicController {
   constructor(private readonly basicService: BasicService) {}
 
+  @Post('start-seed')
+  async startSeed() {
+    return await this.basicService.seedStart()
+  }
+
   @Get('genres')
   async findAllGenres() {
     return this.basicService.findAllGenres();

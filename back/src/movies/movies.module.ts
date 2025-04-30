@@ -11,7 +11,7 @@ import { MovieReaderRepository } from '../application/movies/movie.reader.reposi
   controllers: [MoviesController],
   providers: [
     MoviesService, 
-    MovieCreatorRepository, 
+    MovieFactoryRepository, 
     MovieReaderRepository, 
     PrismaService
   ],
