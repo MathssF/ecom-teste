@@ -39,6 +39,9 @@ export class TopRatedMoviesAPI {
     if (data?.setLimitPages && data.limitPages && data.limitPages > 0 && data.limitPages <= 50) {
       maxPages = data.limitPages;
     }
+    if (data?.setLang && data.chooseLang) {
+      this.language = data.chooseLang;
+    }
   
     while (page <= totalPages && page <= maxPages && allMovies.length < maxItems) {
       const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
@@ -79,7 +82,10 @@ export class TopRatedMoviesAPI {
     return allMovies.slice(0, maxItems);
   }
 
-  public async getTopsByPage(page: number): Promise<any> {
+  public async getTopsByPage(page: number, data?: limitsData): Promise<any> {
+    if (data?.setLang && data.chooseLang) {
+      this.language = data.chooseLang;
+    }
     const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
     return await response.json();
   }

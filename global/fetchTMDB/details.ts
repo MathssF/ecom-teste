@@ -1,3 +1,4 @@
+import { limitsData } from '../tables/interfaces';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -24,7 +25,11 @@ export class MovieDetailsAPI {
     };
   }
 
-  public async getMovieDetails(movieId: number): Promise<any> {
+  public async getMovieDetails(movieId: number, data?: limitsData): Promise<any> {
+    if (data?.setLang && data.chooseLang) {
+      this.language = data.chooseLang;
+    }
+    
     const response = await fetch(this.getUrl(movieId), this.getOptions());
     if (!response.ok) {
       throw new Error(`Erro ao buscar detalhes do filme ${movieId}: ${response.statusText}`);
