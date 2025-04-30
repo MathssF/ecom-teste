@@ -1,3 +1,6 @@
+import { limitsData } from '../../../../global/tables/interfaces';
+import { MovieDetails } from './details.interfaces';
+
 export interface MovieData {
   id: number;
   title: string;
@@ -12,7 +15,6 @@ export interface MovieData {
   poster_path: string;
   page?: number;
   rank?: number;
-  pageRank?: number;
   rankPage?: number;
 }
 
@@ -33,7 +35,7 @@ export interface TopRatedResult {
   vote_count: number;
   page?: number;
   rank?: number;
-  pageRank?: number;
+  rankPage?: number;
 }
 
 export interface TopRatedList {
@@ -41,4 +43,18 @@ export interface TopRatedList {
   results: TopRatedResult[];
   total_pages: number;
   total_results: number;
+}
+
+export interface TopRatedContextType {
+  movies: MovieData[];
+  loading: boolean;
+  error: string | null;
+  fetchTopRated: (data?: limitsData) => void;
+}
+
+export interface TopRatedPageContextType {
+  pageData: TopRatedList | null;
+  loading: boolean;
+  error: string | null;
+  fetchTopRatedPage: (page: number, data?: limitsData) => void;
 }

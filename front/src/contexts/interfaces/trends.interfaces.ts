@@ -1,3 +1,5 @@
+import { limitsData } from '../../../../global/tables/interfaces';
+
 export interface TrendingResult {
   adult: boolean;
   backdrop_path: string;
@@ -25,4 +27,18 @@ export interface TrendingList {
   results: TrendingResult[];
   total_pages: number;
   total_results: number;
+}
+
+export interface TrendsContextType {
+  movies: TrendingResult[];
+  loading: boolean;
+  error: string | null;
+  fetchTrending: (data?: limitsData) => void;
+}
+
+export interface TrendsPageContextType {
+  pageData: TrendingList | null;
+  loading: boolean;
+  error: string | null;
+  fetchTrendingPage: (page: number, data?: limitsData) => void;
 }
