@@ -1,6 +1,6 @@
 import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { trendingEntryData } from './trendings.repository';
+import { trendingEntryData } from '../trendings.repository';
 
 @Injectable()
 export class TrendingsValidationRepository {

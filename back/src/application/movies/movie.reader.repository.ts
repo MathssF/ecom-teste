@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { movieData, movieDetail, genreMovie } from '../movie.repository';
+import { movieData, movieDetail, genreMovie } from './movies.interfaces';
 
 @Injectable()
 export class MovieReaderRepository {

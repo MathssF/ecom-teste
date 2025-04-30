@@ -1,6 +1,6 @@
 import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { trendingStoryData, trendingCompareData } from './trendings.repository';
+import { trendingStoryData, trendingCompareData, dateCheck } from '../trendings.repository';
 
 @Injectable()
 export class TrendingsReaderRepository {
@@ -9,6 +9,12 @@ export class TrendingsReaderRepository {
   async findTrendingStory(trendingId: string, movieId: string) {
     return await this.prisma.trendingStory.findUnique({
       where: { trendingId_movieId: { trendingId, movieId } }
+    });
+  }
+
+  async findTrendingEntryById(id: string) {
+    return await this.prisma.trendingEntry.findUnique({
+      where: { id }
     });
   }
 
