@@ -19,5 +19,23 @@ export const TopRatedProvider = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchTopRated = async (data?: limitsData) =>  {}
+  const fetchTopRated = async (data?: limitsData) =>  {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const api = new TopRatedMoviesAPI();
+      const topList = await api.getTopRatedMovies(data);
+      setMovies(topList)
+    } catch (err: any) {
+      setError(err.message || 'Erro ao buscar os Top Rateds');
+      setMovies(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <TopRatedContext></TopRatedContext>
+  )
 }
