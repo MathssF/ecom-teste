@@ -33,24 +33,14 @@ export class DevService {
   async callTopPage(page: number, data?: limitsData) {
     return await this.topRatedAPI.getTopsByPage(page, {
       dev: true,
-      persistence: data.persistence ?? null,
-      setLimitItems: data.setLimitItems ?? null,
-      setLimitPages: data.setLimitPages ?? null,
-      limitItems: data.limitItems ?? null,
-      setLang: data.setLang ?? null,
-      chooseLang: data.chooseLang ?? null,
+      ...data,
     })
   }
 
   async callTrendings(data?: limitsData) {
     const trends = await this.trendingsAPI.getTrendingMovies({
       dev: true,
-      persistence: data.persistence ?? null,
-      setLimitItems: data.setLimitItems ?? null,
-      setLimitPages: data.setLimitPages ?? null,
-      limitItems: data.limitItems ?? null,
-      setLang: data.setLang ?? null,
-      chooseLang: data.chooseLang ?? null,
+      ...data,
     });
     return trends;
   }
@@ -58,12 +48,7 @@ export class DevService {
   async callTrendPage(page: number, data?: limitsData) {
     return await this.trendingsAPI.getTrendByPage(page, {
       dev: true,
-      persistence: data.persistence ?? null,
-      setLimitItems: data.setLimitItems ?? null,
-      setLimitPages: data.setLimitPages ?? null,
-      limitItems: data.limitItems ?? null,
-      setLang: data.setLang ?? null,
-      chooseLang: data.chooseLang ?? null,
+      ...data,
     });
   }
 
@@ -71,12 +56,7 @@ export class DevService {
     const movieId = Number(id);
     const details = await this.movieDetailAPI.getMovieDetails(movieId, {
       dev: true,
-      persistence: data.persistence ?? null,
-      setLimitItems: data.setLimitItems ?? null,
-      setLimitPages: data.setLimitPages ?? null,
-      limitItems: data.limitItems ?? null,
-      setLang: data.setLang ?? null,
-      chooseLang: data.chooseLang ?? null,
+      ...data,
     });
     return details;
   }

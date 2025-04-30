@@ -8,6 +8,7 @@ import { MoviesService } from '../movies/movies.service';
 import { TrendingsService } from '../trendings/trendings.service';
 import { CreateMovieDto, CreateMovieDetailDto } from '../movies/dto/create-movie.dto';
 import { CreateEntryDto, CreateStoryDto } from '../trendings/dto/create-trending.dto';
+import { limitsData } from '../../../global/tables/interfaces';
 
 @Controller('dev')
 export class DevController {
@@ -24,14 +25,17 @@ export class DevController {
   }
 
   @Get('/movie/:movieId')
-  async findOneMovie(@Param('movieId') movieId: string) {
+  async findOneMovie(
+    @Param('movieId') movieId: string,
+    @Query() query: limitsData
+    ) {
     const foundMovie = await this.devService.callDetails(movieId);
     return foundMovie;
   }
 
   @Post('/movie/:movieId')
   async postOneMovie(
-    @Param('movieId') movieId: string
+    @Param('movieId') movieId: string,
   ) {
     const movieDetails = await this.devService.callDetails(movieId);
     
@@ -95,14 +99,15 @@ export class DevController {
   }
   
   @Get('/top-rated')
-  async findTopRateds() {
+  async findTopRateds(@Query() query: limitsData) {
     const topList = await this.devService.callTopRated();
     return topList;
   }
 
   @Get('top-rated/:page')
   async findTopPage(
-    @Param('page') page: number
+    @Param('page') page: number,
+    @Query() query: limitsData
   ) {
     return await this.devService.callTopPage(page);
   }
@@ -165,14 +170,17 @@ export class DevController {
   }
 
   @Get('/trends')
-  async findTrends() {
+    @Query() query: limitsData
+    async findTrends() {
     const trendsList = await this.devService.callTrendings();
     return trendsList;
   }
 
   @Get('/trends/:page')
   async findTrendPage(
-    @Param('page') page: number
+    @Param('page') page: number,
+    @Query() query: limitsData
+
   ) {
     return await this.devService.callTrendPage(page);
   }
