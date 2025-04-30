@@ -18,13 +18,13 @@ export class BasicService {
     return await this.basicSeed.run()
   }
 
-  addGenre(dto: CreateGenreDto) {
-    return this.basic.addGenre(dto);
-  }
+  // addGenre(dto: CreateGenreDto) {
+  //   return this.basic.addGenre(dto);
+  // }
 
-  addLang(dto: CreateLanguageDto) {
-    return this.basic.addLang(dto);
-  }
+  // addLang(dto: CreateLanguageDto) {
+  //   return this.basic.addLang(dto);
+  // }
 
 
   async findGenreId(id: string): Promise<GenreEntity | null> {
