@@ -3,8 +3,8 @@ import { CreateMovieDto, CreateMovieDetailDto } from './dto/create-movie.dto';
 import { UpdateMovieDto, UpdateMovieDetailDto } from './dto/update-movie.dto';
 import { BasicService } from '../basic/basic.service';
 import { movieData, movieDetail, genreMovie } from '../application/movies/movies.interfaces';
-import { MovieFactoryRepository } from '../application/movie/movie.factory.repository';
-import { MovieReaderRepository } from '../application/movie/movie.reader.repository';
+import { MovieFactoryRepository } from '../application/movies/movie.factory.repository';
+import { MovieReaderRepository } from '../application/movies/movie.reader.repository';
 
 @Injectable()
 export class MoviesService {

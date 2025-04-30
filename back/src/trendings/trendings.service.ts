@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEntryDto, CreateStoryDto } from './dto/create-trending.dto';
-import { TrendingsRepository } from '../application/trends/trendings.utils';
 import { BasicService } from '../basic/basic.service';
 import { TrendingsReaderRepository } from '../application/trends/trendings.reader.repository';
 import { TrendingsFactoryRepository } from '../application/trends/trendings.factory.repository';
@@ -10,7 +9,6 @@ import { TrendingsValidationRepository } from '../application/trends/trendings.v
 @Injectable()
 export class TrendingsService {
   constructor(
-    private readonly trendingRepository: TrendingsRepository,
     private readonly factory: TrendingsFactoryRepository,
     private readonly reader: TrendingsReaderRepository,
     private readonly purge: TrendingsPurgeRepository,
