@@ -3,6 +3,7 @@ import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { limitsData } from '../../../global/tables/interfaces';
+import { ApiTools } from './tools/api.tools';
 
 @Injectable()
 export class ApiService {

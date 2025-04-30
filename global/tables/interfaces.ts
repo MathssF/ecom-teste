@@ -9,4 +9,8 @@ export interface limitsData {
   limitPages?: number,
   setLang?: boolean,
   chooseLang?: string,
+  setGenre?: boolean,
+  setYear?: boolean,
+  chooseGenreRef?: number | string,
+  choseYear?: string,
 }

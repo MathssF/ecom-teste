@@ -184,92 +184,92 @@ export class DevController {
     return await this.devService.callTrendPage(page);
   }
 
-  // @Post('/trends/:mode')
-  // async postTrends(@Param('mode') modeParam: string) {
-  //   const mode = parseInt(modeParam, 10);
-  //   const now = new Date();
-  //   const limitDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  @Post('/trends/:mode')
+  async postTrends(@Param('mode') modeParam: string) {
+    const mode = parseInt(modeParam, 10);
+    const now = new Date();
+    const limitDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-  //   const createEntryDto = new CreateEntryDto(now, mode);
-  //   const entryResult = await this.trendingService.createEntry(createEntryDto);
+    const createEntryDto = new CreateEntryDto(now, mode);
+    const entryResult = await this.trendingService.createEntry(createEntryDto);
 
-  //   if (!entryResult.finish) {
-  //     return entryResult;
-  //   }
+    if (!entryResult.finish) {
+      return entryResult;
+    }
 
-  //   const trendsList = await this.devService.callTrendings();
-  //   console.log('Trendings: ', trendsList);
-  //   const results = [];
+    const trendsList = await this.devService.callTrendings();
+    console.log('Trendings: ', trendsList);
+    const results = [];
 
-  //   const skippedStoryIds: string[] = [];
+    const skippedStoryIds: string[] = [];
 
-  //   for (const trend of trendsList) {
-  //     const {
-  //       id, title, original_title, original_language, adult,
-  //       genres_id, vote_count, vote_average, popularity, release_date, poster_path,
-  //       page, rank, rankPage
-  //     } = trend;
+    for (const trend of trendsList) {
+      const {
+        id, title, original_title, original_language, adult,
+        genres_id, vote_count, vote_average, popularity, release_date, poster_path,
+        page, rank, rankPage
+      } = trend;
 
-  //   let movie: CreateMovieDto = await this.movieService.findMovie(id.toString());
+    let movie: CreateMovieDto = await this.movieService.findMovie(id.toString());
 
-  //   if (!movie) {
-  //     const movieDto = new CreateMovieDto(
-  //       id.toString(), title, original_title, original_language, adult
-  //     );
-  //     movie = await this.movieService.addMovie(movieDto);
-  //   }
+    if (!movie) {
+      const movieDto = new CreateMovieDto(
+        id.toString(), title, original_title, original_language, adult
+      );
+      movie = await this.movieService.addMovie(movieDto);
+    }
 
-  //   let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(
-  //     id.toString()
-  //   );
+    let movieDetail: CreateMovieDetailDto = await this.movieService.findMovieDetail(
+      id.toString()
+    );
 
-  //   if (!movieDetail) {
-  //     const movieDetailDto = new CreateMovieDetailDto(
-  //       id.toString(), vote_count, vote_average,
-  //       popularity, release_date ? new Date(release_date) : null,
-  //       poster_path);
-  //     movieDetail = await this.movieService.addDetail(movieDetailDto);
-  //   }
+    if (!movieDetail) {
+      const movieDetailDto = new CreateMovieDetailDto(
+        id.toString(), vote_count, vote_average,
+        popularity, release_date ? new Date(release_date) : null,
+        poster_path);
+      movieDetail = await this.movieService.addDetail(movieDetailDto);
+    }
 
-  //   const genres = Array.isArray(genres_id)
-  //     ? genres_id.map((genreId: number) => ({ id: genreId.toString() }))
-  //     : [];
-  //   const genreRelations = await Promise.all(
-  //     genres.map(async (genre) => {
-  //       try {
-  //         return await this.movieService.addGenreToMovie(
-  //           movie.id.toString(), genre.id.toString()
-  //         );
-  //         } catch (error) {
-  //           console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
-  //           return null;
-  //         }
-  //       })
-  //     );
+    const genres = Array.isArray(genres_id)
+      ? genres_id.map((genreId: number) => ({ id: genreId.toString() }))
+      : [];
+    const genreRelations = await Promise.all(
+      genres.map(async (genre) => {
+        try {
+          return await this.movieService.addGenreToMovie(
+            movie.id.toString(), genre.id.toString()
+          );
+          } catch (error) {
+            console.error(`Erro ao adicionar gênero ${genre.id} para o filme ${movie.id}`, error);
+            return null;
+          }
+        })
+      );
 
-  //     if (!entryResult.result?.id) {
-  //       console.error('entryResult.result.id está indefinido', entryResult);
-  //       continue;
-  //     }
+      if (!entryResult.result?.id) {
+        console.error('entryResult.result.id está indefinido', entryResult);
+        continue;
+      }
 
-  //     const storyDto = new CreateStoryDto(
-  //       entryResult.result.id, movie.id, vote_count,
-  //       vote_average, popularity, page, rank, rankPage
-  //     );
-  //     await this.trendingService.addStory(storyDto);
+      const storyDto = new CreateStoryDto(
+        entryResult.result.id, movie.id, vote_count,
+        vote_average, popularity, page, rank, rankPage
+      );
+      await this.trendingService.addStory(storyDto);
 
-  //     results.push({
-  //       movie,
-  //       movieDetail,
-  //       genres: genreRelations.filter(rel => rel !== null),
-  //     });
-  //   }
+      results.push({
+        movie,
+        movieDetail,
+        genres: genreRelations.filter(rel => rel !== null),
+      });
+    }
 
-  //   return {
-  //     message: 'Tendências processadas com sucesso!',
-  //     total: results.length, movies: results
-  //   };
-  // }
+    return {
+      message: 'Tendências processadas com sucesso!',
+      total: results.length, movies: results
+    };
+  }
 
   @Delete('delete-movies')
   async deleteAllMovies() {
