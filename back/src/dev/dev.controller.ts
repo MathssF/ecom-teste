@@ -170,18 +170,26 @@ export class DevController {
   }
 
   @Get('/trends')
-  async findTrends(@Query() query: limitsData) {
-    const trendsList = await this.devService.callTrendings();
+  async findTrends(
+    @Query() mode: number,
+    @Query() query: limitsData,
+  ) {
+    let setMode = 2;
+    if (mode === 1) setMode = 1;
+    const trendsList = await this.devService.callTrendings(setMode, data);
     return trendsList;
   }
 
   @Get('/trends/:page')
   async findTrendPage(
     @Param('page') page: number,
-    @Query() query: limitsData
+    @Query() mode: number,
+    @Query() data: limitsData,
 
   ) {
-    return await this.devService.callTrendPage(page);
+    let setMode = 2;
+    if (mode === 1) setMode = 1;
+    return await this.devService.callTrendPage(setMode, page, data);
   }
 
   @Post('/trends/:mode')

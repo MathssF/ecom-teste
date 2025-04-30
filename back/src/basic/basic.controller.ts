@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { BasicService } from './basic.service';
-import { CreateGenreDto, CreateLanguageDto, CreateCompanyDto } from './dto/create-basic.dto';
+import { CreateCompanyDto } from './dto/create-basic.dto';
 import { UpdateBasicDto } from './dto/update-basic.dto';
 
 @Controller('basic')

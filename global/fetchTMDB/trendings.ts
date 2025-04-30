@@ -104,11 +104,11 @@ export class TrendingMoviesAPI {
     return allMovies.slice(0, maxItems);
   }
 
-  public async getTrendByPage(page: number, data?: limitsData): Promise<any> {
+  public async getTrendByPage(mode: number, page: number, data?: limitsData): Promise<any> {
     if (data?.setLang && data.chooseLang) {
       this.language = data.chooseLang;
     }
-    const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
+    const response = await fetch(`${this.getUrl(mode)}&page=${page}`, this.getOptions());
     return await response.json();
   }
 }

@@ -37,16 +37,16 @@ export class DevService {
     })
   }
 
-  async callTrendings(data?: limitsData) {
-    const trends = await this.trendingsAPI.getTrendingMovies({
+  async callTrendings(mode: number, data?: limitsData) {
+    const trends = await this.trendingsAPI.getTrendingMovies(mode, {
       dev: true,
       ...data,
     });
     return trends;
   }
 
-  async callTrendPage(page: number, data?: limitsData) {
-    return await this.trendingsAPI.getTrendByPage(page, {
+  async callTrendPage(mode: number, page: number, data?: limitsData) {
+    return await this.trendingsAPI.getTrendByPage(mode, page, {
       dev: true,
       ...data,
     });
