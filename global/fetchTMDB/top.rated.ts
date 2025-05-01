@@ -27,6 +27,7 @@ export class TopRatedMoviesAPI {
 
   public async getTopRatedMovies(data?: limitsData): Promise<any[]> {
     let allMovies: any[] = [];
+    let allPages: number[] = [];
 
     let page = 1;
     let totalPages = 1;

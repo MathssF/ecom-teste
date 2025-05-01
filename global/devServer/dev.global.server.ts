@@ -25,31 +25,13 @@ app.get('/movie/:id', async (req, res) => {
 
 app.get('/top-rated', async (req, res) => {
   try {
-    const { limitItems, limitPages, chooseLang } = req.query;  // Aqui você pode passar os parâmetros via query string
+    const { limitItems, limitPages, chooseLang } = req.query;
     const data = {
       setLimitItems: true,
       limitItems: parseInt(limitItems as string, 10),
       setLimitPages: true,
       limitPages: parseInt(limitPages as string, 10),
-      chooseLang: chooseLang ? chooseLang : 'en-US',  // Usando idioma, se passado
-    };
-
-    const topRatedMovies = await topRatedAPI.getTopRatedMovies(data);
-    res.json(topRatedMovies);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.get('/top-rated', async (req, res) => {
-  try {
-    const { limitItems, limitPages, chooseLang } = req.query;  // Aqui você pode passar os parâmetros via query string
-    const data = {
-      setLimitItems: true,
-      limitItems: parseInt(limitItems as string, 10),
-      setLimitPages: true,
-      limitPages: parseInt(limitPages as string, 10),
-      chooseLang: chooseLang ? chooseLang : 'en-US',  // Usando idioma, se passado
+      chooseLang: chooseLang ? chooseLang : 'en-US', 
     };
 
     const topRatedMovies = await topRatedAPI.getTopRatedMovies(data);
@@ -83,6 +65,19 @@ app.get('/trending', async (req, res) => {
     };
 
     const trendingMovies = await trendingAPI.getTrendingMovies(parseInt(mode as string, 10), data);
+    res.json(trendingMovies);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/trending/page/:mode/:page', async (req, res) => {
+  const mode = parseInt(req.params.mode, 10);
+  const page = parseInt(req.params.page, 10);
+  try {
+    const { chooseLang } = req.query;
+    const data = { chooseLang: chooseLang ? chooseLang : 'en-US' };
+    const trendingMovies = await trendingAPI.getTrendByPage(mode, page, data);
     res.json(trendingMovies);
   } catch (error) {
     res.status(500).json({ error: error.message });
