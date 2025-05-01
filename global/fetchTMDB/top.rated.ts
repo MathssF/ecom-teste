@@ -1,4 +1,10 @@
 import { limitsData } from '../tables/interfaces';
+import {
+  TopRatedResult,
+  TopRatedCoupled,
+  TopRatedList,
+  TopRatedListWithPages,
+} from '../tables/results/top-rated.interfaces';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -106,7 +112,7 @@ export class TopRatedMoviesAPI {
       totalPages = json.total_pages;
       if (allMovies.length >= maxItems) break;
       if (data?.returnPageList) {
-        allPages.push[page];
+        allPages.push(page);
       }
       page++;
     }
@@ -114,15 +120,6 @@ export class TopRatedMoviesAPI {
       return resultsPages;
     }
     if (data.returnPageList) {
-      if (allPages.length === 1) {
-        const resultData = {
-          pages: allPages[0],
-          movies: allMovies,
-          total_pages: coupledData[0],
-          total_results: coupledData[1]
-        }
-        return resultData;
-      }
       const resultData = {
         pages: allPages,
         movies: allMovies,
