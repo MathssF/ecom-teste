@@ -45,14 +45,9 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    // const genresTops: any = this.apiTools.filterByGenres(
-    //   // tops.results,
-    //   (tops as { results: any[] }).results,
-    //   genreRef
-    // );
-    // return genresTops;
-    if (tops && 'results' in tops) {
-      const genresTops = this.apiTools.filterByGenres(tops.results, genreRef);
+    if (tops && typeof tops === 'object' && 'results' in tops) {
+      const results = (tops as { results: any[] }).results;
+      const genresTops = this.apiTools.filterByGenres(results, genreRef);
       return genresTops;
     } else {
       throw new Error('tops não possui propriedade "results"');
@@ -76,14 +71,9 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    // const yearTops: any = this.apiTools.filterByYear(
-    //   // tops.results,
-    //   (tops as { results: any[] }).results,
-    //   yearRef
-    // );
-    // return yearTops;
-    if (tops && 'results' in tops) {
-      const yearTops = this.apiTools.filterByYear(tops.results, yearRef);
+    if (tops && typeof tops === 'object' && 'results' in tops) {
+      const results = (tops as { results: any[] }).results;
+      const yearTops = this.apiTools.filterByYear(results, yearRef);
       return yearTops;
     } else {
       throw new Error('tops não possui propriedade "results"');
@@ -105,7 +95,23 @@ export class ApiService {
     return details;
   }
 
-  async callTopsInTrends() {
-
+  callTopsInTrends(tops: any[], trends: any[]) {
+    if (
+      tops
+      && typeof tops === 'object'
+      && 'results' in tops
+      && trends
+      && typeof trends === 'object'
+      && 'results' in trends
+    ) {
+      const topResults = (tops as { results: any[] }).results;
+      const trendsResults = (trends as { results: any[] }).results;
+      const TopsInTrends = this.apiTools.checkEach(
+        topResults, trendsResults
+      )
+      return TopsInTrends;
+    } else {
+      throw new Error('tops e/ou trends não possui propriedade "results"');
+    }
   }
 }

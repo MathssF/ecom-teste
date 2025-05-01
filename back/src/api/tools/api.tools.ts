@@ -51,7 +51,7 @@ export class ApiTools {
     if (year === null) {
       for(const movie of tops) {
         const movieYear = new Date(movie.release_date).getFullYear();
-        const existingYear = yearList.find(item => item.year === movieYear);
+        const existingYear = yearList.find(item => new Date(item.year).getFullYear() === movieYear);
         if (existingYear) {
           existingYear.movies.push(movie);
         } else {
@@ -70,7 +70,7 @@ export class ApiTools {
     return yearList;
   }
 
-  async checkEach(tops: any[], trends: any[]) {
+  checkEach(tops: any[], trends: any[]) {
     const TopsInTrends = tops.map((movieOnTops) => {
       const movie = { ...movieOnTops };
 

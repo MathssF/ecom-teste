@@ -35,7 +35,9 @@ export class ApiController {
   async findTopGenres(
     @Query() query: limitsData,
     @Param('id') id?: string,
-  ) {}
+  ) {
+    
+  }
 
   @Get('genres-popularity')
   @Get('genres-popularity/:id')

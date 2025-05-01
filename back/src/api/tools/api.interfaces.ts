@@ -21,5 +21,5 @@ export interface GenresResult {
 
 export interface YearResult {
   year: string;
-  movies: [];
+  movies: any[];
 }

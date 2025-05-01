@@ -93,7 +93,9 @@ export class TopRatedMoviesAPI {
       if (allMovies.length >= maxItems) break;
       page++;
     }
-
+    if (data?.setLimitPages === true && data?.setLimitItems === false){
+      return allMovies;
+    }
     return allMovies.slice(0, maxItems);
   }
 
