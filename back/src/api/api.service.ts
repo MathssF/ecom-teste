@@ -45,15 +45,12 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    const genresTops = this.apiTools.filterByGenres(tops.results, genreRef);
+    const genresTops: any = this.apiTools.filterByGenres(
+      tops.results,
+      // (tops as { results: any[] }).results,
+      genreRef
+    );
     return genresTops;
-    // const apiResult = {
-    //   page: tops.page ?? null,
-    //   results: genresTops,
-    //   total_pages: tops.total_pages ?? null,
-    //   total_results: tops.total_results ?? null,
-    // }
-    // return apiResult;
   }
 
   async callTopsByYear(data?: limitsData) {
@@ -73,15 +70,12 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    const yearTops = this.apiTools.filterByYear(tops.results, yearRef);
+    const yearTops: any = this.apiTools.filterByYear(
+      tops.results,
+      // (tops as { results: any[] }).results,
+      yearRef
+    );
     return yearTops;
-    // const apiResult = {
-    //   page: tops.page ?? null,
-    //   results: yearTops,
-    //   total_pages: tops.total_pages ?? null,
-    //   total_results: tops.total_results ?? null,
-    // }
-    // return apiResult;
   }
 
   async callTrendings(mode: number, data?: limitsData) {
