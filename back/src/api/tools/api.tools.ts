@@ -13,7 +13,7 @@ import { Genres } from "../../../../global/tables/seed.tables";
 export class ApiTools {
   constructor() {}
 
-  async filterByGenres(tops: any, reference: GenresType | null): GenresResult[] | null {
+  filterByGenres(tops: any, reference: GenresType | null): GenresResult[] | null {
     let genres: GenresType[] = [];
     let genresResult: GenresResult[] = [];
     if (reference === null) {
@@ -41,7 +41,7 @@ export class ApiTools {
     return genresResult;
   }
 
-  async noteByGenres(list: any, reference: GenresType | null) {
+  noteByGenres(list: any, reference: GenresType | null) {
     const genres: GenresResult[] | null = this.filterByGenres(list, reference);
     const result = genres.map((elem) => {
       return {
@@ -53,18 +53,28 @@ export class ApiTools {
     })
   }
 
-  async filterByYear(tops: any, year: string | null) {
+  filterByYear(tops: any, year: string | null) {
     let yearList: YearResult[] = [];
     if (year === null) {
       for(const movie of tops) {
-        const y = new Date(movie.release_date).getFullYear();
-        if (yearList.includes({year: y})) {
-          yearList[{ year: y}].movies.push(movie);
+        const movieYear = new Date(movie.release_date).getFullYear();
+        const existingYear = yearList.find(item => item.year === movieYear);
+        if (existingYear) {
+          existingYear.movies.push(movie);
         } else {
-          year.push({year: y, movies: [movie]})
+          yearList.push({ year: movieYear, movies: [movie] });
         }
       }
+    } else {
+      yearList.push({ year: year, movies: [] })
+      const topsYear = tops.map((movie) => {
+        const movieYear = new Date(movie.release_date).getFullYear();
+        if (movieYear.toString() === year) {
+          yearList[0].movies.push(movie);
+        }
+      })
     }
+    return yearList;
   }
 
   async checkEach() {
