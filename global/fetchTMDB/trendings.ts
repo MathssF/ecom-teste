@@ -31,7 +31,7 @@ export class TrendingMoviesAPI {
     };
   }
 
-  public async getTrendingMovies(mode: number, data?: limitsData): Promise<any[]> {
+  public async getTrendingMovies(mode: number, data?: limitsData): Promise<any[] | any> {
     let allMovies: any[] = [];
     let allPages: number[] = [];
     let resultsPages: any[] = [];
@@ -127,10 +127,10 @@ export class TrendingMoviesAPI {
         total_pages: coupledData[0],
         total_results: coupledData[1]
       };
+      return resultData;
     }
 
     return allMovies;
-    // return allMovies.slice(0, maxItems);
   }
 
   public async getTrendByPage(mode: number, page: number, data?: limitsData): Promise<any> {

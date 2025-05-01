@@ -25,7 +25,7 @@ export class TopRatedMoviesAPI {
     };
   }
 
-  public async getTopRatedMovies(data?: limitsData): Promise<any[]> {
+  public async getTopRatedMovies(data?: limitsData): Promise<any[] | any> {
     let allMovies: any[] = [];
     let allPages: number[] = [];
     let resultsPages: any[] = [];
@@ -114,21 +114,23 @@ export class TopRatedMoviesAPI {
       return resultsPages;
     }
     if (data.returnPageList) {
-      // return {
-      //   pageLists: allPages,
-      //   movies: allMovies
-      // }
+      if (allPages.length === 1) {
+        const resultData = {
+          pages: allPages[0],
+          movies: allMovies,
+          total_pages: coupledData[0],
+          total_results: coupledData[1]
+        }
+        return resultData;
+      }
       const resultData = {
         pages: allPages,
         movies: allMovies,
         total_pages: coupledData[0],
         total_results: coupledData[1]
       }
+      return resultData;
     }
-    // if (data?.setLimitPages === true && data?.setLimitItems === false){
-    //   return allMovies;
-    // }
-    // return allMovies.slice(0, maxItems);
     return allMovies;
   }
 
