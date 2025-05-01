@@ -10,7 +10,9 @@
     "start:back": "tsc -b && node -r tsconfig-paths/register dist/back/main.js",
     "start:front": "next build && PORT=$PORT_FRONT next start",
     "dev:back": "ts-node -r tsconfig-paths/register back/main.ts",
-    "dev:front": "PORT=$PORT_FRONT next dev"
+    "dev:front": "PORT=$PORT_FRONT next dev",
+    "start:global": "ts-node -r tsconfig-paths/register global/devServer/dev.global.server.ts",
+    "dev:global": "ts-node -r tsconfig-paths/register global/devServer/dev.global.server.ts"
   },
   "keywords": [],
   "author": "Matheus Flores",

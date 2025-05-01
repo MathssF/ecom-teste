@@ -70,3 +70,15 @@ POST 'http://localhost:3000/dev/trends/2'         // Salva os filmes da semana
 
 A rota DEV tem o mesmo corpo da rota API (Api Direta)
 
+## Dev Global:
+
+GET  'http://localhost:3003/movie/{id}'
+GET  'http://localhost:3003/movie/1895'
+GET  'http://localhost:3003/top-rated?limitItems=10&limitPages=2&chooseLang=en-US'
+GET  'http://localhost:3003/top-rated?limitPages=20&chooseLang=pt-BR'
+GET  'http://localhost:3003/top-rated?limitItems=300&chooseLang=pt-BR'
+GET  'http://localhost:3003/top-rated/page/1'
+GET  'http://localhost:3003/trending?mode=1&limitItems=10&limitPages=2&chooseLang=en-US'
+GET  'http://localhost:3003/trending?mode=1&limitPages=20&chooseLang=pt-BR'
+GET  'http://localhost:3003/trending?mode=1&limitItems=300&chooseLang=pt-BR'
+GET  'http://localhost:3003/trending/page/1/1'

@@ -72,12 +72,20 @@ export class ApiTools {
 
   async checkEach(tops: any[], trends: any[]) {
     const TopsInTrends = tops.map((movieOnTops) => {
-      for(const movieOnTrends in trends) {
-        if(movieOnTops.id === movieOnTrend.id) {
-          
+      const movie = { ...movieOnTops };
+
+      for (const movieOnTrends of trends) {
+        if (movieOnTops.id === movieOnTrends.id) {
+          movie.trends = true;
+          movie.trendPage = movieOnTrends.page ?? null;
+          movie.trendRank = movieOnTrends.rank ?? null;
+          movie.trendPageRank = movieOnTrends.rankPage ?? null;
+          break;
         }
       }
+      return movie;
     })
+    return TopsInTrends;
   }
 
   validadeGenreRef (

@@ -46,7 +46,10 @@ export class ApiService {
       setLimitItems: true, limitItems: 250
     })
     const genresTops = this.apiTools.filterByGenres(tops.results, genreRef);
-    return genresTops;
+    // return genresTops;
+    const apiResult = {
+
+    }
   }
 
   async callTopsByYear(data?: limitsData) {
@@ -67,7 +70,7 @@ export class ApiService {
       setLimitItems: true, limitItems: 250
     })
     const yearTops = this.apiTools.filterByYear(tops.results, yearRef);
-    return yearTops;
+    // return yearTops;
   }
 
   async callTrendings(mode: number, data?: limitsData) {
@@ -83,5 +86,9 @@ export class ApiService {
     const movieId = Number(id);
     const details = await this.movieDetailAPI.getMovieDetails(movieId, data);
     return details;
+  }
+
+  async callTopsInTrends() {
+
   }
 }
