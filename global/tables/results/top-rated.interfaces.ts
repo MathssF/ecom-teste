@@ -20,7 +20,7 @@ export interface TopRatedResult {
 }
 
 export interface TopRatedCoupled {
-  adult: boolean;
+  adult?: boolean;
   backdrop_path?: string;
   genre_ids: number[];
   id: number;
@@ -28,7 +28,7 @@ export interface TopRatedCoupled {
   original_title: string;
   overview?: string;
   popularity: number;
-  poster_path: string;
+  poster_path?: string;
   release_date: string;
   title: string;
   video?: boolean;

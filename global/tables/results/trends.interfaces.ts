@@ -21,14 +21,14 @@ export interface TrendingResult {
 }
 
 export interface TrendingCoupled {
-  adult: boolean;
+  adult?: boolean;
   backdrop_path?: string;
   id: number;
   title: string;
   original_language: string;
   original_title: string;
   overview?: string;
-  poster_path: string;
+  poster_path?: string;
   media_type?: string;
   genre_ids: number[];
   popularity: number;
