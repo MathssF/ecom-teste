@@ -3,6 +3,7 @@ export interface limitsData {
   persistence?: boolean,
   frontEndPage?: boolean,
   showFullApi?: boolean,
+  shortInfo?: boolean,
   setLimitItems?: boolean,
   setLimitPages?: boolean,
   limitItems?: number,
@@ -12,5 +13,5 @@ export interface limitsData {
   setGenre?: boolean,
   setYear?: boolean,
   chooseGenreRef?: number | string,
-  choseYear?: string,
+  chooseYear?: number | string,
 }

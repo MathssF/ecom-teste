@@ -37,7 +37,7 @@ export class ApiService {
   async callTopGenres(data?: limitsData) {
     let genreRef: GenresType | null = null;
     if (data.setGenre && data.chooseGenreRef) {
-      genreRef = await this.apiTools.validadeGenreRef({
+      genreRef = this.apiTools.validadeGenreRef({
         chooseGenreRef: data.chooseGenreRef 
       }, Genres);
     }
@@ -45,10 +45,29 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    // const trends = await this.trendingsAPI.getTrendingMovies(2, {
-    //   frontEndPage: true,
-    //   setLimitPages: true, limitPages: 20
-    // })
+    const genresTops = this.apiTools.filterByGenres(tops, genreRef);
+    return genresTops;
+  }
+
+  async callTopsByYear(data?: limitsData) {
+    let yearRef: string | null = null;
+    const currentYear = new Date().getFullYear();
+    if (data.setYear && data.chooseYear) {
+      const year = Number(data.chooseYear);
+      const isValid = !isNaN(year)
+        && Number.isInteger(year)
+        && year >= 1800
+        && year <= currentYear;
+        if (isValid) {
+          yearRef = data.chooseYear.toString();
+        }
+    }
+    const tops = await this.topRatedAPI.getTopRatedMovies({
+      frontEndPage: true,
+      setLimitItems: true, limitItems: 250
+    })
+    const yearTops = this.apiTools.filterByYear(tops, yearRef);
+    return yearTops;
   }
 
   async callTrendings(mode: number, data?: limitsData) {
