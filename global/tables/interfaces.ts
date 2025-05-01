@@ -5,6 +5,8 @@ export interface limitsData {
   showFullApi?: boolean,
   shortInfo?: boolean,
   showInfo?: boolean,
+  resultModeByPage?: boolean,
+  returnPageList?: boolean,
   setLimitItems?: boolean,
   setLimitPages?: boolean,
   limitItems?: number,

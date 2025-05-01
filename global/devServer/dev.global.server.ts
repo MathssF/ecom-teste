@@ -31,6 +31,7 @@ app.get('/top-rated', async (req, res) => {
       limitItems: parseInt(limitItems as string, 10),
       setLimitPages: true,
       limitPages: parseInt(limitPages as string, 10),
+      setLang: true,
       chooseLang: chooseLang ? chooseLang : 'en-US', 
     };
 
@@ -61,7 +62,10 @@ app.get('/trending', async (req, res) => {
       limitItems: parseInt(limitItems as string, 10),
       setLimitPages: true,
       limitPages: parseInt(limitPages as string, 10),
+      setLang: true,
       chooseLang: chooseLang ? chooseLang : 'en-US',
+      dev: true,
+      showFullApi: true,
     };
 
     const trendingMovies = await trendingAPI.getTrendingMovies(parseInt(mode as string, 10), data);

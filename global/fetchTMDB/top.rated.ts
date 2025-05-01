@@ -28,6 +28,8 @@ export class TopRatedMoviesAPI {
   public async getTopRatedMovies(data?: limitsData): Promise<any[]> {
     let allMovies: any[] = [];
     let allPages: number[] = [];
+    let resultsPages: any[] = [];
+    let coupledData = [0, 0]
 
     let page = 1;
     let totalPages = 1;
@@ -47,6 +49,17 @@ export class TopRatedMoviesAPI {
     while (page <= totalPages && page <= maxPages && allMovies.length < maxItems) {
       const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
       const json: any = await response.json();
+
+      if (data?.resultModeByPage) {
+        resultsPages.push(json)
+      }
+
+      if (json.total_pages && json.total_pages > coupledData[0]) {
+      coupledData[0] = json.total_pages 
+      }
+      if (json.total_results && json.total_results > coupledData[1]) {
+        coupledData[1] = json.total_results
+      }
 
       const movies = json.results.map((movie: any, index: number) => {
         const movieData: any = {
@@ -92,12 +105,31 @@ export class TopRatedMoviesAPI {
 
       totalPages = json.total_pages;
       if (allMovies.length >= maxItems) break;
+      if (data?.returnPageList) {
+        allPages.push[page];
+      }
       page++;
     }
-    if (data?.setLimitPages === true && data?.setLimitItems === false){
-      return allMovies;
+    if (data?.resultModeByPage) {
+      return resultsPages;
     }
-    return allMovies.slice(0, maxItems);
+    if (data.returnPageList) {
+      // return {
+      //   pageLists: allPages,
+      //   movies: allMovies
+      // }
+      const resultData = {
+        pages: allPages,
+        movies: allMovies,
+        total_pages: coupledData[0],
+        total_results: coupledData[1]
+      }
+    }
+    // if (data?.setLimitPages === true && data?.setLimitItems === false){
+    //   return allMovies;
+    // }
+    // return allMovies.slice(0, maxItems);
+    return allMovies;
   }
 
   public async getTopsByPage(page: number, data?: limitsData): Promise<any> {
