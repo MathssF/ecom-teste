@@ -45,7 +45,7 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    const genresTops = this.apiTools.filterByGenres(tops, genreRef);
+    const genresTops = this.apiTools.filterByGenres(tops.results, genreRef);
     return genresTops;
   }
 
@@ -66,7 +66,7 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    const yearTops = this.apiTools.filterByYear(tops, yearRef);
+    const yearTops = this.apiTools.filterByYear(tops.results, yearRef);
     return yearTops;
   }
 

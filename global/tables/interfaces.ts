@@ -4,6 +4,7 @@ export interface limitsData {
   frontEndPage?: boolean,
   showFullApi?: boolean,
   shortInfo?: boolean,
+  showInfo?: boolean,
   setLimitItems?: boolean,
   setLimitPages?: boolean,
   limitItems?: number,

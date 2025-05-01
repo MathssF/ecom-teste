@@ -16,6 +16,7 @@ export interface TopRatedResult {
   page?: number;
   rank?: number;
   rankPage?: number;
+  addInfos?: any,
 }
 
 export interface TopRatedList {
@@ -23,4 +24,5 @@ export interface TopRatedList {
   results: TopRatedResult[];
   total_pages: number;
   total_results: number;
+  addInfos?: any,
 }

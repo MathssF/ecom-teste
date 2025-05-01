@@ -17,6 +17,7 @@ export interface TrendingResult {
   page?: number;
   rank?: number;
   rankPage?: number;
+  addInfos?: any,
 }
 
 export interface TrendingList {
@@ -24,4 +25,5 @@ export interface TrendingList {
   results: TrendingResult[];
   total_pages: number;
   total_results: number;
+  addInfos?: any,
 }

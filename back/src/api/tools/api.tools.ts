@@ -46,16 +46,6 @@ export class ApiTools {
     return genresResult;
   }
 
-  // noteByGenres(list: any, reference: GenresType | null) {
-  //   const genres: GenresResult[] = this.filterByGenres(list, reference);
-  //   return genres.map(({ id, name, moviesRattingAverage, moviesWeightedAvarege }) => ({
-  //     id,
-  //     name,
-  //     moviesRattingAverage,
-  //     moviesWeightedAvarege,
-  //   }));
-  // }
-
   filterByYear(tops: any, year: string | null): YearResult[] {
     const yearList: YearResult[] = [];
     if (year === null) {
@@ -80,8 +70,14 @@ export class ApiTools {
     return yearList;
   }
 
-  async checkEach() {
-    //
+  async checkEach(tops: any[], trends: any[]) {
+    const TopsInTrends = tops.map((movieOnTops) => {
+      for(const movieOnTrends in trends) {
+        if(movieOnTops.id === movieOnTrend.id) {
+          
+        }
+      }
+    })
   }
 
   validadeGenreRef (
