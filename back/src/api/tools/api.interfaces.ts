@@ -3,13 +3,6 @@ export interface GenresType {
   name: string;
 }
 
-export interface GenresNotes {
-  id: number;
-  name: string;
-  moviesRattingAverage?: number;
-  moviesWeightedAvarege?: number;
-}
-
 export interface MovieByGenre {
   id: string;
   title: string;
@@ -24,4 +17,9 @@ export interface GenresResult {
   movies: MovieByGenre[];
   moviesRattingAverage: number;
   moviesWeightedAvarege: number;
+}
+
+export interface YearResult {
+  year: string;
+  movies: [];
 }

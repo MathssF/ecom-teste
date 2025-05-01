@@ -1,4 +1,4 @@
-import { GenresNotes, GenresResult, GenresType } from "./api.interfaces";
+import { GenresType, GenresResult, YearResult } from "./api.interfaces";
 import { MovieDetails } from '../../../../global/tables/results/details.interfaces';
 import {
   TopRatedResult,
@@ -53,8 +53,18 @@ export class ApiTools {
     })
   }
 
-  async filterByYear() {
-    //
+  async filterByYear(tops: any, year: string | null) {
+    let yearList: YearResult[] = [];
+    if (year === null) {
+      for(const movie of tops) {
+        const y = new Date(movie.release_date).getFullYear();
+        if (yearList.includes({year: y})) {
+          yearList[{ year: y}].movies.push(movie);
+        } else {
+          year.push({year: y, movies: [movie]})
+        }
+      }
+    }
   }
 
   async checkEach() {
