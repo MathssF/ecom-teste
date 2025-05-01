@@ -39,18 +39,24 @@ export class ApiService {
     if (data.setGenre && data.chooseGenreRef) {
       genreRef = this.apiTools.validadeGenreRef({
         chooseGenreRef: data.chooseGenreRef 
-      }, Genres);
+      });
     }
     const tops = await this.topRatedAPI.getTopRatedMovies({
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    const genresTops: any = this.apiTools.filterByGenres(
-      tops.results,
-      // (tops as { results: any[] }).results,
-      genreRef
-    );
-    return genresTops;
+    // const genresTops: any = this.apiTools.filterByGenres(
+    //   // tops.results,
+    //   (tops as { results: any[] }).results,
+    //   genreRef
+    // );
+    // return genresTops;
+    if (tops && 'results' in tops) {
+      const genresTops = this.apiTools.filterByGenres(tops.results, genreRef);
+      return genresTops;
+    } else {
+      throw new Error('tops não possui propriedade "results"');
+    }
   }
 
   async callTopsByYear(data?: limitsData) {
@@ -70,12 +76,18 @@ export class ApiService {
       frontEndPage: true,
       setLimitItems: true, limitItems: 250
     })
-    const yearTops: any = this.apiTools.filterByYear(
-      tops.results,
-      // (tops as { results: any[] }).results,
-      yearRef
-    );
-    return yearTops;
+    // const yearTops: any = this.apiTools.filterByYear(
+    //   // tops.results,
+    //   (tops as { results: any[] }).results,
+    //   yearRef
+    // );
+    // return yearTops;
+    if (tops && 'results' in tops) {
+      const yearTops = this.apiTools.filterByYear(tops.results, yearRef);
+      return yearTops;
+    } else {
+      throw new Error('tops não possui propriedade "results"');
+    }
   }
 
   async callTrendings(mode: number, data?: limitsData) {
