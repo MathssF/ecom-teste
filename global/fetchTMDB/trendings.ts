@@ -33,6 +33,9 @@ export class TrendingMoviesAPI {
 
   public async getTrendingMovies(mode: number, data?: limitsData): Promise<any[]> {
     let allMovies: any[] = [];
+    let allPages: number[] = [];
+    let resultsPages: any[] = [];
+    let coupledData = [0, 0];
 
     let page = 1;
     let maxItems = 250;
@@ -54,6 +57,17 @@ export class TrendingMoviesAPI {
     while (page <= maxPages && allMovies.length < maxItems) {
       const response = await fetch(`${this.getUrl()}&page=${page}`, this.getOptions());
       const json: any = await response.json();
+
+      if (data?.resultModeByPage) {
+        resultsPages.push(json);
+      }
+
+      if (json.total_pages && json.total_pages > coupledData[0]) {
+        coupledData[0] = json.total_pages;
+      }
+      if (json.total_results && json.total_results > coupledData[1]) {
+        coupledData[1] = json.total_results;
+      }
 
       const movies = json.results.map((movie: any, index: number) => {
         const movieData: any = {
@@ -98,10 +112,25 @@ export class TrendingMoviesAPI {
       allMovies = [...allMovies, ...movies];
 
       if (allMovies.length >= maxItems) break;
+      if (data?.returnPageList) {
+        allPages.push(page);
+      }
       page++;
     }
+    if (data?.resultModeByPage) {
+      return resultsPages;
+    }
+    if (data.returnPageList) {
+      const resultData = {
+        pages: allPages,
+        movies: allMovies,
+        total_pages: coupledData[0],
+        total_results: coupledData[1]
+      };
+    }
 
-    return allMovies.slice(0, maxItems);
+    return allMovies;
+    // return allMovies.slice(0, maxItems);
   }
 
   public async getTrendByPage(mode: number, page: number, data?: limitsData): Promise<any> {
