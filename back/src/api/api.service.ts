@@ -42,8 +42,10 @@ export class ApiService {
       });
     }
     const tops = await this.topRatedAPI.getTopRatedMovies({
-      frontEndPage: data.frontEndPage ?? true,
-      setLimitItems: true, limitItems: data.limitItems ?? 250
+      ...(data ?? {}),
+      frontEndPage: data?.frontEndPage !== undefined ? data.frontEndPage : true,
+      setLimitItems: true,
+      limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
     })
     if (tops && typeof tops === 'object' && 'results' in tops) {
       const results = (tops as { results: any[] }).results;
@@ -68,8 +70,10 @@ export class ApiService {
         }
     }
     const tops = await this.topRatedAPI.getTopRatedMovies({
-      frontEndPage: true,
-      setLimitItems: true, limitItems: 250
+      ...(data ?? {}),
+      frontEndPage: data?.frontEndPage !== undefined ? data.frontEndPage : true,
+      setLimitItems: true,
+      limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
     })
     if (tops && typeof tops === 'object' && 'results' in tops) {
       const results = (tops as { results: any[] }).results;
