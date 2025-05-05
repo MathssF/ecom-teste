@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { ApiService } from './api.service';
 import { limitsData } from '../../../global/tables/interfaces';
@@ -10,30 +10,31 @@ export class ApiController {
   @Get('/movie/:movieId')
   async findOneMovie(
     @Param('movieId') movieId: string,
-    @Query() query: limitsData
+    @Body() body: limitsData
   ) {
-    const foundMovie = await this.apiService.callDetails(movieId, query);
+    const foundMovie = await this.apiService.callDetails(movieId, body);
     return foundMovie;
   }
 
   @Get('/top-rated')
-  async findTopRateds(@Query() query: limitsData) {
-    const topList = await this.apiService.callTopRated(query);
+  async findTopRateds(@Body() body: limitsData) {
+    console.log('Body recebida: ', body)
+    const topList = await this.apiService.callTopRated(body);
     return topList;
   }
 
   @Get('top-rated/:page')
   async findTopPage(
     @Param('page') page: number,
-    @Query() query: limitsData
+    @Body() body: limitsData
   ) {
-    return await this.apiService.callTopPage(page, query);
+    return await this.apiService.callTopPage(page, body);
   }
 
   @Get('top-genres')
   @Get('top-genres/:id')
   async findTopGenres(
-    @Query() query: limitsData,
+    @Body() body: limitsData,
     @Param('id') id?: string,
   ) {
     
@@ -42,7 +43,7 @@ export class ApiController {
   @Get('genres-popularity')
   @Get('genres-popularity/:id')
   async genresPop(
-    @Query() query: limitsData,
+    @Body() body: limitsData,
     @Param('id') id?: string,
   ) {}
 
@@ -54,11 +55,11 @@ export class ApiController {
   @Get('/trends-day')
   @Get('/trends-week')
   async findTrendsUnified(
-    @Query() query: limitsData,
+    @Body() body: limitsData,
     @Req() req: Request,
   ) {
     const isWeek = req.path.includes('week');
-    const trendsList = await this.apiService.callTrendings(isWeek ? 2 : 1, query);
+    const trendsList = await this.apiService.callTrendings(isWeek ? 2 : 1, Body);
     return trendsList;
   }
 
@@ -66,10 +67,10 @@ export class ApiController {
   @Get('/trends-week/:page')
   async findTrendPage(
     @Param('page') page: number,
-    @Query() query: limitsData,
+    @Body() body: limitsData,
     @Req() req: Request,
   ) {
     const isWeek = req.path.includes('week');
-    return await this.apiService.callTrendPage(isWeek ? 2 : 1, page, query);
+    return await this.apiService.callTrendPage(isWeek ? 2 : 1, page, Body);
   }
 }
