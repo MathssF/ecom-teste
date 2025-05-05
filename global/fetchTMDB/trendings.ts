@@ -1,4 +1,10 @@
 import { limitsData } from '../tables/interfaces';
+import {
+  TrendingResult,
+  TrendingCoupled,
+  TrendingList,
+  TrendingListWithPages,
+} from '../tables/results/trends.interfaces';
 import { set_time_window } from '../tables/variables';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -31,7 +37,10 @@ export class TrendingMoviesAPI {
     };
   }
 
-  public async getTrendingMovies(mode: number, data?: limitsData): Promise<any[] | any> {
+  public async getTrendingMovies(mode: number, data?: limitsData): Promise<
+    // TrendingResult[] | TrendingCoupled[] | TrendingList | TrendingListWithPages
+    any [] | any
+  > {
     let allMovies: any[] = [];
     let allPages: number[] = [];
     let resultsPages: any[] = [];

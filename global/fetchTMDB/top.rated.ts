@@ -31,7 +31,10 @@ export class TopRatedMoviesAPI {
     };
   }
 
-  public async getTopRatedMovies(data?: limitsData): Promise<any[] | any> {
+  public async getTopRatedMovies(data?: limitsData): Promise<
+  // TopRatedCoupled[] | TopRatedResult[] | TopRatedList | TopRatedListWithPages
+  any[] | any
+  > {
     let allMovies: any[] = [];
     let allPages: number[] = [];
     let resultsPages: any[] = [];

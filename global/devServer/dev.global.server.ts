@@ -32,7 +32,31 @@ app.get('/top-rated', async (req, res) => {
       setLimitPages: true,
       limitPages: parseInt(limitPages as string, 10),
       setLang: true,
-      chooseLang: chooseLang ? chooseLang : 'en-US', 
+      chooseLang: chooseLang ? chooseLang : 'en-US',
+      dev: true,
+      showFullApi: true,
+    };
+
+    const topRatedMovies = await topRatedAPI.getTopRatedMovies(data);
+    res.json(topRatedMovies);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/top-rated-by-page', async (req, res) => {
+  try {
+    const { limitItems, limitPages, chooseLang } = req.query;
+    const data = {
+      resultModeByPage: true,
+      setLimitItems: true,
+      limitItems: parseInt(limitItems as string, 10),
+      setLimitPages: true,
+      limitPages: limitPages ? parseInt(limitPages as string, 10) : 20,
+      setLang: true,
+      chooseLang: chooseLang ? chooseLang : 'en-US',
+      dev: true,
+      showFullApi: true,
     };
 
     const topRatedMovies = await topRatedAPI.getTopRatedMovies(data);
@@ -62,6 +86,28 @@ app.get('/trending', async (req, res) => {
       limitItems: parseInt(limitItems as string, 10),
       setLimitPages: true,
       limitPages: parseInt(limitPages as string, 10),
+      setLang: true,
+      chooseLang: chooseLang ? chooseLang : 'en-US',
+      dev: true,
+      showFullApi: true,
+    };
+
+    const trendingMovies = await trendingAPI.getTrendingMovies(parseInt(mode as string, 10), data);
+    res.json(trendingMovies);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/trending-by-page', async (req, res) => {
+  try {
+    const { mode, limitItems, limitPages, chooseLang } = req.query;
+    const data = {
+      resultModeByPage: true,
+      setLimitItems: true,
+      limitItems: parseInt(limitItems as string, 10),
+      setLimitPages: true,
+      limitPages: limitPages ? parseInt(limitPages as string, 10) : 20,
       setLang: true,
       chooseLang: chooseLang ? chooseLang : 'en-US',
       dev: true,
