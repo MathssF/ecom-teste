@@ -45,31 +45,6 @@ export class ApiController {
     return topGenres;
   }
 
-  @Get('genres-popularity')
-  @Get('genres-popularity/:id')
-  async genresPop(
-    @Query() query: limitsData,
-    @Param('id') id?: string,
-  ) {
-    if (id) {
-      query.chooseGenreRef = id;
-      query.setGenre = true;
-    }
-    const tops = await this.apiService.callTopRated({
-      ...(query ?? {}),
-      frontEndPage: query?.frontEndPage !== undefined ? query.frontEndPage : true,
-      setLimitItems: true,
-      limitItems: query?.limitItems !== undefined ? query.limitItems : 250,
-    });
-  
-    if (tops && typeof tops === 'object' && 'results' in tops) {
-      const results = (tops as { results: any[] }).results;
-      return this.apiService['apiTools'].getGenresPopularity(results);
-    } else {
-      throw new Error('tops não possui propriedade "results"');
-    }
-  }
-
   @Get('top-by-year/:year')
   async findTopByYear(
     @Param('year') year: string,
