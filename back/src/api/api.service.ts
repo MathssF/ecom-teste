@@ -27,10 +27,7 @@ export class ApiService {
 
   async callTopRated(data?: limitsData) {
     const tops = await this.topRatedAPI.getTopRatedMovies(data);
-    return {
-      tops,
-      data
-    };
+    return tops;
   }
 
   async callTopPage(page: number, data?: limitsData) {
@@ -53,10 +50,6 @@ export class ApiService {
     if (tops && typeof tops === 'object' && 'results' in tops) {
       const results = (tops as { results: any[] }).results;
       const genresTops = this.apiTools.filterByGenres(results, genreRef);
-      // return {
-      //   genresTops,
-      //   data
-      // };
       return genresTops;
     } else {
       throw new Error('tops não possui propriedade "results"');
