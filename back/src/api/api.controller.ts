@@ -37,7 +37,12 @@ export class ApiController {
     @Query() query: limitsData,
     @Param('id') id?: string,
   ) {
-    
+    if (id) {
+      query.chooseGenreRef = id;
+      query.setGenre = true;
+    }
+    const topGenres = await this.apiService.callTopGenres(query);
+    return topGenres;
   }
 
   @Get('genres-popularity')
@@ -45,12 +50,35 @@ export class ApiController {
   async genresPop(
     @Query() query: limitsData,
     @Param('id') id?: string,
-  ) {}
+  ) {
+    if (id) {
+      query.chooseGenreRef = id;
+      query.setGenre = true;
+    }
+    const tops = await this.apiService.callTopRated({
+      ...(query ?? {}),
+      frontEndPage: query?.frontEndPage !== undefined ? query.frontEndPage : true,
+      setLimitItems: true,
+      limitItems: query?.limitItems !== undefined ? query.limitItems : 250,
+    });
+  
+    if (tops && typeof tops === 'object' && 'results' in tops) {
+      const results = (tops as { results: any[] }).results;
+      return this.apiService['apiTools'].getGenresPopularity(results);
+    } else {
+      throw new Error('tops não possui propriedade "results"');
+    }
+  }
 
   @Get('top-by-year/:year')
   async findTopByYear(
     @Param('year') year: string,
-  ) {}
+  ) {
+    query.chooseYear = year;
+    query.setYear = true;
+    const yearList = await this.apiService.callTopsByYear(query);
+    return yearList;
+  }
 
   @Get('/trends-day')
   @Get('/trends-week')

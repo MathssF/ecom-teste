@@ -78,10 +78,6 @@ export class ApiService {
     if (tops && typeof tops === 'object' && 'results' in tops) {
       const results = (tops as { results: any[] }).results;
       const yearTops = this.apiTools.filterByYear(results, yearRef);
-      // return {
-      //   yearTops,
-      //   data
-      // };
       return yearTops;
     } else {
       throw new Error('tops não possui propriedade "results"');
