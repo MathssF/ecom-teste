@@ -60,7 +60,9 @@ export class TopRatedMoviesAPI {
       const json: any = await response.json();
 
       if (data?.resultModeByPage) {
-        resultsPages.push(json)
+        resultsPages.push(json);
+        page++;
+        continue;
       }
 
       if (json.total_pages && json.total_pages > coupledData[0]) {

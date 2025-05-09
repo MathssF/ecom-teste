@@ -69,6 +69,8 @@ export class TrendingMoviesAPI {
 
       if (data?.resultModeByPage) {
         resultsPages.push(json);
+        page++;
+        continue;
       }
 
       if (json.total_pages && json.total_pages > coupledData[0]) {

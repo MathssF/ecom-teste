@@ -47,6 +47,7 @@ export class ApiController {
 
   @Get('top-by-year/:year')
   async findTopByYear(
+    @Query() query: limitsData,
     @Param('year') year: string,
   ) {
     query.chooseYear = year;
