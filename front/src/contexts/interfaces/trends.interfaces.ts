@@ -38,6 +38,7 @@ export interface TrendsContextType {
 }
 
 export interface TrendsPageContextType {
+  movies: TrendingResult[];
   modeCall: number;
   pageData: TrendingList | null;
   loading: boolean;

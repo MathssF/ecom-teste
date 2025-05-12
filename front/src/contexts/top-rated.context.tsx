@@ -37,7 +37,7 @@ export const TopRatedProvider = ({ children }: { children: ReactNode }) => {
   return (
     <TopRatedContext.Provider value={{ movies, loading, error, fetchTopRated }}>
       {children}
-    </TopRatedContext>
+    </TopRatedContext.Provider>
   )
 }
 
@@ -76,7 +76,7 @@ export const TopRatedPagesProvider = ({ children }: { children: ReactNode }) => 
   return (
     <TopRatedPageContext.Provider value={{ currentPage, movies, loading, error, fetchTopRatedPage }}>
       {children}
-    </TopRatedPageContext>
+    </TopRatedPageContext.Provider>
   )
 }
 

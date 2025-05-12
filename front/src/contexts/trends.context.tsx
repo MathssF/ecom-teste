@@ -40,9 +40,9 @@ export const TrendsProvider = ({children}: { children: ReactNode }) => {
   };
 
   return (
-    <TrendsContext.Provider value={{ modeCall, movies, loading, error, fetchTopRated }}>
+    <TrendsContext.Provider value={{ modeCall, movies, loading, error, fetchTrending }}>
       {children}
-    </TrendsContext>
+    </TrendsContext.Provider>
   )
 }
 
@@ -81,9 +81,15 @@ export const TrendsPageProvider = ({children}: { children: ReactNode }) => {
   };
 
   return (
-    <TrendsPageContext.Provider value={{ modeCall, movies, loading, error, fetchTopRated }}>
+    <TrendsPageContext.Provider value={{
+      modeCall,
+      movies,
+      loading,
+      error,
+      fetchTrendingPage(mode, page, data) {},
+    }}>
       {children}
-    </TrendsPageContext>
+    </TrendsPageContext.Provider>
   )
 }
 
