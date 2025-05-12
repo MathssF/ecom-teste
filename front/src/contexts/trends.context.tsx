@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
 import { limitsData } from '../../../global/tables/interfaces';
 import {
-  // TrendingList,
+  TrendingList,
   TrendingResult,
   TrendsContextType,
   TrendsPageContextType,
@@ -59,6 +59,7 @@ export const TrendsPageProvider = ({children}: { children: ReactNode }) => {
   const [movies, setMovies] = useState<TrendingResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [pageData, setPageData] = useState<TrendingList | null>(null);
 
   const fetchTrending = async (mode: number, data?: limitsData) => {
     if (mode !== 1 && mode !== 2) {
@@ -82,6 +83,7 @@ export const TrendsPageProvider = ({children}: { children: ReactNode }) => {
 
   return (
     <TrendsPageContext.Provider value={{
+      pageData,
       modeCall,
       movies,
       loading,

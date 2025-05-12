@@ -51,6 +51,8 @@ export const useRated = () => {
 
 export const TopRatedPagesProvider = ({ children }: { children: ReactNode }) => {
   const [currentPage, setCurrentPage] = useState<number | null>(null);
+  const [pages, setPages] = useState<number[] | null>(null);
+  const [movies, setMovies] = useState<TopRatedResult[] | null>(null);
   const [pageData, setPageData] = useState<TopRatedList | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -74,7 +76,14 @@ export const TopRatedPagesProvider = ({ children }: { children: ReactNode }) => 
   };
 
   return (
-    <TopRatedPageContext.Provider value={{ currentPage, movies, loading, error, fetchTopRatedPage }}>
+    <TopRatedPageContext.Provider value={{
+      currentPage,
+      movies,
+      pageData,
+      loading,
+      error,
+      fetchTopRatedPage(page, data) {}
+    }}>
       {children}
     </TopRatedPageContext.Provider>
   )

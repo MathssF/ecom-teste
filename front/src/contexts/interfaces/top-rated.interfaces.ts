@@ -53,6 +53,8 @@ export interface TopRatedContextType {
 }
 
 export interface TopRatedPageContextType {
+  currentPage: number | null;
+  movies: TopRatedResult[] | null;
   pageData: TopRatedList | null;
   loading: boolean;
   error: string | null;

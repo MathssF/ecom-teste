@@ -49,7 +49,6 @@ export interface TopRatedList {
 }
 
 export interface TopRatedListWithPages {
-  currentPage: number | null;
   pages: number[];
   movies: TopRatedResult[];
   total_pages: number;
