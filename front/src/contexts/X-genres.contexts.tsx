@@ -28,7 +28,6 @@ export const GenreProvider = ({ children }: { children: ReactNode }) => {
         frontEndPage: false,
       });
 
-      // Ajuste os campos para garantir compatibilidade com filterByGenres
       const formatted = tops.map((movie: any) => ({
         ...movie,
         votesCounts: movie.vote_count,

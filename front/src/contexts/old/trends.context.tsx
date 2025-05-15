@@ -1,13 +1,13 @@
 'use client';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
-import { limitsData } from '../../../global/tables/interfaces';
+import { TrendingMoviesAPI } from '../../../../global/fetchTMDB/trendings';
+import { limitsData } from '../../../../global/tables/interfaces';
 import {
   TrendingList,
   TrendingResult,
   TrendsContextType,
   TrendsPageContextType,
-} from './interfaces/trends.interfaces';
+} from '../interfaces/trends.interfaces';
 // import { MovieData } from './interfaces/top-rated.interfaces';
 
 const TrendsContext = createContext<TrendsContextType | undefined>(undefined);

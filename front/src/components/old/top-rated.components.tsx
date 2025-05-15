@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
-import { useRated } from '../contexts/top-rated.context';
-import { limitsData } from '../../../global/tables/interfaces';
+import { useRated } from '../../contexts/old/top-rated.context';
+import { limitsData } from '../../../../global/tables/interfaces';
 
 export default function TopRatedList() {
   const { movies, loading, error, fetchTopRated } = useRated();

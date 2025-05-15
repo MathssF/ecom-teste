@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
-import { useRatedPages } from '../contexts/top-rated.context';
-import { limitsData } from '../../../global/tables/interfaces';
+import { useRatedPages } from '../../contexts/old/top-rated.context';
+import { limitsData } from '../../../../global/tables/interfaces';
 
 export default function TopRatedByPage() {
   const { pageData, currentPage, loading, error, fetchTopRatedPage } = useRatedPages();

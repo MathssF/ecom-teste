@@ -1,8 +1,8 @@
 'use client';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
-import { limitsData } from '../../../global/tables/interfaces';
-import { MovieDetails, DetailsContextType } from './interfaces/details.interfaces';
+import { MovieDetailsAPI } from '../../../../global/fetchTMDB/details';
+import { limitsData } from '../../../../global/tables/interfaces';
+import { MovieDetails, DetailsContextType } from '../interfaces/details.interfaces';
 
 const DetailsContext = createContext<DetailsContextType | undefined>(undefined);
 
