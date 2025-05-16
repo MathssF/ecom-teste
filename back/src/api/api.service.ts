@@ -47,6 +47,7 @@ export class ApiService {
       setLimitItems: true,
       limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
     })
+    console.log('tops: ', tops);
     // if (tops && typeof tops === 'object' && 'results' in tops) {
       // const results = (tops as { results: any[] }).results;
       // const genresTops = this.apiTools.filterByGenres(results, genreRef);
