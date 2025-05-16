@@ -47,13 +47,14 @@ export class ApiService {
       setLimitItems: true,
       limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
     })
-    if (tops && typeof tops === 'object' && 'results' in tops) {
-      const results = (tops as { results: any[] }).results;
-      const genresTops = this.apiTools.filterByGenres(results, genreRef);
+    // if (tops && typeof tops === 'object' && 'results' in tops) {
+      // const results = (tops as { results: any[] }).results;
+      // const genresTops = this.apiTools.filterByGenres(results, genreRef);
+      const genresTops = this.apiTools.filterByGenres(tops, genreRef);
       return genresTops;
-    } else {
-      throw new Error('tops não possui propriedade "results"');
-    }
+    // } else {
+    //   throw new Error('tops não possui propriedade "results"');
+    // }
   }
 
   async callTopsByYear(data?: limitsData) {
