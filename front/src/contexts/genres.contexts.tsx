@@ -35,7 +35,7 @@ export const GenreProvider = ({ children }: { children: ReactNode }) => {
         genre_id: movie.genre_ids,
       }));
 
-      const genreStats = apiTools.filterByGenres(formatted, null); // null = todos os gêneros
+      const genreStats = apiTools.filterByGenres(formatted, null);
       setGenres(genreStats); //
     } catch (err: any) {
       setError(err.message || 'Erro ao buscar filmes por gênero');

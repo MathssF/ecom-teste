@@ -1,4 +1,4 @@
-import { GenresType } from '../../../../global/tools/api.interfaces';
+import { GenresType, GenresResult } from '../../../../global/tools/api.interfaces';
 
 export interface GenreMovie {
   id: number;

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { useGenres } from '../../contexts/X-genres.contexts';
+import { useGenres } from '../../contexts/genres.contexts';
 
 export default function GenresPage() {
   const { genres, loading, error, fetchGenres } = useGenres();
