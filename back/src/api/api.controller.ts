@@ -56,25 +56,50 @@ export class ApiController {
     return yearList;
   }
 
+  // @Get('/trends-day')
+  // @Get('/trends-week')
+  // async findTrendsUnified(
+  //   @Query() query: limitsData,
+  //   @Req() req: Request,
+  // ) {
+  //   const isWeek = req.path.includes('week');
+  //   const trendsList = await this.apiService.callTrendings(isWeek ? 2 : 1, query);
+  //   return trendsList;
+  // }
+
+  // @Get('/trends-day/:page')
+  // @Get('/trends-week/:page')
+  // async findTrendPage(
+  //   @Param('page') page: number,
+  //   @Query() query: limitsData,
+  //   @Req() req: Request,
+  // ) {
+  //   const isWeek = req.path.includes('week');
+  //   return await this.apiService.callTrendPage(isWeek ? 2 : 1, page, query);
+  // }
   @Get('/trends-day')
+  async findTrendsDay(@Query() query: limitsData) {
+    return this.apiService.callTrendings(1, query);
+  }
+
   @Get('/trends-week')
-  async findTrendsUnified(
-    @Query() query: limitsData,
-    @Req() req: Request,
-  ) {
-    const isWeek = req.path.includes('week');
-    const trendsList = await this.apiService.callTrendings(isWeek ? 2 : 1, query);
-    return trendsList;
+  async findTrendsWeek(@Query() query: limitsData) {
+    return this.apiService.callTrendings(2, query);
   }
 
   @Get('/trends-day/:page')
-  @Get('/trends-week/:page')
-  async findTrendPage(
+  async findTrendPageDay(
     @Param('page') page: number,
     @Query() query: limitsData,
-    @Req() req: Request,
   ) {
-    const isWeek = req.path.includes('week');
-    return await this.apiService.callTrendPage(isWeek ? 2 : 1, page, query);
+    return this.apiService.callTrendPage(1, page, query);
+  }
+
+  @Get('/trends-week/:page')
+  async findTrendPageWeek(
+    @Param('page') page: number,
+    @Query() query: limitsData,
+  ) {
+    return this.apiService.callTrendPage(2, page, query);
   }
 }
