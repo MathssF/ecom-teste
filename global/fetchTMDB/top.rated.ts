@@ -111,7 +111,7 @@ export class TopRatedMoviesAPI {
         total_pages: coupledData[0],
         total_results: coupledData[1],
       };
-      return resultData;
+      return resultData; // TopRatedListWithPages
     }
   
     if (data?.resultModeByPage) {
