@@ -31,52 +31,54 @@ export class ApiController {
     return await this.apiService.callTopPage(page, query);
   }
 
+  // @Get('top-genres')
+  // @Get('top-genres/:id')
+  // async findTopGenres(
+  //   @Query() query: limitsData,
+  //   @Param('id') id?: string,
+  // ) {
+  //   if (id) {
+  //     query.chooseGenreRef = id;
+  //     query.setGenre = true;
+  //   }
+  //   const topGenres = await this.apiService.callTopGenres(query);
+  //   return topGenres;
+  // }
   @Get('top-genres')
-  @Get('top-genres/:id')
-  async findTopGenres(
-    @Query() query: limitsData,
-    @Param('id') id?: string,
-  ) {
-    if (id) {
-      query.chooseGenreRef = id;
-      query.setGenre = true;
-    }
-    const topGenres = await this.apiService.callTopGenres(query);
-    return topGenres;
-  }
+async findAllTopGenres(
+  @Query() query: limitsData,
+) {
+  query.returnPageList = true;
+
+  const topGenres = await this.apiService.callTopGenres(query);
+  return topGenres;
+}
+
+@Get('top-genres/:id')
+async findTopGenreById(
+  @Query() query: limitsData,
+  @Param('id') id: string,
+) {
+  query.returnPageList = true;
+  query.chooseGenreRef = id;
+  query.setGenre = true;
+
+  const topGenre = await this.apiService.callTopGenres(query);
+  return topGenre;
+}
 
   @Get('top-by-year/:year')
   async findTopByYear(
     @Query() query: limitsData,
     @Param('year') year: string,
   ) {
+    query.returnPageList = true;
     query.chooseYear = year;
     query.setYear = true;
     const yearList = await this.apiService.callTopsByYear(query);
     return yearList;
   }
-
-  // @Get('/trends-day')
-  // @Get('/trends-week')
-  // async findTrendsUnified(
-  //   @Query() query: limitsData,
-  //   @Req() req: Request,
-  // ) {
-  //   const isWeek = req.path.includes('week');
-  //   const trendsList = await this.apiService.callTrendings(isWeek ? 2 : 1, query);
-  //   return trendsList;
-  // }
-
-  // @Get('/trends-day/:page')
-  // @Get('/trends-week/:page')
-  // async findTrendPage(
-  //   @Param('page') page: number,
-  //   @Query() query: limitsData,
-  //   @Req() req: Request,
-  // ) {
-  //   const isWeek = req.path.includes('week');
-  //   return await this.apiService.callTrendPage(isWeek ? 2 : 1, page, query);
-  // }
+  
   @Get('/trends-day')
   async findTrendsDay(@Query() query: limitsData) {
     return this.apiService.callTrendings(1, query);

@@ -211,7 +211,7 @@ export class DevController {
 
     const skippedStoryIds: string[] = [];
 
-    for (const trend of trendsList) {
+    for (const trend of trendsList as any[]) {
       const {
         id, title, original_title, original_language, adult,
         genres_id, vote_count, vote_average, popularity, release_date, poster_path,
