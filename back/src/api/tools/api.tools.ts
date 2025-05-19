@@ -25,7 +25,7 @@ export class ApiTools {
     }
   
     const genresResult: GenresResult[] = genres.map((genre) => {
-      const movies = tops.filter((movie: any) => movie.genre_id?.includes(genre.id));
+      const movies = tops.filter((movie: any) => movie.genre_ids?.includes(genre.id));
   
       const totalVotes = movies.reduce((sum, movie) => sum + movie.votesCounts, 0);
       const ratingSum = movies.reduce((sum, movie) => sum + movie.voteAverage, 0);
