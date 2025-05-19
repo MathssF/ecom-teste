@@ -77,13 +77,28 @@ export class ApiService {
       setLimitItems: true,
       limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
     })
-    if (tops && typeof tops === 'object' && 'results' in tops) {
-      const results = (tops as { results: any[] }).results;
-      const yearTops = this.apiTools.filterByYear(results, yearRef);
-      return yearTops;
+    // if (tops && typeof tops === 'object' && 'results' in tops) {
+    //   const results = (tops as { results: any[] }).results;
+    //   const yearTops = this.apiTools.filterByYear(results, yearRef);
+    //   return yearTops;
+    // } else {
+    //   throw new Error('tops não possui propriedade "results"');
+    // }
+    let results: any[] = [];
+
+    if (Array.isArray(tops)) {
+      results = tops;
+    } else if ('movies' in tops && Array.isArray(tops.movies)) {
+      results = tops.movies;
+    } else if ('results' in tops && Array.isArray(tops.results)) {
+      results = tops.results;
     } else {
-      throw new Error('tops não possui propriedade "results"');
+      throw new Error('Formato inesperado em tops: não foi possível extrair os filmes');
     }
+
+    const yearTops = this.apiTools.filterByYear(results, yearRef);
+    return yearTops;
+
   }
 
   async callTrendings(mode: number, data?: limitsData) {

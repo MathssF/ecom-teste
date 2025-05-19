@@ -31,41 +31,28 @@ export class ApiController {
     return await this.apiService.callTopPage(page, query);
   }
 
-  // @Get('top-genres')
-  // @Get('top-genres/:id')
-  // async findTopGenres(
-  //   @Query() query: limitsData,
-  //   @Param('id') id?: string,
-  // ) {
-  //   if (id) {
-  //     query.chooseGenreRef = id;
-  //     query.setGenre = true;
-  //   }
-  //   const topGenres = await this.apiService.callTopGenres(query);
-  //   return topGenres;
-  // }
   @Get('top-genres')
-async findAllTopGenres(
-  @Query() query: limitsData,
-) {
-  query.returnPageList = true;
+  async findAllTopGenres(
+    @Query() query: limitsData,
+  ) {
+    query.returnPageList = true;
 
-  const topGenres = await this.apiService.callTopGenres(query);
-  return topGenres;
-}
+    const topGenres = await this.apiService.callTopGenres(query);
+    return topGenres;
+  }
 
-@Get('top-genres/:id')
-async findTopGenreById(
-  @Query() query: limitsData,
-  @Param('id') id: string,
-) {
-  query.returnPageList = true;
-  query.chooseGenreRef = id;
-  query.setGenre = true;
+  @Get('top-genres/:id')
+  async findTopGenreById(
+    @Query() query: limitsData,
+    @Param('id') id: string,
+  ) {
+    query.returnPageList = true;
+    query.chooseGenreRef = id;
+    query.setGenre = true;
 
-  const topGenre = await this.apiService.callTopGenres(query);
-  return topGenre;
-}
+    const topGenre = await this.apiService.callTopGenres(query);
+    return topGenre;
+  }
 
   @Get('top-by-year/:year')
   async findTopByYear(
