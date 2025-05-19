@@ -26,12 +26,11 @@ export class ApiService {
   ) {}
 
   async callTopRated(data?: limitsData) {
-    const tops = await this.topRatedAPI.getTopRatedMovies(data);
-    return tops;
+    return await this.topRatedAPI.getTopRatedMovies(data);
   }
 
   async callTopPage(page: number, data?: limitsData) {
-    return await this.topRatedAPI.getTopsByPage(page, data)
+    return await this.topRatedAPI.getTopsByPage(page, data);
   }
 
   async callTopGenres(data?: limitsData) {
@@ -41,27 +40,16 @@ export class ApiService {
         chooseGenreRef: data.chooseGenreRef 
       });
     }
+
     const tops = await this.topRatedAPI.getTopRatedMovies({
       ...(data ?? {}),
       frontEndPage: data?.frontEndPage !== undefined ? data.frontEndPage : true,
       setLimitItems: true,
       limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
-    })
-    console.log('tops: ', tops);
-    let results: any[] = [];
+    });
 
-    if (Array.isArray(tops)) {
-      results = tops;
-    } else if ('movies' in tops && Array.isArray(tops.movies)) {
-      results = tops.movies;
-    } else if ('results' in tops && Array.isArray(tops.results)) {
-      results = tops.results;
-    } else {
-      throw new Error('Formato inesperado em tops: não foi possível extrair os filmes');
-    }
-
-    const genresTops = this.apiTools.filterByGenres(results, genreRef);
-    return genresTops;
+    const results = this.extractMoviesList(tops);
+    return this.apiTools.filterByGenres(results, genreRef);
   }
 
   async callTopsByYear(data?: limitsData) {
@@ -73,36 +61,24 @@ export class ApiService {
         && Number.isInteger(year)
         && year >= 1800
         && year <= currentYear;
-        if (isValid) {
-          yearRef = data.chooseYear.toString();
-        }
+      if (isValid) {
+        yearRef = data.chooseYear.toString();
+      }
     }
+
     const tops = await this.topRatedAPI.getTopRatedMovies({
       ...(data ?? {}),
       frontEndPage: data?.frontEndPage !== undefined ? data.frontEndPage : true,
       setLimitItems: true,
       limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
-    })
-    let results: any[] = [];
+    });
 
-    if (Array.isArray(tops)) {
-      results = tops;
-    } else if ('movies' in tops && Array.isArray(tops.movies)) {
-      results = tops.movies;
-    } else if ('results' in tops && Array.isArray(tops.results)) {
-      results = tops.results;
-    } else {
-      throw new Error('Formato inesperado em tops: não foi possível extrair os filmes');
-    }
-
-    const yearTops = this.apiTools.filterByYear(results, yearRef);
-    return yearTops;
-
+    const results = this.extractMoviesList(tops);
+    return this.apiTools.filterByYear(results, yearRef);
   }
 
   async callTrendings(mode: number, data?: limitsData) {
-    const trends = await this.trendingsAPI.getTrendingMovies(mode, data);
-    return trends;
+    return await this.trendingsAPI.getTrendingMovies(mode, data);
   }
 
   async callTrendPage(mode: number, page: number, data?: limitsData) {
@@ -111,35 +87,24 @@ export class ApiService {
 
   async callDetails(id: string, data?: limitsData) {
     const movieId = Number(id);
-    const details = await this.movieDetailAPI.getMovieDetails(movieId, data);
-    return details;
+    return await this.movieDetailAPI.getMovieDetails(movieId, data);
   }
 
   callTopsInTrends(tops: any, trends: any) {
-    let topResults: any[] = [];
-    let trendsResults: any[] = [];
-  
-    if (Array.isArray(tops)) {
-      topResults = tops;
-    } else if ((tops as any).movies && Array.isArray((tops as any).movies)) {
-      topResults = (tops as any).movies;
-    } else if ((tops as any).results && Array.isArray((tops as any).results)) {
-      topResults = (tops as any).results;
+    const topResults = this.extractMoviesList(tops);
+    const trendsResults = this.extractMoviesList(trends);
+    return this.apiTools.checkEach(topResults, trendsResults);
+  }
+
+  private extractMoviesList(data: any): any[] {
+    if (Array.isArray(data)) {
+      return data;
+    } else if (data && Array.isArray(data.movies)) {
+      return data.movies;
+    } else if (data && Array.isArray(data.results)) {
+      return data.results;
     } else {
-      throw new Error('tops não possui estrutura válida');
+      throw new Error('Formato inesperado: não foi possível extrair os filmes');
     }
-  
-    if (Array.isArray(trends)) {
-      trendsResults = trends;
-    } else if ((trends as any).movies && Array.isArray((trends as any).movies)) {
-      trendsResults = (trends as any).movies;
-    } else if ((trends as any).results && Array.isArray((trends as any).results)) {
-      trendsResults = (trends as any).results;
-    } else {
-      throw new Error('trends não possui estrutura válida');
-    }
-  
-    const TopsInTrends = this.apiTools.checkEach(topResults, trendsResults);
-    return TopsInTrends;
   }
 }
