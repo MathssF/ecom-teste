@@ -115,32 +115,30 @@ export class ApiService {
     return details;
   }
 
-  callTopsInTrends(tops: any[], trends: any[]) {
+  callTopsInTrends(tops: any, trends: any) {
     let topResults: any[] = [];
     let trendsResults: any[] = [];
-
-    // Extrai os filmes de "tops"
+  
     if (Array.isArray(tops)) {
       topResults = tops;
-    } else if ('movies' in tops && Array.isArray(tops.movies)) {
-      topResults = tops.movies;
-    } else if ('results' in tops && Array.isArray(tops.results)) {
-      topResults = tops.results;
+    } else if ((tops as any).movies && Array.isArray((tops as any).movies)) {
+      topResults = (tops as any).movies;
+    } else if ((tops as any).results && Array.isArray((tops as any).results)) {
+      topResults = (tops as any).results;
     } else {
       throw new Error('tops não possui estrutura válida');
     }
-
-    // Extrai os filmes de "trends"
+  
     if (Array.isArray(trends)) {
       trendsResults = trends;
-    } else if ('movies' in trends && Array.isArray(trends.movies)) {
-      trendsResults = trends.movies;
-    } else if ('results' in trends && Array.isArray(trends.results)) {
-      trendsResults = trends.results;
+    } else if ((trends as any).movies && Array.isArray((trends as any).movies)) {
+      trendsResults = (trends as any).movies;
+    } else if ((trends as any).results && Array.isArray((trends as any).results)) {
+      trendsResults = (trends as any).results;
     } else {
       throw new Error('trends não possui estrutura válida');
     }
-
+  
     const TopsInTrends = this.apiTools.checkEach(topResults, trendsResults);
     return TopsInTrends;
   }
