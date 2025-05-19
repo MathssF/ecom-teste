@@ -48,14 +48,20 @@ export class ApiService {
       limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
     })
     console.log('tops: ', tops);
-    // if (tops && typeof tops === 'object' && 'results' in tops) {
-      // const results = (tops as { results: any[] }).results;
-      // const genresTops = this.apiTools.filterByGenres(results, genreRef);
-      const genresTops = this.apiTools.filterByGenres(tops, genreRef);
-      return genresTops;
-    // } else {
-    //   throw new Error('tops não possui propriedade "results"');
-    // }
+    let results: any[] = [];
+
+    if (Array.isArray(tops)) {
+      results = tops;
+    } else if ('movies' in tops && Array.isArray(tops.movies)) {
+      results = tops.movies;
+    } else if ('results' in tops && Array.isArray(tops.results)) {
+      results = tops.results;
+    } else {
+      throw new Error('Formato inesperado em tops: não foi possível extrair os filmes');
+    }
+
+    const genresTops = this.apiTools.filterByGenres(results, genreRef);
+    return genresTops;
   }
 
   async callTopsByYear(data?: limitsData) {
@@ -77,13 +83,6 @@ export class ApiService {
       setLimitItems: true,
       limitItems: data?.limitItems !== undefined ? data.limitItems : 250,
     })
-    // if (tops && typeof tops === 'object' && 'results' in tops) {
-    //   const results = (tops as { results: any[] }).results;
-    //   const yearTops = this.apiTools.filterByYear(results, yearRef);
-    //   return yearTops;
-    // } else {
-    //   throw new Error('tops não possui propriedade "results"');
-    // }
     let results: any[] = [];
 
     if (Array.isArray(tops)) {
@@ -117,22 +116,32 @@ export class ApiService {
   }
 
   callTopsInTrends(tops: any[], trends: any[]) {
-    if (
-      tops
-      && typeof tops === 'object'
-      && 'results' in tops
-      && trends
-      && typeof trends === 'object'
-      && 'results' in trends
-    ) {
-      const topResults = (tops as { results: any[] }).results;
-      const trendsResults = (trends as { results: any[] }).results;
-      const TopsInTrends = this.apiTools.checkEach(
-        topResults, trendsResults
-      )
-      return TopsInTrends;
+    let topResults: any[] = [];
+    let trendsResults: any[] = [];
+
+    // Extrai os filmes de "tops"
+    if (Array.isArray(tops)) {
+      topResults = tops;
+    } else if ('movies' in tops && Array.isArray(tops.movies)) {
+      topResults = tops.movies;
+    } else if ('results' in tops && Array.isArray(tops.results)) {
+      topResults = tops.results;
     } else {
-      throw new Error('tops e/ou trends não possui propriedade "results"');
+      throw new Error('tops não possui estrutura válida');
     }
+
+    // Extrai os filmes de "trends"
+    if (Array.isArray(trends)) {
+      trendsResults = trends;
+    } else if ('movies' in trends && Array.isArray(trends.movies)) {
+      trendsResults = trends.movies;
+    } else if ('results' in trends && Array.isArray(trends.results)) {
+      trendsResults = trends.results;
+    } else {
+      throw new Error('trends não possui estrutura válida');
+    }
+
+    const TopsInTrends = this.apiTools.checkEach(topResults, trendsResults);
+    return TopsInTrends;
   }
 }
