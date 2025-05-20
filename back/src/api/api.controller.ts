@@ -93,13 +93,13 @@ export class ApiController {
   }
 
   @Get('/tops-in-trends')
-async findTopsInTrends(
-  @Param('mode') mode: number,
-  @Query() query: limitsData,
-) {
-  const topRated = await this.apiService.callTopRated(query);
-  const trends = await this.apiService.callTrendings(2, query);
-  return this.apiService.callTopsInTrends(topRated, trends);
-}
+  async findTopsInTrends(
+    @Param('mode') mode: number,
+    @Query() query: limitsData,
+  ) {
+    const topRated = await this.apiService.callTopRated(query);
+    const trends = await this.apiService.callTrendings(2, query);
+    return this.apiService.callTopsInTrends(topRated, trends);
+  }
 
 }
