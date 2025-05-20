@@ -85,7 +85,11 @@ export class ApiTools {
       }
       return movie;
     })
-    return TopsInTrends;
+    // return TopsInTrends;
+    return {
+      total: TopsInTrends.length,
+      TopsInTrends,
+    };
   }
 
   validadeGenreRef (
