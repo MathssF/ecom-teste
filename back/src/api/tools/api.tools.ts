@@ -84,7 +84,7 @@ export class ApiTools {
         }
       }
       return movie;
-    })
+    }).filter(movie => movie.trends);
     // return TopsInTrends;
     return {
       total: TopsInTrends.length,
