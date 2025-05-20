@@ -10,6 +10,6 @@ import {
 const TopRatedContext = createContext<TopRatedContextType | undefined>(undefined);
 const TopsByYearContext = createContext<TopsByYearContextType | undefined>(undefined);
 
-export const TopsProvider = () => {}
+export const TopsProvider = ({ children }: { children: ReactNode }) => {}
 
-export const TopsByYearProvider = () => {}
+export const TopsByYearProvider = ({ children }: { children: ReactNode }) => {}
