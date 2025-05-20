@@ -15,8 +15,8 @@ export interface GenresResult {
   id: number;
   name: string;
   movies: MovieByGenre[];
-  moviesRattingAverage: number;
-  moviesWeightedAvarege: number;
+  moviesRatingAverage: number;
+  moviesWeightedAverage: number;
 }
 
 export interface YearResult {
