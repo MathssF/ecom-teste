@@ -8,8 +8,16 @@ import {
 } from './interfaces/top-rated.interfaces';
 
 const TopRatedContext = createContext<TopRatedContextType | undefined>(undefined);
-const TopsByYearContext = createContext<TopsByYearContextType | undefined>(undefined);
+// const TopsByYearContext = createContext<TopsByYearContextType | undefined>(undefined);
 
-export const TopsProvider = ({ children }: { children: ReactNode }) => {}
+export const TopsProvider = ({ children }: { children: ReactNode }) => {
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
 
-export const TopsByYearProvider = ({ children }: { children: ReactNode }) => {}
+}
+
+// export const TopsByYearProvider = ({ children }: { children: ReactNode }) => {}
