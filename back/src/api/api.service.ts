@@ -96,6 +96,19 @@ export class ApiService {
     return this.apiTools.checkEach(topResults, trendsResults);
   }
 
+  async callAverageByGenre(data?: limitsData) {
+    const tops = await this.topRatedAPI.getTopRatedMovies({
+      ...(data ?? {}),
+      frontEndPage: true,
+      setLimitItems: true,
+      limitItems: data?.limitItems ?? 250,
+    });
+  
+    const results = this.extractMoviesList(tops);
+    return this.apiTools.averageRatingByGenre(results);
+  }
+  
+
   private extractMoviesList(data: any): any[] {
     if (Array.isArray(data)) {
       return data;

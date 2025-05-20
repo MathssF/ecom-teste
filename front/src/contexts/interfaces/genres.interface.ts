@@ -23,3 +23,9 @@ export interface GenreContextType {
   error: string | null;
   fetchGenres: (limitItems?: number) => Promise<void>;
 }
+
+export interface GenreChartData {
+  labels: string[];
+  averageRatings: number[];
+  weightedRatings: number[];
+}

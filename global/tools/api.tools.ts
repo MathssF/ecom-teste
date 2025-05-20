@@ -92,6 +92,20 @@ export class ApiTools {
     };
   }
 
+  averageRatingByGenre(movies: any[]): { genre: string, average: number }[] {
+    return Genres.map((genre) => {
+      const filtered = movies.filter(m => m.genre_ids?.includes(genre.id));
+      const avg = filtered.length > 0
+        ? filtered.reduce((acc, m) => acc + m.vote_average, 0) / filtered.length
+        : 0;
+  
+      return {
+        genre: genre.name,
+        average: Number(avg.toFixed(2)),
+      };
+    });
+  }
+
   validadeGenreRef (
     data: { chooseGenreRef: string | number },
   ): GenresType | null {

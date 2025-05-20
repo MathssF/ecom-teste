@@ -54,6 +54,12 @@ export class ApiController {
     return topGenre;
   }
 
+  @Get('/average-rating-by-genre')
+  async getAverageRatingByGenre(@Query() query: limitsData) {
+    return this.apiService.callAverageByGenre(query);
+  }
+
+
   @Get('top-by-year/:year')
   async findTopByYear(
     @Query() query: limitsData,
