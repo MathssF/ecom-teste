@@ -91,4 +91,15 @@ export class ApiController {
   ) {
     return this.apiService.callTrendPage(2, page, query);
   }
+
+  @Get('/tops-in-trends')
+async findTopsInTrends(
+  @Param('mode') mode: number,
+  @Query() query: limitsData,
+) {
+  const topRated = await this.apiService.callTopRated(query);
+  const trends = await this.apiService.callTrendings(2, query);
+  return this.apiService.callTopsInTrends(topRated, trends);
+}
+
 }
