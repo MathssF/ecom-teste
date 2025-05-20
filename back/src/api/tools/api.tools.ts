@@ -27,9 +27,9 @@ export class ApiTools {
     const genresResult: GenresResult[] = genres.map((genre) => {
       const movies = tops.filter((movie: any) => movie.genre_ids?.includes(genre.id));
   
-      const totalVotes = movies.reduce((sum, movie) => sum + movie.votes_count, 0);
+      const totalVotes = movies.reduce((sum, movie) => sum + movie.vote_count, 0);
       const ratingSum = movies.reduce((sum, movie) => sum + movie.vote_average, 0);
-      const weightedSum = movies.reduce((sum, movie) => sum + (movie.vote_average * movie.votes_count), 0);
+      const weightedSum = movies.reduce((sum, movie) => sum + (movie.vote_average * movie.vote_count), 0);
   
       const moviesRatingAverage = movies.length > 0 ? ratingSum / movies.length : 0;
       const moviesWeightedAverage = totalVotes > 0 ? weightedSum / totalVotes : 0;
