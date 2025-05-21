@@ -7,12 +7,11 @@ import {
   TopRatedResult, TopRatedList, TopRatedListWithPages
 } from '../../../global/tables/results/top-rated.interfaces';
 import {
-  // TopRatedResult, TopRatedList, TopByYearMovie,
-  TopRatedContextType, TopsByYearContextType
+  TopRatedContextType
 } from './interfaces/top-rated.interfaces';
 import { extractMoviesList } from '../utils/extract.movies';
 
-const TopRatedContext = createContext<TopRatedContextType | undefined>(undefined);
+export const TopRatedContext = createContext<TopRatedContextType | undefined>(undefined);
 
 export const TopsProvider = ({ children }: { children: ReactNode }) => {
   const [movieList, setMovieList] = useState<any[]>([]);
@@ -22,7 +21,6 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
   const [typeResult, setTypeResult] = useState<number>(0);
   const [selectYear, setSelectYear] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [] = useState();
 
 
   const fetchTopRated = async (data?: limitsData) => {
@@ -56,7 +54,10 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
     
     return (
       <TopRatedContext.Provider value={{
-        movies: movieList, loading, error, year: selectYear,
+        movies: movieList, moviesByYear: movieByYear,
+        dataResult,
+        loading, error, year: selectYear, setYear: setSelectYear,
+        typeResult, setTypeResult,
         fetchTopRated,
       }}>
         {children}
