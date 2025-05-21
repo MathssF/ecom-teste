@@ -36,14 +36,12 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
         resultModeByPage: true,
       });
       setDataResult(tops);
-      // setMovieList(extractMoviesList(tops));
       const moviesExtracted = extractMoviesList(tops);
       setMovieList(moviesExtracted);
 
       if (selectYear) {
-        // setMovieByYear(apiTools.filterByYear(extractMoviesList(tops), selectYear.toString()));
         const filtered = apiTools.filterByYear(moviesExtracted, selectYear.toString());
-        setMovieList(filtered);
+        setMovieByYear(filtered);
       }
     } catch (err: any) {
       setError(err.message || 'Erro ao buscar filmes por gênero');

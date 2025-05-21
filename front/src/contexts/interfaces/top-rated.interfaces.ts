@@ -1,4 +1,5 @@
 import { limitsData } from '../../../../global/tables/interfaces';
+import { TopRatedListWithPages } from '../../../../global/tables/results/top-rated.interfaces'
 import { MovieDetails } from './details.interfaces';
 
 export interface MovieData {
@@ -45,25 +46,25 @@ export interface TopRatedResult {
   rankPage?: number;
 }
 
-export interface TopRatedCoupled {
-  adult: boolean;
-  backdrop_path?: string;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview?: string;
-  popularity: number;
-  poster_path?: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-  page?: number;
-  rank?: number;
-  rankPage?: number;
-}
+// export interface TopRatedCoupled {
+//   adult: boolean;
+//   backdrop_path?: string;
+//   genre_ids: number[];
+//   id: number;
+//   original_language: string;
+//   original_title: string;
+//   overview?: string;
+//   popularity: number;
+//   poster_path?: string;
+//   release_date: string;
+//   title: string;
+//   video: boolean;
+//   vote_average: number;
+//   vote_count: number;
+//   page?: number;
+//   rank?: number;
+//   rankPage?: number;
+// }
 
 export interface TopRatedList {
   page: number;
@@ -74,9 +75,13 @@ export interface TopRatedList {
 
 export interface TopRatedContextType {
   movies: TopRatedResult[];
+  moviesByYear: TopRatedResult[];
   loading: boolean;
   error: string | null;
   year?: number | null;
+  setYear: (year: number | null) => void;
+  typeResult: number;
+  setTypeResult: (value: number) => void;
   fetchTopRated: (data?: limitsData) => void;
 }
 
