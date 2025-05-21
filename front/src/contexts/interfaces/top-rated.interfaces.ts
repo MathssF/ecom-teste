@@ -13,6 +13,13 @@ export interface MovieData {
   release_date: string;
   genre_ids: number[];
   poster_path: string;
+
+
+  // posterPath?: string;
+  // backdropPath?: string;
+  // overview?: string;
+
+
   page?: number;
   rank?: number;
   rankPage?: number;
@@ -66,9 +73,10 @@ export interface TopRatedList {
 }
 
 export interface TopRatedContextType {
-  movies: MovieData[];
+  movies: TopRatedResult[];
   loading: boolean;
   error: string | null;
+  year?: number | null;
   fetchTopRated: (data?: limitsData) => void;
 }
 

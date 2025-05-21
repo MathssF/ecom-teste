@@ -9,7 +9,6 @@ import {
 import { extractMoviesList } from '../utils/extract.movies';
 
 const TopRatedContext = createContext<TopRatedContextType | undefined>(undefined);
-// const TopsByYearContext = createContext<TopsByYearContextType | undefined>(undefined);
 
 export const TopsProvider = ({ children }: { children: ReactNode }) => {
   const [movieList, setMovieList] = useState<any[]>([]);
@@ -22,7 +21,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
   const [] = useState();
 
 
-  const fetchGenres = async (limitItems: number = 250) => {
+  const fetchTopRated = async (limitItems: number = 250) => {
     setLoading(true);
     setError(null);
 
@@ -47,8 +46,14 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setLoading(false);
     }
-      
+    
+    return (
+      <TopRatedContext.Provider value={{
+        movies: movieList, loading, error, year: selectYear,
+        fetchTopRated,
+      }}>
+        {children}
+      </TopRatedContext.Provider>
+    )
   }
 }
-
-// export const TopsByYearProvider = ({ children }: { children: ReactNode }) => {}
