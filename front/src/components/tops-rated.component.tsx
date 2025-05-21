@@ -6,6 +6,7 @@ import { TopRatedContext } from '../contexts/top-list.context';
 export const TopsRated = () => {
   const context = useContext(TopRatedContext);
   const [inputYear, setInputYear] = useState<number | ''>('');
+  const [warning, setWarning] = useState<string | null>(null);
 
   if (!context) {
     return <div>Contexto não encontrado.</div>;
@@ -32,7 +33,7 @@ export const TopsRated = () => {
     if (inputYear >= 1800 && inputYear <= currentYear) {
       setYear(inputYear);
     } else {
-      alert(`Digite um ano entre 1800 e ${currentYear}`);
+      setWarning(`Digite um ano entre 1800 e ${currentYear}`);
     }
   };
 
@@ -52,8 +53,8 @@ export const TopsRated = () => {
           type="number"
           placeholder="Filtrar por ano"
           value={inputYear}
-          onChange={(e) => {
-            const value = e.target.value;
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const value = e.target.value as HTMLInputElement;
             if (value === '') {
               setInputYear('');
             } else {
