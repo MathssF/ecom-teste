@@ -1,5 +1,5 @@
 import { limitsData } from '../../../../global/tables/interfaces';
-import { TopRatedListWithPages } from '../../../../global/tables/results/top-rated.interfaces'
+import { TopRatedCoupled, TopRatedListWithPages } from '../../../../global/tables/results/top-rated.interfaces'
 import { MovieDetails } from './details.interfaces';
 
 export interface MovieData {

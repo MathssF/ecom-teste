@@ -4,7 +4,11 @@ import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { ApiTools } from '../../../global/tools/api.tools';
 import { limitsData } from '../../../global/tables/interfaces';
 import {
-  TopRatedResult, TopRatedList, TopByYearMovie, TopRatedContextType, TopsByYearContextType
+  TopRatedResult, TopRatedList, TopRatedListWithPages
+} from '../../../global/tables/results/top-rated.interfaces';
+import {
+  // TopRatedResult, TopRatedList, TopByYearMovie,
+  TopRatedContextType, TopsByYearContextType
 } from './interfaces/top-rated.interfaces';
 import { extractMoviesList } from '../utils/extract.movies';
 
