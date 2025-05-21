@@ -21,7 +21,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
   const [] = useState();
 
 
-  const fetchTopRated = async (limitItems: number = 250) => {
+  const fetchTopRated = async (data?: limitsData) => {
     setLoading(true);
     setError(null);
 
@@ -31,7 +31,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
 
       const tops = await topRatedApi.getTopRatedMovies({
         setLimitItems: true,
-        limitItems,
+        limitItems: data.limitItems ? data.limitItems : 250,
         frontEndPage: false,
         resultModeByPage: true,
       });
