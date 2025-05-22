@@ -72,13 +72,21 @@ Temos primeiramente a API Direta, ela faz uma busca pelos links das chamadas, To
 Após isto ela faz os tratamentos e devolve a resposta.
 
 GET 'http://localhost:3000/api/movie/:movieId'
+
 GET 'http://localhost:3000/api/movie/1895'
+
 GET 'http://localhost:3000/api/top-rated'
+
 GET 'http://localhost:3000/api/top-rated/:page'
+
 GET 'http://localhost:3000/api/top-rated/1'
+
 GET 'http://localhost:3000/api/top-rated/2'
+
 GET 'http://localhost:3000/api/trends'
+
 GET 'http://localhost:3000/api/trends/:page'
+
 GET 'http://localhost:3000/api/trends/1'
 
 Temos também uma persistência, que esta organizada em três principais grupos de rotas:
