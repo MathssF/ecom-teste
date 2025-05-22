@@ -28,6 +28,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
 
     try {
+      console.log('Entrou no try do contexto');
       const topRatedApi = new TopRatedMoviesAPI();
       const apiTools = new ApiTools();
 
@@ -35,6 +36,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
         frontEndPage: false,
         resultModeByPage: true,
       });
+      console.log('Teve a resposta do top list: ', tops);
       setDataResult(tops);
       const moviesExtracted = extractMoviesList(tops);
       setMovieList(moviesExtracted);
@@ -46,6 +48,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
         setMovieByYear([]);
       }
     } catch (err: any) {
+      console.log('erro no top list context');
       setError(err.message || 'Erro ao buscar filmes por gênero');
       setDataResult(null);
     } finally {

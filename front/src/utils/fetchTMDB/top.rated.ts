@@ -35,6 +35,7 @@ export class TopRatedMoviesAPI {
   any[] | any |
   TopRatedCoupled[] | TopRatedResult[] | TopRatedList | TopRatedListWithPages
 > {
+    console.log('Entrou no Fetch do top list');
     let allMovies: TopRatedResult[] = [];
     let allPages: number[] = [];
     let resultsPages: TopRatedList[] = [];
@@ -103,6 +104,8 @@ export class TopRatedMoviesAPI {
       if (allMovies.length >= maxItems) break;
       page++;
     }
+
+    console.log('Indo para os retornos');
   
     if (data?.returnPageList) {
       const resultData: TopRatedListWithPages = {
@@ -111,13 +114,16 @@ export class TopRatedMoviesAPI {
         total_pages: coupledData[0],
         total_results: coupledData[1],
       };
+      console.log('Return TopRatedListWithPages');
       return resultData; // TopRatedListWithPages
     }
   
     if (data?.resultModeByPage) {
+      console.log('Return TopRatedList[]');
       return resultsPages; // TopRatedList[]
     }
   
+    console.log('Return TopRatedResult[]');
     return allMovies; // TopRatedResult[]
   }
 
