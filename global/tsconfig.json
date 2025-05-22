@@ -13,17 +13,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    // "paths": {
-    //   "@back/*": ["../back/src/*"],
-    //   "@front/*": ["../front/src/*"]
-    // }
   },
-  "references": [
-    { "path": "../back" },
-    { "path": "../front" }
-  ],
   "include": [
-    "**/*.ts",
-    "../back/src/**/*.ts"
+    "**/*.ts"
   ]
 }
