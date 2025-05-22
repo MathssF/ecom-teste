@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -b",
+    "build:front": "next build ./front",
     "clean": "tsc --build --clean && rm -rf dist",
     "start:back": "tsc -b && node -r tsconfig-paths/register dist/back/main.js",
-    "start:front": "next build && PORT=3002 next start",
+    "start:front": "next start ./front -p 3002",
     "dev:back": "ts-node -r tsconfig-paths/register back/main.ts",
-    "dev:front": "PORT=3002 next dev",
+    "dev:front": "next dev -p 3002 -r ./front",
     "start:global": "ts-node -r tsconfig-paths/register global/devServer/dev.global.server.ts",
     "dev:global": "ts-node -r tsconfig-paths/register global/devServer/dev.global.server.ts"
   },
