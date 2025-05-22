@@ -1,15 +1,15 @@
 'use client';
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { TopRatedMoviesAPI } from '../../../dist/global/src/fetchTMDB/top.rated';
-import { TrendingMoviesAPI } from '../../../dist/global/src/fetchTMDB/trendings';
-import { ApiTools } from '../../../dist/global/src/tools/api.tools';
-import { limitsData } from '../../../dist/global/src/tables/interfaces';
+import { TopRatedMoviesAPI } from '../utils/fetchTMDB/top.rated';
+import { TrendingMoviesAPI } from '../utils/fetchTMDB/trendings';
+import { ApiTools } from '../utils/tools/api.tools';
+import { limitsData } from '../utils/tables/interfaces';
 import {
   TopRatedResult,
-} from '../../../global/src/tables/results/top-rated.interfaces';
+} from '../utils/tables/results/top-rated.interfaces';
 import {
   TrendingResult,
-} from '../../../global/src/tables/results/trends.interfaces';
+} from '../utils/tables/results/trends.interfaces';
 import {
   TopsInTrendsMovie,
   TopsInTrendsData,
