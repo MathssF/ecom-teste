@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Genres as GenresList } from '../utils/tables/seed.tables';
 import { ApiTools } from '../utils/tools/api.tools';
 import { GenreAnalysis, GenreContextType } from './interfaces/genres.interface'
+import { TopRatedMoviesAPI } from '../utils/fetchTMDB/top.rated';
 
 export const GenreContext = createContext<GenreContextType | undefined>(undefined);
 
@@ -21,7 +22,10 @@ export const GenreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setError(null);
 
     try {
-      const res = await fetch('/api/top-rated'); 
+      const topRatedApi = new TopRatedMoviesAPI();
+      const apiTools = new ApiTools();
+      
+      const res = await topRatedApi.getTopRatedMovies();
       if (!res.ok) throw new Error('Erro ao buscar filmes top-rated');
       
       const data = await res.json();

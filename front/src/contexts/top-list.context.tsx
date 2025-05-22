@@ -34,7 +34,6 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
 
       const tops = await topRatedApi.getTopRatedMovies({
         frontEndPage: false,
-        // resultModeByPage: true,
       });
       console.log('Teve a resposta do top list: ', tops);
       setDataResult(tops);
@@ -55,6 +54,23 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   }
+
+  const filterAndOrderByYear = (year: number) => {
+    if (!movieList.length) return;
+  
+    const filtered = movieList.filter((movie) => {
+      const releaseDate = movie.release_date || movie.first_air_date;
+      return releaseDate?.startsWith(year.toString());
+    });
+  
+    const ordered = filtered.sort((a, b) => {
+      const dateA = new Date(a.release_date || a.first_air_date).getTime();
+      const dateB = new Date(b.release_date || b.first_air_date).getTime();
+      return dateA - dateB; // Ordena do mais antigo para o mais recente
+    });
+  
+    setMovieByYear(ordered);
+  };
     
   return (
     <TopRatedContext.Provider value={{
@@ -62,7 +78,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
       dataResult,
       loading, error, year: selectYear, setYear: setSelectYear,
       typeResult, setTypeResult,
-      fetchTopRated,
+      fetchTopRated, filterAndOrderByYear,
     }}>
       {children}
     </TopRatedContext.Provider>

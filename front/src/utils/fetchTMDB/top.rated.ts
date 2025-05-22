@@ -5,8 +5,6 @@ import {
   TopRatedList,
   TopRatedListWithPages,
 } from '../tables/results/top-rated.interfaces';
-// import * as dotenv from 'dotenv';
-// dotenv.config();
 
 export class TopRatedMoviesAPI {
   private language: string;

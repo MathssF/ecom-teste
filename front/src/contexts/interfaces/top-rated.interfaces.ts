@@ -32,4 +32,5 @@ export interface TopRatedContextType {
   typeResult: number;
   setTypeResult: (value: number) => void;
   fetchTopRated: (data?: limitsData) => void;
+  filterAndOrderByYear: (year: number) => void;
 }

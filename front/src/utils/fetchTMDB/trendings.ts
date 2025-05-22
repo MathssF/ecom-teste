@@ -6,8 +6,6 @@ import {
   TrendingListWithPages,
 } from '../tables/results/trends.interfaces';
 import { set_time_window } from '../tables/variables';
-// import * as dotenv from 'dotenv';
-// dotenv.config();
 
 export class TrendingMoviesAPI {
   private time_window: string;
