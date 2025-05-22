@@ -4,7 +4,7 @@ import { BasicService } from './basic.service';
 import { BasicController } from './basic.controller';
 import { BasicRepository } from '../application/basic/basic.repository';
 import { CompaniesRepository } from '../application/basic/companies.repository';
-import { BasicSeed } from '../../../global/src/seeds/basic.seeds';
+// import { BasicSeed } from './seeds/basic.seeds';
 
 @Module({
   controllers: [BasicController],
@@ -13,7 +13,7 @@ import { BasicSeed } from '../../../global/src/seeds/basic.seeds';
     BasicRepository,
     CompaniesRepository,
     PrismaService,
-    BasicSeed
+    // BasicSeed
   ],
   exports: [BasicService],
 })

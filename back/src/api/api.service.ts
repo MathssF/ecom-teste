@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
-import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
-import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
+import { MovieDetailsAPI } from '../../../global/src/fetchTMDB/details';
+import { TopRatedMoviesAPI } from '../../../global/src/fetchTMDB/top.rated';
+import { TrendingMoviesAPI } from '../../../global/src/fetchTMDB/trendings';
 import { limitsData } from '../../../global/src/tables/interfaces';
 import { ApiTools } from './tools/api.tools';
 import { Genres } from '../../../global/src/tables/seed.tables';

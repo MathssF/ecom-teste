@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
-import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
-import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
-import { BasicSeed } from '../../../global/src/seeds/basic.seeds';
+import { MovieDetailsAPI } from '../../../global/src/fetchTMDB/details';
+import { TopRatedMoviesAPI } from '../../../global/src/fetchTMDB/top.rated';
+import { TrendingMoviesAPI } from '../../../global/src/fetchTMDB/trendings';
+// import { BasicSeed } from '../basic/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
 import { DevRepository } from './tools/dev.repository';
 import { limitsData } from '../../../global/src/tables/interfaces';
@@ -14,14 +14,14 @@ export class DevService {
     private readonly movieDetailAPI: MovieDetailsAPI,
     private readonly topRatedAPI: TopRatedMoviesAPI,
     private readonly trendingsAPI: TrendingMoviesAPI,
-    private readonly basicSeed: BasicSeed,
+    // private readonly basicSeed: BasicSeed,
     private readonly devTools: DevTools,
     private readonly devRepository: DevRepository,
   ) {}
 
-  async seedStart() {
-    return await this.basicSeed.run()
-  }
+  // async seedStart() {
+  //   return await this.basicSeed.run()
+  // }
 
   async callTopRated(data?: limitsData) {
     const tops = await this.topRatedAPI.getTopRatedMovies({

@@ -16,5 +16,5 @@
   },
   "include": [
     "**/*.ts"
-  ]
+, "../back/src/basic/seeds/basic.seeds.ts"  ]
 }

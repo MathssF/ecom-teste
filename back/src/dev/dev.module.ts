@@ -5,10 +5,10 @@ import { DevController } from './dev.controller';
 import { BasicModule } from '../basic/basic.module';
 import { MoviesModule } from '../movies/movies.module';
 import { TrendingsModule } from '../trendings/trendings.module';
-import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
-import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
-import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
-import { BasicSeed } from '../../../global/src/seeds/basic.seeds';
+import { MovieDetailsAPI } from '../../../global/src/fetchTMDB/details';
+import { TopRatedMoviesAPI } from '../../../global/src/fetchTMDB/top.rated';
+import { TrendingMoviesAPI } from '../../../global/src/fetchTMDB/trendings';
+// import { BasicSeed } from '../basic/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
 import { DevRepository } from './tools/dev.repository';
 
@@ -29,7 +29,7 @@ import { TrendingsPurgeRepository } from '../application/trends/trendings.purge.
     MovieDetailsAPI,
     TopRatedMoviesAPI,
     TrendingMoviesAPI,
-    BasicSeed,
+    // BasicSeed,
     DevTools,
     PrismaService,
     DevRepository,
