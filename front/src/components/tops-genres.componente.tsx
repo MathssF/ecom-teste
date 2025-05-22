@@ -71,12 +71,7 @@ const GenreDashboard: React.FC = () => {
                   {
                     label: 'Filmes',
                     data: movieCounts,
-                    backgroundColor: [
-                      '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
-                      '#FF9F40', '#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072',
-                      '#80B1D3', '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9',
-                      '#BC80BD', '#CCEBC5', '#FFED6F', '#FFB6C1', '#87CEFA',
-                    ],
+                    backgroundColor: colors,
                   },
                 ],
               }}
