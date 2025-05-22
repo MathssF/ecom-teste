@@ -19,10 +19,10 @@ export class DevController {
     private readonly trendingService: TrendingsService,
   ) {}
 
-  @Post('start-seed')
-  async startSeed() {
-    return await this.devService.seedStart()
-  }
+  // @Post('start-seed')
+  // async startSeed() {
+  //   return await this.devService.seedStart()
+  // }
 
   @Get('/movie/:movieId')
   async findOneMovie(
