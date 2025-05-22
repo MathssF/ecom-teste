@@ -17,7 +17,7 @@ export class TrendingMoviesAPI {
   constructor(time_window: string = 'day', language: string = 'en-US') {
     this.time_window = time_window;
     this.language = language;
-    this.apiKey = process.env.API_KEY!;
+    this.apiKey = process.env.NEXT_PUBLIC_API_KEY!;
   }
 
   private getUrl(mode?: number): string {

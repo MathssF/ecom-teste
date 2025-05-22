@@ -5,8 +5,8 @@ import {
   TopRatedList,
   TopRatedListWithPages,
 } from '../tables/results/top-rated.interfaces';
-import * as dotenv from 'dotenv';
-dotenv.config();
+// import * as dotenv from 'dotenv';
+// dotenv.config();
 
 export class TopRatedMoviesAPI {
   private language: string;
@@ -14,7 +14,7 @@ export class TopRatedMoviesAPI {
 
   constructor(language: string = 'en-US') {
     this.language = language;
-    this.apiKey = process.env.API_KEY!;
+    this.apiKey = process.env.NEXT_PUBLIC_API_KEY!;
   }
 
   private getUrl(): string {

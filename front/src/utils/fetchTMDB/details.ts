@@ -8,7 +8,7 @@ export class MovieDetailsAPI {
 
   constructor(language: string = 'en-US') {
     this.language = language;
-    this.apiKey = process.env.API_KEY!;
+    this.apiKey = process.env.NEXT_PUBLIC_API_KEY!;
   }
 
   private getUrl(movieId: number): string {
