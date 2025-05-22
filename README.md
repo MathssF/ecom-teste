@@ -175,20 +175,17 @@ Toda essa documentação detalhada você encontra no arquivo:
 
 ## 💡 Como Utilizar
 
-### 🔧 Backend
-- Clonar o projeto
-- Configurar o arquivo `.env` com sua chave da API TMDb e configurações locais
-- Rodar a API localmente (`npm run start:dev`)
+Clone o projeto.
 
-### 🌐 Frontend
-- Utilizar as rotas definidas no arquivo **RotasFront.md** para consumir os dados
-- Navegar entre as páginas de filmes, trends e detalhes
+Para usar somente o Front End, é o comando:
 
----
+´´´ 
+npm run dev:front
+´´´
 
-## 🚧 Status
+Para usar somente o Back End, é o comando:
 
-✅ Em desenvolvimento contínuo.  
-O projeto está funcional para testes, desenvolvimento e demonstração de conceitos.
+´´´ 
+npm run dev:back
+´´´
 
----
