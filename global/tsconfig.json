@@ -13,10 +13,10 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "paths": {
-      "@back/*": ["../back/src/*"],
-      "@front/*": ["../front/src/*"]
-    }
+    // "paths": {
+    //   "@back/*": ["../back/src/*"],
+    //   "@front/*": ["../front/src/*"]
+    // }
   },
   "references": [
     { "path": "../back" },

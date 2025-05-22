@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
+import { TopRatedMoviesAPI } from '../../../global/src/fetchTMDB/top.rated';
 import { ApiTools } from '../../../global/src/tools/api.tools';
 import { limitsData } from '../../../global/src/tables/interfaces';
 import {
