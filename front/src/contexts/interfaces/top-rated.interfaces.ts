@@ -33,27 +33,3 @@ export interface TopRatedContextType {
   setTypeResult: (value: number) => void;
   fetchTopRated: (data?: limitsData) => void;
 }
-
-// export interface TopRatedPageContextType {
-//   currentPage: number | null;
-//   movies: TopRatedResult[] | null;
-//   pageData: TopRatedList | null;
-//   loading: boolean;
-//   error: string | null;
-//   fetchTopRatedPage: (page: number, data?: limitsData) => void;
-// }
-
-// export interface TopByYearMovie {
-//   id: number;
-//   title: string;
-//   voteAverage: number;
-//   release_date: string;
-//   [key: string]: any;
-// }
-
-// export interface TopsByYearContextType {
-//   movies: TopByYearMovie[] | null;
-//   loading: boolean;
-//   error: string | null;
-//   fetchTopsByYear: (year: string, limitItems?: number) => Promise<void>;
-// }

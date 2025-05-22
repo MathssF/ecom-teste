@@ -54,7 +54,9 @@ export const TopsRated = () => {
           placeholder="Filtrar por ano"
           value={inputYear}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            const value = e.target.value as HTMLInputElement;
+            // const value = e.target.value as HTMLInputElement;
+            const target = e.target as HTMLInputElement;
+            const value = target.value;
             if (value === '') {
               setInputYear('');
             } else {
