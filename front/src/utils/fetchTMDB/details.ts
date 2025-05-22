@@ -1,6 +1,6 @@
 import { limitsData } from '../tables/interfaces';
-import * as dotenv from 'dotenv';
-dotenv.config();
+// import * as dotenv from 'dotenv';
+// dotenv.config();
 
 export class MovieDetailsAPI {
   private language: string;
