@@ -22,13 +22,13 @@ export const GenreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setError(null);
 
     try {
+      console.log('Entrou no try do genres');
       const topRatedApi = new TopRatedMoviesAPI();
-      const apiTools = new ApiTools();
       
-      const res = await topRatedApi.getTopRatedMovies();
-      if (!res.ok) throw new Error('Erro ao buscar filmes top-rated');
-      
-      const data = await res.json();
+      const data = await topRatedApi.getTopRatedMovies({
+        frontEndPage: false, // se for o padrão no seu projeto
+      });
+      console.log('Data: ', data);
       
       const movies = extractMoviesList(data);
       
@@ -39,6 +39,7 @@ export const GenreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setGenres(genresResult);
       setGenreSelected(null);
     } catch (err: any) {
+      console.log('Entrou no catch error do genres');
       setError(err.message || 'Erro desconhecido');
     } finally {
       setLoading(false);
