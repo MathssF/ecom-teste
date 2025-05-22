@@ -41,6 +41,8 @@ const GenreDashboard: React.FC = () => {
     error,
     fetchGenres,
     selectGenre,
+    setGenreSelected,
+    setInfoMode,
   } = useGenre();
 
   React.useEffect(() => {
@@ -252,10 +254,52 @@ const GenreDashboard: React.FC = () => {
       <div>
         <strong>Modo:</strong> {infoMode === 1 ? 'Gráficos' : 'Lista'}
       </div>
+  
+      <div style={{ margin: '20px 0' }}>
+        <label>
+          <strong>Selecionar Gênero:</strong>{' '}
+          <select
+            value={genreSelected?.id || ''}
+            onChange={(e) => {
+              const genreId = Number(e.target.value);
+              if (genreId) {
+                selectGenre(genreId);
+              } else {
+                setGenreSelected(null);
+              }
+            }}
+          >
+            <option value="">Todos os Gêneros</option>
+            {genres.map((g) => (
+              <option key={g.id} value={g.id}>
+                {g.name}
+              </option>
+            ))}
+          </select>
+        </label>
+  
+        <div style={{ marginTop: '10px' }}>
+          <button onClick={() => setInfoMode(infoMode === 1 ? 0 : 1)}>
+            Alternar para {infoMode === 1 ? 'Lista' : 'Gráficos'}
+          </button>
+  
+          {genreSelected && (
+            <button
+              onClick={() => setGenreSelected(null)}
+              style={{ marginLeft: '10px' }}
+            >
+              Limpar seleção de gênero
+            </button>
+          )}
+        </div>
+      </div>
+  
       <hr />
+  
       {infoMode === 1 ? renderCharts() : renderLists()}
     </div>
   );
+  
 };
 
 export default GenreDashboard;
