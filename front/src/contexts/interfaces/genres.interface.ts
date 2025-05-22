@@ -32,6 +32,7 @@ export interface GenreContextType {
   setGenreSelected: React.Dispatch<React.SetStateAction<GenreAnalysis | null>>;
 
   fetchGenres: (limitItems?: number) => Promise<void>;
+  selectGenre: (genreId: number) => void;
 }
 
 export interface GenreChartData {

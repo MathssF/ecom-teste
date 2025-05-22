@@ -62,6 +62,7 @@ export const GenreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       fetchGenres,
       setInfoMode,
       setGenreSelected,
+      selectGenre,
     }}>
       {children}
     </GenreContext.Provider>

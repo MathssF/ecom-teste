@@ -40,6 +40,7 @@ const GenreDashboard: React.FC = () => {
     loading,
     error,
     fetchGenres,
+    selectGenre,
   } = useGenre();
 
   React.useEffect(() => {
@@ -76,6 +77,24 @@ const GenreDashboard: React.FC = () => {
                   },
                 ],
               }}
+              options={{
+                onClick: (event, elements) => {
+                  if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const genreId = genres[index].id;
+                    selectGenre(genreId);
+                  }
+                },
+                plugins: {
+                  legend: {
+                    position: 'right',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Quantidade de filmes por gênero',
+                  },
+                },
+              }}            
             />
           </div>
 
@@ -128,26 +147,7 @@ const GenreDashboard: React.FC = () => {
       return (
         <div style={{ width: '50%' }}>
           <h3>Média de nota do gênero: {genreSelected.name}</h3>
-          {/* <Bar
-            data={{
-              labels: ['Nota Média'],
-              datasets: [
-                {
-                  label: genreSelected.name,
-                  data: [genreSelected.moviesRatingAverage],
-                  backgroundColor: 'rgba(153, 102, 255, 0.6)',
-                },
-              ],
-            }}
-            options={{
-              scales: {
-                y: {
-                  min: 0,
-                  max: 10,
-                },
-              },
-            }}
-          /> */}
+          
           <Bar
           data={{
             labels,
