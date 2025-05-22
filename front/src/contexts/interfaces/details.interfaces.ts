@@ -1,4 +1,4 @@
-import { limitsData } from '../../../../global/tables/interfaces';
+import { limitsData } from '../../../../global/src/tables/interfaces';
 
 export interface MovieDetails {
   id: number;

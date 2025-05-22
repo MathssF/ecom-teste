@@ -8,7 +8,7 @@ import { MoviesService } from '../movies/movies.service';
 import { TrendingsService } from '../trendings/trendings.service';
 import { CreateMovieDto, CreateMovieDetailDto } from '../movies/dto/create-movie.dto';
 import { CreateEntryDto, CreateStoryDto } from '../trendings/dto/create-trending.dto';
-import { limitsData } from '../../../global/tables/interfaces';
+import { limitsData } from '../../../global/src/tables/interfaces';
 
 @Controller('dev')
 export class DevController {

@@ -1,14 +1,14 @@
 import { GenresType, GenresResult, YearResult } from "./api.interfaces";
-import { MovieDetails } from '../../../../global/tables/results/details.interfaces';
+import { MovieDetails } from '../../../../global/src/tables/results/details.interfaces';
 import {
   TopRatedResult,
   TopRatedList
-} from '../../../../global/tables/results/top-rated.interfaces';
+} from '../../../../global/src/tables/results/top-rated.interfaces';
 import {
   TrendingResult,
   TrendingList
-} from '../../../../global/tables/results/trends.interfaces';
-import { Genres } from "../../../../global/tables/seed.tables";
+} from '../../../../global/src/tables/results/trends.interfaces';
+import { Genres } from "../../../../global/src/tables/seed.tables";
 
 export class ApiTools {
   constructor() {}

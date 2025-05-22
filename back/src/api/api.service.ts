@@ -2,19 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
-import { limitsData } from '../../../global/tables/interfaces';
+import { limitsData } from '../../../global/src/tables/interfaces';
 import { ApiTools } from './tools/api.tools';
-import { Genres } from '../../../global/tables/seed.tables';
+import { Genres } from '../../../global/src/tables/seed.tables';
 import { GenresType } from './tools/api.interfaces';
-import { MovieDetails } from '../../../global/tables/results/details.interfaces';
+import { MovieDetails } from '../../../global/src/tables/results/details.interfaces';
 import {
   TopRatedResult,
   TopRatedList
-} from '../../../global/tables/results/top-rated.interfaces';
+} from '../../../global/src/tables/results/top-rated.interfaces';
 import {
   TrendingResult,
   TrendingList
-} from '../../../global/tables/results/trends.interfaces';
+} from '../../../global/src/tables/results/trends.interfaces';
 
 @Injectable()
 export class ApiService {

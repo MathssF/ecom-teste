@@ -2,14 +2,14 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
-import { ApiTools } from '../../../global/tools/api.tools';
-import { limitsData } from '../../../global/tables/interfaces';
+import { ApiTools } from '../../../global/src/tools/api.tools';
+import { limitsData } from '../../../global/src/tables/interfaces';
 import {
   TopRatedResult,
-} from '../../../global/tables/results/top-rated.interfaces';
+} from '../../../global/src/tables/results/top-rated.interfaces';
 import {
   TrendingResult,
-} from '../../../global/tables/results/trends.interfaces';
+} from '../../../global/src/tables/results/trends.interfaces';
 import {
   TopsInTrendsMovie,
   TopsInTrendsData,

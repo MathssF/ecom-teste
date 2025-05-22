@@ -1,8 +1,8 @@
-import { limitsData } from '../../../../global/tables/interfaces';
+import { limitsData } from '../../../../global/src/tables/interfaces';
 import {
   TopRatedResult, TopRatedList,
   TopRatedCoupled, TopRatedListWithPages,
-} from '../../../../global/tables/results/top-rated.interfaces'
+} from '../../../../global/src/tables/results/top-rated.interfaces'
 
 export interface MovieData {
   id: number;

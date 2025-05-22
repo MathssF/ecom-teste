@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { MovieDetailsAPI } from '../../../global/fetchTMDB/details';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
 import { TrendingMoviesAPI } from '../../../global/fetchTMDB/trendings';
-import { BasicSeed } from '../../../global/seeds/basic.seeds';
+import { BasicSeed } from '../../../global/src/seeds/basic.seeds';
 import { DevTools } from './tools/dev.tools';
 import { DevRepository } from './tools/dev.repository';
-import { limitsData } from '../../../global/tables/interfaces';
+import { limitsData } from '../../../global/src/tables/interfaces';
 
 
 @Injectable()

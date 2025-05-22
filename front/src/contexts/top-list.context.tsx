@@ -1,11 +1,11 @@
 'use client';
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { TopRatedMoviesAPI } from '../../../global/fetchTMDB/top.rated';
-import { ApiTools } from '../../../global/tools/api.tools';
-import { limitsData } from '../../../global/tables/interfaces';
+import { ApiTools } from '../../../global/src/tools/api.tools';
+import { limitsData } from '../../../global/src/tables/interfaces';
 import {
   TopRatedResult, TopRatedList, TopRatedListWithPages
-} from '../../../global/tables/results/top-rated.interfaces';
+} from '../../../global/src/tables/results/top-rated.interfaces';
 import {
   TopRatedContextType
 } from './interfaces/top-rated.interfaces';

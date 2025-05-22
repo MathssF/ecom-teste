@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BasicRepository } from '../application/basic/basic.repository';
 import { GenreEntity } from './entities/basic.entity';
 import { CompaniesRepository } from '../application/basic/companies.repository';
-import { BasicSeed } from '../../../global/seeds/basic.seeds';
+import { BasicSeed } from '../../../global/src/seeds/basic.seeds';
 
 
 @Injectable()

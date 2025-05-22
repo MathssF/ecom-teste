@@ -2,7 +2,7 @@ import {
   GenresType,
   MovieByGenre,
   GenresResult,
-} from '../../../../global/tools/api.interfaces';
+} from '../../../../global/src/tools/api.interfaces';
 
 export interface GenreMovie {
   id: number;

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Query, Delete, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { ApiService } from './api.service';
-import { limitsData } from '../../../global/tables/interfaces';
+import { limitsData } from '../../../global/src/tables/interfaces';
 
 @Controller('api')
 export class ApiController {
