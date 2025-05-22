@@ -34,7 +34,7 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
 
       const tops = await topRatedApi.getTopRatedMovies({
         frontEndPage: false,
-        resultModeByPage: true,
+        // resultModeByPage: true,
       });
       console.log('Teve a resposta do top list: ', tops);
       setDataResult(tops);
