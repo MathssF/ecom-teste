@@ -32,8 +32,6 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
       const apiTools = new ApiTools();
 
       const tops = await topRatedApi.getTopRatedMovies({
-        // setLimitItems: true,
-        // limitItems: data.limitItems ? data.limitItems : 250,
         frontEndPage: false,
         resultModeByPage: true,
       });
@@ -42,8 +40,10 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
       setMovieList(moviesExtracted);
 
       if (selectYear) {
-        const filtered = apiTools.filterByYear(moviesExtracted, selectYear.toString());
+        const filtered = apiTools.filterByYear(moviesExtracted, selectYear.toString()) || [];
         setMovieByYear(filtered);
+      } else {
+        setMovieByYear([]);
       }
     } catch (err: any) {
       setError(err.message || 'Erro ao buscar filmes por gênero');
