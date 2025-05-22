@@ -11,7 +11,9 @@
     "start:back": "tsc -b && node -r tsconfig-paths/register dist/back/main.js",
     "start:front": "cd front && next start -p 3002",
     "dev:back": "ts-node -r tsconfig-paths/register back/main.ts",
+    "init:back": "ts-node -r tsconfig-paths/register back/main.ts",
     "dev:front": "cd front && next dev -p 3002",
+    "init:front": "npm --prefix front run dev",
     "start:global": "ts-node -r tsconfig-paths/register global/devServer/dev.global.server.ts",
     "dev:global": "ts-node -r tsconfig-paths/register global/devServer/dev.global.server.ts"
   },
