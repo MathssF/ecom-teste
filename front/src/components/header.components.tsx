@@ -9,8 +9,8 @@ const Header: React.FC = () => {
       <nav style={styles.nav}>
         <Link href="/" style={styles.link}>Home</Link>
         <Link href="/top-list" style={styles.link}>Top List</Link>
-        <Link href="/tops-genre" style={styles.link}>Top By Genres</Link>
-        <Link href="/top-trends" style={styles.link}>Tops In Trends</Link>
+        <Link href="/top-by-genres" style={styles.link}>Top By Genres</Link>
+        <Link href="/top-in-trends" style={styles.link}>Tops In Trends</Link>
       </nav>
     </header>
   );

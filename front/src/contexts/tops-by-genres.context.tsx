@@ -1,8 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Genres as GenresList } from '../../../global/src/tables/seed.tables';
-import { ApiTools } from '../../../global/src/tools/api.tools';
+import { Genres as GenresList } from '../../../dist/global/src/tables/seed.tables';
+import { ApiTools } from '../../../dist/global/src/tools/api.tools';
 import { GenreAnalysis, GenreContextType } from './interfaces/genres.interface'
 
 export const GenreContext = createContext<GenreContextType | undefined>(undefined);

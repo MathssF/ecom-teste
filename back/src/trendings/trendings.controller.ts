@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TrendingsService } from './trendings.service';
 import { CreateEntryDto, CreateStoryDto } from './dto/create-trending.dto';
-// import { UpdateTrendingDto } from './dto/update-trending.dto';
 
 @Controller('trendings')
 export class TrendingsController {
