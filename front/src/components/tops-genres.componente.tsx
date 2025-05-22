@@ -59,6 +59,7 @@ const GenreDashboard: React.FC = () => {
       const labels = genres.map(g => g.name);
       const movieCounts = genres.map(g => g.movies.length);
       const avgRatings = genres.map(g => g.moviesRatingAverage);
+      const weightedRatings = genres.map(g => g.moviesWeightedAverage);
 
       return (
         <div style={{ display: 'flex', gap: '40px' }}>
@@ -89,9 +90,23 @@ const GenreDashboard: React.FC = () => {
                     data: avgRatings,
                     backgroundColor: 'rgba(75, 192, 192, 0.6)',
                   },
+                  {
+                    label: 'Nota Média Ponderada',
+                    data: weightedRatings,
+                    backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                  },
                 ],
               }}
               options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                  position: 'top',
+                  },
+                  title: {
+                    display: false,
+                  },
+                },
                 scales: {
                   y: {
                     min: 0,
@@ -106,10 +121,14 @@ const GenreDashboard: React.FC = () => {
     } else {
       // 📊 Caso COM gênero selecionado — gráfico individual
 
+      const labels = genreSelected.movies.map(m => m.title);
+      const scores = genreSelected.movies.map(m => m.voteAverage);
+
+
       return (
         <div style={{ width: '50%' }}>
           <h3>Média de nota do gênero: {genreSelected.name}</h3>
-          <Bar
+          {/* <Bar
             data={{
               labels: ['Nota Média'],
               datasets: [
@@ -128,7 +147,33 @@ const GenreDashboard: React.FC = () => {
                 },
               },
             }}
-          />
+          /> */}
+          <Bar
+          data={{
+            labels,
+            datasets: [
+              {
+                label: 'Nota',
+                data: scores,
+                backgroundColor: 'rgba(153, 102, 255, 0.6)',
+              },
+            ],
+          }}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                min: 0,
+                max: 10,
+              },
+            },
+          }}
+        />
         </div>
       );
     }
@@ -142,6 +187,10 @@ const GenreDashboard: React.FC = () => {
           {genres.map(g => (
             <div key={g.id}>
               <h3>{g.name}</h3>
+              <p>
+                <strong>Nota Média:</strong> {g.moviesRatingAverage.toFixed(2)} |{' '}
+                <strong>Nota Média Ponderada:</strong> {g.moviesWeightedAverage.toFixed(2)}
+              </p>
               <table>
                 <thead>
                   <tr>
@@ -170,6 +219,10 @@ const GenreDashboard: React.FC = () => {
       return (
         <div>
           <h3>Filmes do gênero: {genreSelected.name}</h3>
+          <p>
+            <strong>Nota Média:</strong> {genreSelected.moviesRatingAverage.toFixed(2)} |{' '}
+            <strong>Nota Média Ponderada:</strong> {genreSelected.moviesWeightedAverage.toFixed(2)}
+          </p>
           <table>
             <thead>
               <tr>
