@@ -187,13 +187,13 @@ Clone o projeto.
 
 Para usar somente o Front End, é o comando:
 
-´´´ 
+''' 
 npm run dev:front
-´´´
+'''
 
 Para usar somente o Back End, é o comando:
 
-´´´ 
+''' 
 npm run dev:back
-´´´
+'''
 
