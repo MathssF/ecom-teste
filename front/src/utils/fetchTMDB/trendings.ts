@@ -47,8 +47,8 @@ export class TrendingMoviesAPI {
 
   let page = 1;
   let totalPages = 1;
-  let maxItems = 250;
-  let maxPages = 13;
+  let maxItems = 400;
+  let maxPages = 20;
 
   // Validação e ajustes
   if (mode !== 1 && mode !== 2) {
