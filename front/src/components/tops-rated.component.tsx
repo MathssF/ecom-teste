@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { TopRatedContext } from '../contexts/top-list.context';
 
 export const TopsRated = () => {
@@ -23,6 +23,10 @@ export const TopsRated = () => {
   } = context;
 
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    fetchTopRated();
+  }, []);
 
   const handleSetYear = () => {
     if (inputYear === '') {

@@ -32,8 +32,8 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
       const apiTools = new ApiTools();
 
       const tops = await topRatedApi.getTopRatedMovies({
-        setLimitItems: true,
-        limitItems: data.limitItems ? data.limitItems : 250,
+        // setLimitItems: true,
+        // limitItems: data.limitItems ? data.limitItems : 250,
         frontEndPage: false,
         resultModeByPage: true,
       });
