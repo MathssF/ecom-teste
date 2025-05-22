@@ -28,13 +28,13 @@ export const TopsRated = () => {
     fetchTopRated();
   }, []);
 
-  // useEffect(() => {
-  //   if (selectYear) {
-  //     filterAndOrderByYear(selectYear);
-  //   } else {
-  //     setMovieByYear([]);
-  //   }
-  // }, [selectYear, movieList]);
+  useEffect(() => {
+    if (year) {
+      context.filterAndOrderByYear(year);
+    } else {
+      context.setYear(null);
+    }
+  }, [year, movies]);
 
   const handleSetYear = () => {
     if (inputYear === '') {
