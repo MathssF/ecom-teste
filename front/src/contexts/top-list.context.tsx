@@ -51,17 +51,26 @@ export const TopsProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setLoading(false);
     }
-    
-    return (
-      <TopRatedContext.Provider value={{
-        movies: movieList, moviesByYear: movieByYear,
-        dataResult,
-        loading, error, year: selectYear, setYear: setSelectYear,
-        typeResult, setTypeResult,
-        fetchTopRated,
-      }}>
-        {children}
-      </TopRatedContext.Provider>
-    )
   }
+    
+  return (
+    <TopRatedContext.Provider value={{
+      movies: movieList, moviesByYear: movieByYear,
+      dataResult,
+      loading, error, year: selectYear, setYear: setSelectYear,
+      typeResult, setTypeResult,
+      fetchTopRated,
+    }}>
+      {children}
+    </TopRatedContext.Provider>
+  )
+  
 }
+
+export const useTopRated = () => {
+  const context = useContext(TopRatedContext);
+  if (!context) {
+    throw new Error('useTopRated must be used within a TopRatedProvider');
+  }
+  return context;
+};
