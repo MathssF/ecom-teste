@@ -1,4 +1,4 @@
-# Todos os Links, do Back, e do Front End.
+# Links do Back End.
 
 ## Api Direta:
 
@@ -45,11 +45,84 @@ setLang + chooseLang: Para qualquer requisição, define a lingua usada.
 
 ## Api Basic:
 
+GET http://localhost:3000/api/basic/genres
+→ Lista todos os gêneros cadastrados.
+
+GET http://localhost:3000/api/basic/langs
+→ Lista todos os idiomas cadastrados.
+
+GET http://localhost:3000/api/basic/companies
+→ Lista todas as companhias cadastradas.
+
+GET http://localhost:3000/api/basic/genre/:id
+→ Busca um gênero pelo ID.
+
+GET http://localhost:3000/api/basic/lang/:id
+→ Busca um idioma pelo ID.
+
+GET http://localhost:3000/api/basic/company/:id
+→ Busca uma companhia pelo ID.
+
 ## Api Movies:
+
+POST http://localhost:3000/api/movies
+→ Cria um filme.
+
+POST http://localhost:3000/api/movies/detail
+→ Cria um detalhe para um filme.
+
+GET http://localhost:3000/api/movies/:id
+→ Retorna um filme pelo ID.
+
+GET http://localhost:3000/api/movies/detail/:id
+→ Retorna o detalhe de um filme pelo ID.
+
+GET http://localhost:3000/api/movies/list/movies
+→ Lista todos os filmes cadastrados.
+
+GET http://localhost:3000/api/movies/list/details
+→ Lista todos os detalhes de filmes cadastrados.
+
+PATCH http://localhost:3000/api/movies/update/:id
+→ Atualiza um filme e/ou seu detalhe.
+
+GET http://localhost:3000/api/movies/genres/:id
+→ Retorna os gêneros de um filme específico.
+
+GET http://localhost:3000/api/movies/by-genre/:id
+→ Lista filmes que pertencem a um gênero específico.
+
+GET http://localhost:3000/api/movies/list/by-genres?limit=10
+→ Lista agrupada de filmes por gênero, com limite opcional.
 
 ## Api Trendings:
 
-## Client
+POST http://localhost:3000/api/trendings/entry
+→ Cria uma entrada de trending (tendência).
+
+POST http://localhost:3000/api/trendings/story
+→ Adiciona uma história (ligação de filme com uma tendência).
+
+GET http://localhost:3000/api/trendings/entry/:id
+→ Retorna uma entrada de trending pelo ID.
+
+GET http://localhost:3000/api/trendings/story/:movieId/:trendId
+→ Retorna a história entre um filme e uma tendência.
+
+GET http://localhost:3000/api/trendings/movies/:id
+→ Retorna os filmes relacionados a uma entrada de trending.
+
+GET http://localhost:3000/api/trendings/trend-movies/:id
+→ Retorna todas as entradas (tendências) associadas a um filme.
+
+POST http://localhost:3000/api/trendings/genres
+→ Busca e agrupa informações de gêneros relacionados às trends enviadas no corpo.
+
+DELETE http://localhost:3000/api/trendings/entry/:id
+→ Deleta uma entrada específica de trending.
+
+DELETE http://localhost:3000/api/trendings/entries
+→ Deleta todas as entradas de trending.
 
 ## Dev:
 
