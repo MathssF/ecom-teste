@@ -3,6 +3,9 @@ export interface TopsInTrendsMovie {
   title: string;
   voteAverage: number;
   trends?: boolean;
+  topPage?: number | null;
+  topRank?: number | null;
+  topPageRank?: number | null;
   trendPage?: number | null;
   trendRank?: number | null;
   trendPageRank?: number | null;
@@ -11,6 +14,7 @@ export interface TopsInTrendsMovie {
 
 export interface TopsInTrendsData {
   total: number;
+  time: string;
   TopsInTrends: TopsInTrendsMovie[];
 }
 
